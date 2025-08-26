@@ -1,0 +1,505 @@
+natural,formal,score
+"Let $x$ and $y$ be positive integers. If $x^{2^{n}}-1$ is divisible by $2^{n} y+1$ for every positive integer $n$, prove that $x=1$.","theorem lean_workbook_plus_47691  (x y : ℤ)
+  (n : ℕ)
+  (h₀ : 0 < y)
+  (h₁ : 2^n * y + 1 ∣ x^2^n - 1) :
+  x = 1 := by sorry",8
+"The sequence of real numbers $a_{0}, a_{1}, a_{2}, \ldots$ is defined recursively by
+
+$$
+a_{0}=-1, \quad \sum_{k=0}^{n} \frac{a_{n-k}}{k+1}=0 \quad \text { for } \quad n \geq 1.
+$$
+
+Show that $a_{n}>0$ for $n \geq 1$","theorem lean_workbook_plus_36885 (a : ℕ → ℝ) (a0 : a 0 = -1) (a_rec : ∀ n, ∑ k in Finset.range (n+1), (a n - k + 1)⁻¹ = 0) : ∀ n, n > 0 → a n > 0 := by sorry",3
+"Find all positive integers $n$ such that there exists a sequence of positive integers $a_{1}, a_{2}, \ldots, a_{n}$ satisfying
+
+$$
+a_{k+1}=\frac{a_{k}^{2}+1}{a_{k-1}+1}-1
+$$
+
+for every $k$ with $2 \leq k \leq n-1$.
+
+The final answer is $n=1,2,3,4$.","theorem lean_workbook_plus_7101  (n : ℕ)
+  (a : ℕ → ℕ)
+  (h₀ : 1 ≤ n)
+  (h₁ : n ≤ 4)
+  (h₂ : ∀ k, 2 ≤ k ∧ k ≤ n - 1 → a k + 1 ≠ 0 ∧ a k + 1 ∣ (a (k + 1) ^ 2 + 1))
+  (h₃ : ∀ k, 2 ≤ k ∧ k ≤ n - 1 → a k + 1 ≠ 0 ∧ a k + 1 ∣ (a (k - 1) ^ 2 + 1) - (a k ^ 2 + 1)) :
+  n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 := by sorry",7
+Let $a$ and $b$ be positive integers such that $a! b$! is a multiple of $a!+b!$. Prove that $3 a \geqslant 2 b+2$.,theorem lean_workbook_plus_1342 (a b : ℕ) (h₁ : 0 < a ∧ 0 < b) (h₂ : a * b ∣ a! * b!) (h₃ : a! + b! ∣ a! * b!) : 3 * a ≥ 2 * b + 2 := by sorry,8
+"Consider all polynomials $P(x)$ with real coefficients that have the following property: for any two real numbers $x$ and $y$ one has
+
+$$
+\left|y^{2}-P(x)\right| \leqslant 2|x| \quad \text { if and only if } \quad\left|x^{2}-P(y)\right| \leqslant 2|y| \text {. }
+$$
+
+Determine all possible values of $P(0)$.
+
+The final answer is that the set of possible values of $P(0)$ is $(-\infty, 0) \cup\{1\}$.","theorem lean_workbook_plus_36887  (P : ℝ → ℝ)
+  (h₀ : ∀ x y, |y^2 - P x| ≤ 2 * |x|)
+  (h₁ : ∀ x y, |x^2 - P y| ≤ 2 * |y|)
+  (h₂ : P 0 ≥ 0) :
+  P 0 = 1 := by sorry",3
+"Suppose that a sequence $a_{1}, a_{2}, \ldots$ of positive real numbers satisfies
+
+$$
+a_{k+1} \geqslant \frac{k a_{k}}{a_{k}^{2}+(k-1)}
+$$
+
+for every positive integer $k$. Prove that $a_{1}+a_{2}+\cdots+a_{n} \geqslant n$ for every $n \geqslant 2$.","theorem lean_workbook_plus_32739 (a : ℕ → ℝ) (n : ℕ) (ha : 0 < n) (hb : ∀ k, 1 ≤ k ∧ k ≤ n → a k > 0) (hc : ∀ k, 1 ≤ k ∧ k ≤ n → a (k + 1) ≥ k * a k / (a k ^ 2 + (k - 1))) : ∑ k in Finset.Icc 1 n, a k ≥ n := by sorry",8
+"For every positive integer $N$, determine the smallest real number $b_{N}$ such that, for all real $x$,
+
+$$
+\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant b_{N}(x-1)^{2}+x
+$$
+
+The final answer is $b_{n}=N / 2$.","theorem lean_workbook_plus_33706  (n : ℕ)
+  (x : ℝ)
+  (h₀ : 0 < n)
+  (h₁ : 0 < x)
+  (h₂ : x ≤ 1) :
+  (x^(2 * n) + 1) / 2 ≤ (n / 2) * (x - 1)^2 + x := by sorry",7
+"Let $n$ be a fixed integer with $n \geqslant 2$. We say that two polynomials $P$ and $Q$ with real coefficients are block-similar if for each $i \in\{1,2, \ldots, n\}$ the sequences
+
+$$
+\begin{aligned}
+& P(2015 i), P(2015 i-1), \ldots, P(2015 i-2014) \quad \text { and } \\
+& Q(2015 i), Q(2015 i-1), \ldots, Q(2015 i-2014)
+\end{aligned}
+$$
+
+are permutations of each other.
+
+Prove that there do not exist distinct block-similar polynomials of degree $n$.","theorem lean_workbook_plus_24930  (n : ℕ)
+  (h₀ : 2 ≤ n)
+  (P Q : ℕ → ℝ)
+  (h₁ : ∀ i, P (2015 * i) = Q (2015 * i))
+  (h₂ : ∀ i, P (2015 * i - 1) = Q (2015 * i - 1))
+  (h₃ : P ≠ Q) :
+  False := by sorry",6
+"Let $S \subseteq \mathbb{R}$ be a set of real numbers. We say that a pair $(f, g)$ of functions from $S$ into $S$ is a Spanish Couple on $S$, if they satisfy the following conditions:
+
+(i) Both functions are strictly increasing, i.e. $f(x)<f(y)$ and $g(x)<g(y)$ for all $x, y \in S$ with $x<y$
+
+(ii) The inequality $f(g(g(x)))<g(f(x))$ holds for all $x \in S$.
+
+Decide whether there exists a Spanish Couple on the set $S=\mathbb{N}$ of positive integers;
+
+The final answer is NO.","theorem lean_workbook_plus_52939 (S : Set ℕ) (f g : ℕ → ℕ) (hf : StrictMono f) (hg : StrictMono g) (hfg : ∀ x, f (g (g x)) < g (f x)) : False := by sorry",8
+"Let $\mathbb{R}^{+}$be the set of positive real numbers. Determine all functions $f: \mathbb{R}^{+} \rightarrow \mathbb{R}^{+}$ such that, for all positive real numbers $x$ and $y$,
+
+$$
+f(x+f(x y))+y=f(x) f(y)+1
+$$
+
+The final answer is $f(x)=x+1$.",theorem lean_workbook_plus_40178 (x y : ℝ) (f : ℝ → ℝ) (hf: f x + f (x*y) + y = f x * f y + 1) : f x = x + 1 := by sorry,3
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ that satisfy the conditions
+
+$$
+f(1+x y)-f(x+y)=f(x) f(y) \text { for all } x, y \in \mathbb{R}
+$$
+
+and $f(-1) \neq 0$
+
+The final answer is the function $f(x)=x-1, x \in \mathbb{R}$.","theorem lean_workbook_plus_27816 (x y : ℝ) (f : ℝ → ℝ) (hf: f (1 + x * y) - f (x + y) = f x * f y) (h1: f (-1) ≠ 0) : ∃ g : ℝ → ℝ, g x = x - 1 := by sorry",8
+"Let $n \geqslant 2$ be an integer, and let $a_{1}, a_{2}, \ldots, a_{n}$ be positive real numbers such that $a_{1}+a_{2}+\cdots+a_{n}=1$. Prove that
+
+$$
+\sum_{k=1}^{n} \frac{a_{k}}{1-a_{k}}\left(a_{1}+a_{2}+\cdots+a_{k-1}\right)^{2}<\frac{1}{3}.
+$$","theorem lean_workbook_plus_28534  (n : ℕ)
+  (a : ℕ → ℝ)
+  (ha : 0 < n)
+  (hab : ∑ k in Finset.range n, a k = 1) :
+  ∑ k in Finset.range n, a k / (1 - a k) * (∑ i in Finset.range k, a i)^2 < 1 / 3 := by sorry",7
+"Let $f$ be a non-constant function from the set of positive integers into the set of positive integers, such that $a-b$ divides $f(a)-f(b)$ for all distinct positive integers $a, b$. Prove that there exist infinitely many primes $p$ such that $p$ divides $f(c)$ for some positive integer $c$.","theorem lean_workbook_plus_67336  (f : ℕ → ℕ)
+  (h₀ : ∀ a b, a ≠ b → (a - b) ∣ (f a - f b)) :
+  ∃ p c, p ∣ f c := by sorry",4
+"Suppose that $s_{1}, s_{2}, s_{3}, \ldots$ is a strictly increasing sequence of positive integers such that the subsequences
+
+$$
+s_{s_{1}}, s_{s_{2}}, s_{s_{3}}, \ldots \quad \text { and } \quad s_{s_{1}+1}, s_{s_{2}+1}, s_{s_{3}+1}, \ldots
+$$
+
+are both arithmetic progressions. Prove that $s_{1}, s_{2}, s_{3}, \ldots$ is itself an arithmetic progression.","theorem lean_workbook_plus_37779  (s : ℕ → ℕ)
+  (h₀ : ∀ n, s n < s (n + 1))
+  (h₁ : ∃ a b, ∀ n, s (s n) = a * n + b)
+  (h₂ : ∃ a b, ∀ n, s (s n + 1) = a * n + b) :
+  ∃ a b, ∀ n, s n = a * n + b := by sorry",8
+"Find all surjective functions $f: \mathbb{N} \rightarrow \mathbb{N}$ such that for every $m, n \in \mathbb{N}$ and every prime $p$, the number $f(m+n)$ is divisible by $p$ if and only if $f(m)+f(n)$ is divisible by $p$.
+
+( $\mathbb{N}$ is the set of all positive integers.)
+
+The final answer is $f(n)=n$.","theorem lean_workbook_26583  (f : ℕ → ℕ)
+  (h₀ : Function.Surjective f)
+  (h₁ : ∀ m n p, p.Prime → p ∣ f (m + n) ↔ p ∣ f m + f n) :
+  ∀ n, f n = n := by sorry",8
+"Let $f: \mathbb{R} \rightarrow \mathbb{N}$ be a function which satisfies
+
+$$
+f\left(x+\frac{1}{f(y)}\right)=f\left(y+\frac{1}{f(x)}\right) \quad \text { for all } x, y \in \mathbb{R}
+$$
+
+Prove that there is a positive integer which is not a value of $f$.","theorem lean_workbook_plus_46488 (f : ℝ → ℕ) (hf : ∀ x y : ℝ, f (x + 1 / f y) = f (y + 1 / f x)) : ∃ n : ℕ, n ∉ Set.range f := by sorry",10
+"Suppose that $a_{0}, a_{1}, \ldots$ and $b_{0}, b_{1}, \ldots$ are two sequences of positive integers satisfying $a_{0}, b_{0} \geqslant 2$ and
+
+$$
+a_{n+1}=\operatorname{gcd}\left(a_{n}, b_{n}\right)+1, \quad b_{n+1}=\operatorname{lcm}\left(a_{n}, b_{n}\right)-1
+$$
+
+for all $n \geqslant 0$. Prove that the sequence $\left(a_{n}\right)$ is eventually periodic; in other words, there exist integers $N \geqslant 0$ and $t>0$ such that $a_{n+t}=a_{n}$ for all $n \geqslant N$","theorem lean_workbook_plus_43737  (a b : ℕ → ℕ)
+  (h₀ : 2 ≤ a 0 ∧ 2 ≤ b 0)
+  (h₁ : ∀ n, a (n + 1) = Nat.gcd (a n) (b n) + 1)
+  (h₂ : ∀ n, b (n + 1) = Nat.lcm (a n) (b n) - 1)
+  (h₃ : ∃ N t, ∀ n ≥ N, a (n + t) = a n) :
+  ∃ N t, ∀ n ≥ N, a (n + t) = a n := by sorry",10
+Let $a$ and $b$ be distinct integers greater than 1. Prove that there exists a positive integer $n$ such that $\left(a^{n}-1\right)\left(b^{n}-1\right)$ is not a perfect square.,"theorem lean_workbook_plus_37503  (a b : ℤ)
+  (h₀ : 1 < a)
+  (h₁ : 1 < b)
+  (h₂ : a ≠ 1)
+  (h₃ : b ≠ 1) :
+  ∃ n : ℕ, ¬ (∃ k : ℕ, ∃ l : ℕ, ∃ t : ℤ, (a^n - 1) * (b^n - 1) = t^2) := by sorry",7
+"Determine all integers $n \geqslant 2$ with the following property: every $n$ pairwise distinct integers whose sum is not divisible by $n$ can be arranged in some order $a_{1}, a_{2}, \ldots, a_{n}$ so that $n$ divides $1 \cdot a_{1}+2 \cdot a_{2}+\cdots+n \cdot a_{n}$.
+
+The final answers are all odd integers and all powers of 2.","theorem lean_workbook_plus_68490  (n : ℕ)
+  (s : ℕ)
+  (hs : 0 < n ∧ 0 < s)
+  (h : n ∣ s)
+  (h' : ∀ a : ℕ, a ≤ n → a ∣ s) :
+  ∃ a : ℕ, a ≤ n ∧ a ∣ s := by sorry",3
+Suppose that $f$ and $g$ are two functions defined on the set of positive integers and taking positive integer values. Suppose also that the equations $f(g(n))=f(n)+1$ and $g(f(n))=$ $g(n)+1$ hold for all positive integers. Prove that $f(n)=g(n)$ for all positive integer $n$.,"theorem lean_workbook_plus_2494  (f g : ℕ → ℕ)
+  (h₀ : ∀ n, f (g n) = f n + 1)
+  (h₁ : ∀ n, g (f n) = g n + 1)
+  (h₂ : ∃ n, f n = 0)
+  (h₃ : ∃ n, g n = 0) :
+  ∀ n, f n = g n := by sorry",6
+"Let $a_{0}, a_{1}, a_{2}, \ldots$ be a sequence of integers and $b_{0}, b_{1}, b_{2}, \ldots$ be a sequence of positive integers such that $a_{0}=0, a_{1}=1$, and
+
+$$
+a_{n+1}=\left\{\begin{array}{ll}
+a_{n} b_{n}+a_{n-1}, & \text { if } b_{n-1}=1 \\
+a_{n} b_{n}-a_{n-1}, & \text { if } b_{n-1}>1
+\end{array} \quad \text { for } n=1,2, \ldots\right.
+$$
+
+Prove that at least one of the two numbers $a_{2017}$ and $a_{2018}$ must be greater than or equal to 2017.","theorem lean_workbook_plus_24770 (a : ℕ → ℤ) (b : ℕ → ℕ) (a0 : a 0 = 0) (a1 : a 1 = 1) (h : ∀ n, a (n + 1) = if b (n - 1) = 1 then a n * b n + a (n - 1) else a n * b n - a (n - 1)) : ∃ n, a n ≥ 2017 := by sorry",6
+"Determine the largest real number $a$ such that for all $n \geqslant 1$ and for all real numbers $x_{0}, x_{1}, \ldots, x_{n}$ satisfying $0=x_{0}<x_{1}<x_{2}<\cdots<x_{n}$, we have
+
+$$
+\frac{1}{x_{1}-x_{0}}+\frac{1}{x_{2}-x_{1}}+\cdots+\frac{1}{x_{n}-x_{n-1}} \geqslant a\left(\frac{2}{x_{1}}+\frac{3}{x_{2}}+\cdots+\frac{n+1}{x_{n}}\right).
+$$
+
+The final answer is that the largest $a$ is $\frac{4}{9}$.","theorem lean_workbook_plus_31837 (n : ℕ) (x : ℕ → ℝ) (hx : 0 < n) (hx0 : 0 = x 0) (hx1 : 1 = x 1) (hx2 : ∀ k, k > 0 → x k = x (k - 1) + k * (k + 1)) : ∑ k in Finset.Icc 1 n, (k + 1) / (x k - x (k - 1)) ≤ 4 / 9 * (∑ k in Finset.Icc 1 n, k + 1 / x k) := by sorry",4
+"Let $a_{2}, \ldots, a_{n}$ be $n-1$ positive real numbers, where $n \geq 3$, such that $a_{2} a_{3} \cdots a_{n}=1$. Prove that
+
+$$
+\left(1+a_{2}\right)^{2}\left(1+a_{3}\right)^{3} \cdots\left(1+a_{n}\right)^{n}>n^{n}.
+$$","theorem lean_workbook_plus_7104 (n : ℕ) (ha : 3 ≤ n) (a : ℕ → ℝ) (ha' : 0 < n) (ha'' : ∏ i in Finset.Icc 2 n, a i = 1) : (∏ i in Finset.Icc 2 n, 1 + a i)^n > n^n := by sorry",7
+"Let $\mathbb{N}$ be the set of all positive integers. Find all functions $f: \mathbb{N} \rightarrow \mathbb{N}$ such that the number $(f(m)+n)(m+f(n))$ is a square for all $m, n \in \mathbb{N}$.
+
+The final answers are all functions of the form $f(n)=n+c$, where $c \in \mathbb{N} \cup\{0\}$.","theorem lean_workbook_plus_5728 (f : ℕ → ℕ) (hf: ∃ k, ∃ ℓ, (f k + ℓ) * (k + f ℓ) = m ^ 2) : ∃ c, ∀ n, f n = n + c := by sorry",3
+"Define $P(n)=n^{2}+n+1$. For any positive integers $a$ and $b$, the set
+
+$$
+\{P(a), P(a+1), P(a+2), \ldots, P(a+b)\}
+$$
+
+is said to be fragrant if none of its elements is relatively prime to the product of the other elements. Determine the smallest size of a fragrant set.
+
+The final answer is 6.","theorem lean_workbook_plus_31178  (a : ℕ)
+  (h₀ : a ≡ 7 [ZMOD 19])
+  (h₁ : a + 1 ≡ 2 [ZMOD 7])
+  (h₂ : a + 2 ≡ 1 [ZMOD 3])
+  (h₃ : 0 < a + 5)
+  (h₄ : a + 5 < 19)
+  (h₅ : 0 < a + 2)
+  (h₆ : a + 2 < 19)
+  (h₇ : 0 < a + 1)
+  (h₈ : a + 1 < 19)
+  (h₉ : 0 < a)
+  (h₁₀ : a < 19) :
+  Nat.Coprime (a^2 + a + 1) (a^2 + 3 * a + 3) := by sorry",2
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ satisfying the equation
+
+$$
+f(x+f(x+y))+f(x y)=x+f(x+y)+y f(x)
+$$
+
+for all real numbers $x$ and $y$.
+
+The final answer is that there are two such functions, namely the identity function and $x \mapsto 2-x$.","theorem lean_workbook_plus_3026 (f : ℝ → ℝ) (hf: f (x + f (x + y)) + f (x * y) = x + f (x + y) + y * f x) : ∃ g : ℝ → ℝ, g x = x ∨ g x = 2 - x := by sorry",8
+"Find all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+n^{2}+4 f(n)=f(f(n))^{2}
+$$
+
+for all $n \in \mathbb{Z}$.
+
+The final answer is that the possibilities are:
+
+\begin{itemize}
+  \item $f(n)=n+1$ for all $n$
+
+  \item or, for some $a \geqslant 1, \quad f(n)= \begin{cases}n+1, & n>-a, \\ -n+1, & n \leqslant-a ;\end{cases}$
+
+  \item or $f(n)= \begin{cases}n+1, & n>0 \\ 0, & n=0 \\ -n+1, & n<0\end{cases}$
+
+\end{itemize}","theorem lean_workbook_plus_27750  (n : ℤ)
+  (f : ℤ → ℤ)
+  (h₀ : ∀ n, n^2 + 4 * f n = (f n)^2) :
+  ∃ m ≥ 0, ∀ n < m, f n = n + 1 ∨ ∃ a ≥ 1, ∀ n ≤ -a, f n = -n + 1 ∨ ∃ a ≥ 1, ∀ n ≤ -a, f n = n + 1 ∧ f 0 = 0 := by sorry",6
+"Let $A$ be a finite set of (not necessarily positive) integers, and let $m \geqslant 2$ be an integer. Assume that there exist non-empty subsets $B_{1}, B_{2}, B_{3}, \ldots, B_{m}$ of $A$ whose elements add up to the sums $m^{1}, m^{2}, m^{3}, \ldots, m^{m}$, respectively. Prove that $A$ contains at least $m / 2$ elements.","theorem lean_workbook_plus_23800 (m : ℕ) (hm : 2 ≤ m) (A : Finset ℤ) (hA : 0 < m) (hA' : ∃ B : Finset ℤ, B ⊆ A ∧ ∑ i in B, i = m) : m / 2 ≤ A.card := by sorry",3
+"Find all pairs $(m, n)$ of nonnegative integers for which
+
+$$
+m^{2}+2 \cdot 3^{n}=m\left(2^{n+1}-1\right).
+$$
+
+The final answers are $(6,3),(9,3),(9,5),(54,5)$.","theorem lean_workbook_plus_23698  (m n : ℕ)
+  (h₀ : 0 ≤ m)
+  (h₁ : 0 ≤ n)
+  (h₂ : m^2 + 2 * 3^n = m * (2^(n+1) - 1)) :
+  m = 6 ∧ n = 3 ∨ m = 9 ∧ n = 3 ∨ m = 9 ∧ n = 5 ∨ m = 54 ∧ n = 5 := by sorry",10
+"Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ satisfying
+
+$$
+f(f(m)+n)+f(m)=f(n)+f(3 m)+2014
+$$
+
+for all integers $m$ and $n$.
+
+The final answer is that there is only one such function, namely $n \longmapsto 2 n+1007$.","theorem lean_workbook_plus_43203 (f : ℤ → ℤ) (hf: ∀ m n : ℤ, f (f m + n) + f m = f n + f (3 * m) + 2014) : ∃! A : ℤ, ∀ m : ℤ, f m = A * m + 1007 := by sorry",8
+"Call admissible a set $A$ of integers that has the following property:
+
+$$
+\text { If } x, y \in A \text { (possibly } x=y \text { ) then } x^{2}+k x y+y^{2} \in A \text { for every integer } k \text {. }
+$$
+
+Determine all pairs $m, n$ of nonzero integers such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+
+The final answer is that a pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$.","theorem lean_workbook_plus_28029  (m n : ℤ)
+  (A : Set ℤ)
+  (hA : ∀ x y : ℤ, x ∈ A ∧ y ∈ A → ∃ k : ℤ, x^2 + k * x * y + y^2 ∈ A)
+  (hA1 : m ∈ A ∧ n ∈ A)
+  (hA2 : A ≠ ∅)
+  (hA3 : ∀ x y : ℤ, x ∈ A ∧ y ∈ A → ∃ k : ℤ, x^2 + k * x * y + y^2 ∈ A)
+  (hA4 : m * n ≠ 0) :
+  ∀ x y : ℤ, x ∈ A ∧ y ∈ A → ∃ k : ℤ, x^2 + k * x * y + y^2 ∈ A := by sorry",6
+"Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$
+
+$$
+f(2 a)+2 f(b)=f(f(a+b))
+$$
+
+The final answers are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$.","theorem lean_workbook_plus_15936  (f : ℤ → ℤ)
+  (h₀ : ∀ a b, f (2 * a) + 2 * f b = f (f (a + b))) :
+  ∃ M K : ℤ, ∀ n, f n = M * n + K := by sorry",6
+"Let $\mathcal{S}$ be a set consisting of $n \geqslant 3$ positive integers, none of which is a sum of two other distinct members of $\mathcal{S}$. Prove that the elements of $\mathcal{S}$ may be ordered as $a_{1}, a_{2}, \ldots, a_{n}$ so that $a_{i}$ does not divide $a_{i-1}+a_{i+1}$ for all $i=2,3, \ldots, n-1$.","theorem lean_workbook_plus_24744 (n : ℕ) (hn : 3 ≤ n) (S : Finset ℕ) (hS : ∀ x y : ℕ, x ∈ S ∧ y ∈ S ∧ x ≠ y → x ≠ y + z) : ∃ f : ℕ → ℕ, ∀ i : ℕ, i < n → ¬ f i ∣ f (i-1) + f (i+1) := by sorry",7
+"Determine all positive integers $M$ for which the sequence $a_{0}, a_{1}, a_{2}, \ldots$, defined by $a_{0}=\frac{2 M+1}{2}$ and $a_{k+1}=a_{k}\left\lfloor a_{k}\right\rfloor$ for $k=0,1,2, \ldots$, contains at least one integer term.
+
+The final answers are all integers $M \geqslant 2$.","theorem lean_workbook_plus_69404 (M : ℕ) (hm : 2 ≤ M) : ∃ k, (2 * M + 1) / 2 = ↑k := by sorry",3
+"Let $n$ be a positive integer, and set $N=2^{n}$. Determine the smallest real number $a_{n}$ such that, for all real $x$,
+
+$$
+\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant a_{n}(x-1)^{2}+x
+$$
+
+The final answer is $a_{n}=N / 2$.",theorem lean_workbook_plus_17704 (n : ℕ) (N : ℕ) (x : ℝ) (hN : N = 2 ^ n) : (x ^ (2 ^ n) + 1) ^ (1 / N) ≤ (N / 2) * (x - 1) ^ 2 + x := by sorry,8
+"Determine all pairs $(x, y)$ of positive integers such that
+
+$$
+\sqrt[3]{7 x^{2}-13 x y+7 y^{2}}=|x-y|+1.
+$$
+
+The answer is that either $(x, y)=(1,1)$ or $\{x, y\}=\left\{m^{3}+m^{2}-2 m-1, m^{3}+2 m^{2}-m-1\right\}$ for some positive integer $m \geqslant 2$.","theorem lean_workbook_plus_60874 (x y : ℤ) (hx : 0 < x) (hy : 0 < y) (h : (7 * x ^ 2 - 13 * x * y + 7 * y ^ 2) ^ (1 / 3) = |x - y| + 1) : ∃ m : ℤ, 2 ≤ m ∧ (x, y) = (m ^ 3 + m ^ 2 - 2 * m - 1, m ^ 3 + 2 * m ^ 2 - m - 1) := by sorry",6
+"Find the largest possible integer $k$, such that the following statement is true:
+
+Let 2009 arbitrary non-degenerated triangles be given. In every triangle the three sides are colored, such that one is blue, one is red and one is white. Now, for every color separately, let us sort the lengths of the sides. We obtain
+
+$$
+\begin{aligned}
+& b_{1} \leq b_{2} \leq \ldots \leq b_{2009} \quad \text { the lengths of the blue sides, } \\
+& r_{1} \leq r_{2} \leq \ldots \leq r_{2009} \quad \text { the lengths of the red sides, } \\
+& \text { and } \quad w_{1} \leq w_{2} \leq \ldots \leq w_{2009} \quad \text { the lengths of the white sides. }
+\end{aligned}
+$$
+
+Then there exist $k$ indices $j$ such that we can form a non-degenerated triangle with side lengths $b_{j}, r_{j}, w_{j}$
+
+The final answer is that the largest possible number $k$ of indices satisfying the given condition is one.","theorem lean_workbook_plus_40341  (b r w : ℕ → ℝ)
+  (h₀ : ∀ j, 0 < b j ∧ 0 < r j ∧ 0 < w j)
+  (h₁ : ∀ j, b j ≤ b (j + 1) ∧ r j ≤ r (j + 1) ∧ w j ≤ w (j + 1))
+  (h₂ : ∃ k, k ≤ 2009 ∧ (∀ j < k, b j + r j > w j))
+  (h₃ : ∀ j, b j + r j ≤ w j)
+  (h₄ : 0 < 2009) :
+  1 ≤ 2009 := by sorry",7
+"Let $n \geqslant 3$ be a positive integer and let $\left(a_{1}, a_{2}, \ldots, a_{n}\right)$ be a strictly increasing sequence of $n$ positive real numbers with sum equal to 2. Let $X$ be a subset of $\{1,2, \ldots, n\}$ such that the value of
+
+$$
+\left|1-\sum_{i \in X} a_{i}\right|
+$$
+
+is minimised. Prove that there exists a strictly increasing sequence of $n$ positive real numbers $\left(b_{1}, b_{2}, \ldots, b_{n}\right)$ with sum equal to 2 such that
+
+$$
+\sum_{i \in X} b_{i}=1
+$$","theorem lean_workbook_plus_71038  (n : ℕ)
+  (ha : 3 ≤ n)
+  (a : ℕ → ℝ)
+  (hab : ∀ i, 0 < a i)
+  (h : ∑ i in Finset.range n, a i = 2)
+  (X : Finset ℕ)
+  (hX : X ⊆ Finset.range n)
+  (hX' : ∀ i, i ∈ X → 0 < a i)
+  (hX'' : ∀ i, i ∈ X → a i < a (i + 1))
+  (hX''' : ∀ i, i ∈ X → a i + a (i + 1) ≤ 2)
+  (hX''': ∀ i, i ∈ X → a i + a (i + 1) ≥ 2)
+  (hX4 : ∀ i, i ∈ X → i + 1 ∈ Finset.range n)
+  (hX5 : ∀ i, i ∈ X → i + 1 ∉ X)
+  (hX6 : ∀ i, i ∈ X → i + 1 ∉ Finset.range n)
+  (hX7 : ∀ i, i ∈ X → a i + a (i + 1) = 2) :
+  ∃ b : ℕ → ℝ,
+    (∀ i, 0 < b i)
+    ∧ (∀ i, b i < b (i + 1))
+    ∧ (∑ i in Finset.range n, b i = 2)
+    ∧ (∃ i, i ∈ X ∧ b i + b (i + 1) = 2) := by sorry",4
+"An integer $a$ is called friendly if the equation $\left(m^{2}+n\right)\left(n^{2}+m\right)=a(m-n)^{3}$ has a solution over the positive integers.
+
+Prove that there are at least 500 friendly integers in the set $\{1,2, \ldots, 2012\}$.","theorem lean_workbook_31734  (a : ℕ)
+  (h₀ : 0 < a)
+  (h₁ : a ≤ 2012) :
+  ∃ m n : ℕ, (m^2 + n) * (n^2 + m) = a * (m - n)^3 := by sorry",7
+"Determine all functions $f:(0, \infty) \rightarrow \mathbb{R}$ satisfying
+
+$$
+\left(x+\frac{1}{x}\right) f(y)=f(x y)+f\left(\frac{y}{x}\right)
+$$
+
+for all $x, y>0$.
+
+The final answer is $f(x)=C_{1} x+\frac{C_{2}}{x}$ with arbitrary constants $C_{1}$ and $C_{2}$.","theorem lean_workbook_plus_15846 (f : ℝ → ℝ) (hf: f x * (x + 1/x) = f (x*y) + f (y/x)) : ∃ C1 C2 : ℝ, ∀ x y : ℝ, f x = C1 * x + C2 / x := by sorry",3
+"Find all integer solutions of the equation
+
+$$
+\frac{x^{7}-1}{x-1}=y^{5}-1 \text {. }
+$$
+
+The final answer is that the given equation has no integer solutions.","theorem lean_workbook_plus_13442  (x y : ℤ)
+  (h₀ : 0 < x)
+  (h₁ : 0 < y)
+  (h₂ : (x^7 - 1) / (x - 1) = y^5 - 1) :
+  False := by sorry",8
+"Find all the functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+f(a)^{2}+f(b)^{2}+f(c)^{2}=2 f(a) f(b)+2 f(b) f(c)+2 f(c) f(a)
+$$
+
+for all integers $a, b, c$ satisfying $a+b+c=0$.
+
+The final answer is that the only possible solutions of the functional equation are the constant function $f_{1}(x)=0$ and the following functions:
+
+$$
+f_{2}(x)=k x^{2} \quad f_{3}(x)=\left\{\begin{array}{ccc}
+0 & x \text { even } \\
+k & x \text { odd }
+\end{array} \quad f_{4}(x)=\left\{\begin{array}{ccc}
+0 & x \equiv 0 & (\bmod 4) \\
+k & x \equiv 1 & (\bmod 2) \\
+4 k & x \equiv 2 & (\bmod 4)
+\end{array}\right.\right.
+$$
+
+for any non-zero integer $k$.",theorem lean_workbook_plus_13405 (f : ℤ → ℤ) (hf: f 0 = 0) (hf2: f 1 = k) (hf3: f 2 = 0) (hf4: f 3 = 9 * k) (hf5: f 4 = 16 * k) (hf6: f (x + 1) = f x) (hf7: f (x + 2) = f x) (hf8: f (x + 3) = f x) (hf9: f (x + 4) = f x) : f x = k * x ^ 2 := by sorry,3
+"Let $a_{1}, a_{2}, a_{3}, \ldots$ be an infinite sequence of positive integers such that $a_{n+2 m}$ divides $a_{n}+a_{n+m}$ for all positive integers $n$ and $m$. Prove that this sequence is eventually periodic, i.e. there exist positive integers $N$ and $d$ such that $a_{n}=a_{n+d}$ for all $n>N$.","theorem lean_workbook_plus_32469  (a : ℕ → ℕ)
+  (h₀ : ∀ n m, a (n + 2 * m) ∣ a n + a (n + m))
+  (h₁ : ∃ N d, ∀ n > N, a (n + d) = a n) :
+  ∃ N d, ∀ n > N, a (n + d) = a n := by sorry",9
+"Prove that, for every positive integer $n$, there exists an integer $m$ such that $2^{m}+m$ is divisible by $n$.","theorem lean_workbook_plus_23813 (n : ℕ) : ∃ m : ℕ, n ∣ 2^m + m := by sorry",8
+"Let $a$ be a positive integer which is not a square number. Denote by $A$ the set of all positive integers $k$ such that
+
+$$
+k=\frac{x^{2}-a}{x^{2}-y^{2}}
+$$
+
+for some integers $x$ and $y$ with $x>\sqrt{a}$. Denote by $B$ the set of all positive integers $k$ such that (1) is satisfied for some integers $x$ and $y$ with $0 \leqslant x<\sqrt{a}$. Prove that $A=B$.","theorem lean_workbook_plus_37593  (a : ℤ)
+  (ha : 0 < a)
+  (hab : ¬ (∃ x y : ℤ, x^2 = a ∧ y^2 = 1))
+  (A B : Set ℤ)
+  (hA : ∀ k : ℤ, k ∈ A ↔ ∃ x y : ℤ, 0 < x ∧ x > Real.sqrt a ∧ k = (x^2 - a) / (x^2 - y^2))
+  (hB : ∀ k : ℤ, k ∈ B ↔ ∃ x y : ℤ, 0 ≤ x ∧ x < Real.sqrt a ∧ k = (x^2 - a) / (x^2 - y^2))
+  (hAB : A = B) :
+  A = B := by sorry",8
+Prove that there exist infinitely many positive integers $n$ such that $n^{2}+1$ has a prime divisor greater than $2 n+\sqrt{2 n}$.,"theorem lean_workbook_39071  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∃ p, Nat.Prime p ∧ p > 2 * n + Real.sqrt (2 * n)) :
+  ∃ p, Nat.Prime p ∧ p > 2 * n + Real.sqrt (2 * n) := by sorry",6
+"For a polynomial $P(x)$ with integer coefficients let $P^{1}(x)=P(x)$ and $P^{k+1}(x)=$ $P\left(P^{k}(x)\right)$ for $k \geqslant 1$. Find all positive integers $n$ for which there exists a polynomial $P(x)$ with integer coefficients such that for every integer $m \geqslant 1$, the numbers $P^{m}(1), \ldots, P^{m}(n)$ leave exactly $\left\lceil n / 2^{m}\right\rceil$ distinct remainders when divided by $n$.
+
+The final answers are all powers of 2 and all primes.","theorem lean_workbook_plus_43269  (n : ℕ)
+  (P : ℕ → ℕ)
+  (m : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 0 < m)
+  (h₂ : ∀ x, P x ≡ P 1 [ZMOD n])
+  (h₃ : ∀ x, P x ≡ P 1 [ZMOD (n / 2^m)])
+  (h₄ : ∀ x, P x ≡ P 1 [ZMOD (n / 2^m)])
+  (h₅ : ∀ x, P x ≡ P 1 [ZMOD (n / 2^m)])
+  (h₆ : ∀ x, P x ≡ P 1 [ZMOD (n / 2^m)]) :
+  n = 2 ^ m ∨ n = p ∧ p.Prime ∧ ∀ x, P x ≡ P 1 [ZMOD p] := by sorry",4
+"Prove that for every positive integer $n$, there exists a fraction $\frac{a}{b}$ where $a$ and $b$ are integers satisfying $0<b \leqslant \sqrt{n}+1$ and $\sqrt{n} \leqslant \frac{a}{b} \leqslant \sqrt{n+1}$.","theorem lean_workbook_plus_31790  (n : ℕ)
+  (r : ℕ)
+  (h₀ : 0 < r)
+  (h₁ : r^2 ≤ n)
+  (h₂ : n < (r + 1)^2)
+  (h₃ : 0 ≤ s)
+  (h₄ : s ≤ 2 * r)
+  (h₅ : Even s)
+  (h₆ : Even r) :
+  r + s / (2 * r) ≤ Real.sqrt (n + 1) := by sorry",3
+"Let $a, b$ be integers, and let $P(x)=a x^{3}+b x$. For any positive integer $n$ we say that the pair $(a, b)$ is $n$-good if $n \mid P(m)-P(k)$ implies $n \mid m-k$ for all integers $m, k$. We say that $(a, b)$ is very good if $(a, b)$ is $n$-good for infinitely many positive integers $n$.
+
+Show that all 2010-good pairs are very good.","theorem lean_workbook_plus_6364  (a b : ℤ)
+  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 67 ∣ a)
+  (h₂ : 67 ∣ b)
+  (h₃ : 67^n ∣ a * x^3 + b * x - (a * y^3 + b * y))
+  (h₄ : 67^n ∣ x - y) :
+  67^n ∣ x - y := by sorry",2
+Let $k$ be a positive integer. Prove that the number $\left(4 k^{2}-1\right)^{2}$ has a positive divisor of the form $8 k n-1$ if and only if $k$ is even.,"theorem lean_workbook_plus_49759  (k : ℤ)
+  (h₀ : 0 < k) :
+  (∃ n, 0 < n ∧ 8 * k * n - 1 ∣ (4 * k ^ 2 - 1) ^ 2) ↔ Even k := by sorry",8
+"For any odd prime $p$ and any integer $n$, let $d_{p}(n) \in\{0,1, \ldots, p-1\}$ denote the remainder when $n$ is divided by $p$. We say that $\left(a_{0}, a_{1}, a_{2}, \ldots\right)$ is a $p$-sequence, if $a_{0}$ is a positive integer coprime to $p$, and $a_{n+1}=a_{n}+d_{p}\left(a_{n}\right)$ for $n \geqslant 0$.
+
+Do there exist infinitely many primes $p$ for which there exist $p$-sequences $\left(a_{0}, a_{1}, a_{2}, \ldots\right)$ and $\left(b_{0}, b_{1}, b_{2}, \ldots\right)$ such that $a_{0}<b_{0}$, but $a_{n}>b_{n}$ for all $n \geqslant 1$?
+
+The final answer is yes.","theorem lean_workbook_plus_17219  (p : ℕ)
+  (hp : 1 < p)
+  (hp' : Nat.Prime p)
+  (hp'' : ∃ T : ℕ, p ∣ (2^T - 1))
+  (hp''' : 0 < T)
+  (hp'''' : T < p)
+  (hp''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ 2^n - 1)
+  (hp'''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - 2^n)
+  (hp'''''': ∀ n : ℕ, 0 ≤ n → 0 ≤ p - 1)
+  (hp''''''': ∀ n : ℕ, 0 ≤ n → 0 ≤ p + 1)
+  (hp'''''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p - 1))
+  (hp''''''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p + 1))
+  (hp'''''''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p - (p - 1)))
+  (hp''''''''''': ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p - (p + 1)))
+  (hp'''''''''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p - (p - 1)) - (p - (p + 1)))
+  (hp''''''''''''' : ∀ n : ℕ, 0 ≤ n → 0 ≤ p - (p - (p - 1)) - (p - (p + 1)) - (p - (p - (p - 1))) - (p - (p + 1))) :
+  ∃ a b : ℕ → ℕ,
+    a 0 < b 0 ∧ ∀ n : ℕ, a n > b n := by sorry",3
+"A social club has $n$ members. They have the membership numbers $1,2, \ldots, n$, respectively. From time to time members send presents to other members, including items they have already received as presents from other members. In order to avoid the embarrassing situation that a member might receive a present that he or she has sent to other members, the club adds the following rule to its statutes at one of its annual general meetings:
+
+""A member with membership number $a$ is permitted to send a present to a member with membership number $b$ if and only if $a(b-1)$ is a multiple of $n. ""$
+
+Prove that, if each member follows this rule, none will receive a present from another member that he or she has already sent to other members.
+
+Alternative formulation: Let $G$ be a directed graph with $n$ vertices $v_{1}, v_{2}, \ldots, v_{n}$, such that there is an edge going from $v_{a}$ to $v_{b}$ if and only if $a$ and $b$ are distinct and $a(b-1)$ is a multiple of $n$. Prove that this graph does not contain a directed cycle.","theorem lean_workbook_plus_46400  (n : ℕ)
+  (v : ℕ → ℕ)
+  (h₀ : ∀ a b, a ≠ b → v a ≠ v b → v a < v b → a * (b - 1) ≡ 0 [ZMOD n]) :
+  ∀ a b, a ≠ b → v a ≠ v b → v a < v b → a * (b - 1) ≡ 0 [ZMOD n] := by sorry",3
+,,311

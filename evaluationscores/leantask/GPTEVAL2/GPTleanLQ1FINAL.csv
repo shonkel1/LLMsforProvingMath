@@ -1,0 +1,517 @@
+natural,formal,score
+"First we prove the following fact: For every positive integer $y$ there exist infinitely many primes $p \equiv 3(\bmod 4)$ such that $p$ divides some number of the form $2^{n} y+1$.
+
+Clearly it is enough to consider the case $y$ odd. Let
+
+$$
+2 y+1=p_{1}^{e_{1}} \cdots p_{r}^{e_{r}}
+$$
+
+be the prime factorization of $2 y+1$. Suppose on the contrary that there are finitely many primes $p_{r+1}, \ldots, p_{r+s} \equiv 3(\bmod 4)$ that divide some number of the form $2^{n} y+1$ but do not divide $2 y+1$.
+
+We want to find an $n$ such that $p_{i}^{e_{i}} \| 2^{n} y+1$ for $1 \leq i \leq r$ and $p_{i} \nmid 2^{n} y+1$ for $r+1 \leq i \leq r+s$. For this it suffices to take
+
+$$
+n=1+\varphi\left(p_{1}^{e_{1}+1} \cdots p_{r}^{e_{r}+1} p_{r+1}^{1} \cdots p_{r+s}^{1}\right),
+$$
+
+because then
+
+$$
+2^{n} y+1 \equiv 2 y+1 \quad\left(\bmod p_{1}^{e_{1}+1} \cdots p_{r}^{e_{r}+1} p_{r+1}^{1} \cdots p_{r+s}^{1}\right)
+$$
+
+The last congruence means that $p_{1}^{e_{1}}, \ldots, p_{r}^{e_{r}}$ divide exactly $2^{n} y+1$ and no prime $p_{r+1}, \ldots, p_{r+s}$ divides $2^{n} y+1$. It follows that the prime factorization of $2^{n} y+1$ consists of the prime powers $p_{1}^{e_{1}}, \ldots, p_{r}^{e_{r}}$ and powers of primes $\equiv 1(\bmod 4)$. Because $y$ is odd, we obtain
+
+$$
+2^{n} y+1 \equiv p_{1}^{e_{1}} \cdots p_{r}^{e_{r}} \equiv 2 y+1 \equiv 3 \quad(\bmod 4)
+$$
+
+This is a contradiction since $n>1$, and so $2^{n} y+1 \equiv 1(\bmod 4)$.
+
+Now we proceed to the problem. If $p$ is a prime divisor of $2^{n} y+1$ the problem statement implies that $x^{d} \equiv 1(\bmod p)$ for $d=2^{n}$. By FERMAT's little theorem the same congruence holds for $d=p-1$, so it must also hold for $d=\left(2^{n}, p-1\right)$. For $p \equiv 3(\bmod 4)$ we have $\left(2^{n}, p-1\right)=2$, therefore in this case $x^{2} \equiv 1(\bmod p)$.
+
+In summary, we proved that every prime $p \equiv 3(\bmod 4)$ that divides some number of the form $2^{n} y+1$ also divides $x^{2}-1$. This is possible only if $x=1$, otherwise by the above $x^{2}-1$ would be a positive integer with infinitely many prime factors.","theorem lean_workbook_11424  (n : ℕ)
+  (p : ℕ)
+  (hp : p.Prime)
+  (h : p = 3) :
+  2 ^ n ≡ 1 [ZMOD p] := by sorry",3
+"Part I. We begin by verifying that these numbers are indeed possible values of $P(0)$. To see that each negative real number $-C$ can be $P(0)$, it suffices to check that for every $C>0$ the polynomial $P(x)=-\left(\frac{2 x^{2}}{C}+C\right)$ has the property described in the statement of the problem. Due to symmetry it is enough for this purpose to prove $\left|y^{2}-P(x)\right|>2|x|$ for any two real numbers $x$ and $y$. In fact we have
+
+$$
+\left|y^{2}-P(x)\right|=y^{2}+\frac{x^{2}}{C}+\frac{(|x|-C)^{2}}{C}+2|x| \geqslant \frac{x^{2}}{C}+2|x| \geqslant 2|x|,
+$$
+
+where in the first estimate equality can only hold if $|x|=C$, whilst in the second one it can only hold if $x=0$. As these two conditions cannot be met at the same time, we have indeed $\left|y^{2}-P(x)\right|>2|x|$
+
+To show that $P(0)=1$ is possible as well, we verify that the polynomial $P(x)=x^{2}+1$ satisfies (1). Notice that for all real numbers $x$ and $y$ we have
+
+$$
+\begin{aligned}
+\left|y^{2}-P(x)\right| \leqslant 2|x| & \Longleftrightarrow\left(y^{2}-x^{2}-1\right)^{2} \leqslant 4 x^{2} \\
+& \Longleftrightarrow 0 \leqslant\left(\left(y^{2}-(x-1)^{2}\right)\left((x+1)^{2}-y^{2}\right)\right. \\
+& \Longleftrightarrow 0 \leqslant(y-x+1)(y+x-1)(x+1-y)(x+1+y) \\
+& \Longleftrightarrow 0 \leqslant\left((x+y)^{2}-1\right)\left(1-(x-y)^{2}\right) .
+\end{aligned}
+$$
+
+Since this inequality is symmetric in $x$ and $y$, we are done.
+
+Part II. Now we show that no values other than those mentioned in the answer are possible for $P(0)$. To reach this we let $P$ denote any polynomial satisfying $(1)$ and $P(0) \geqslant 0$; as we shall see, this implies $P(x)=x^{2}+1$ for all real $x$, which is actually more than what we want.
+
+First step: We prove that $P$ is even.
+
+By (1) we have
+
+$$
+\left|y^{2}-P(x)\right| \leqslant 2|x| \Longleftrightarrow\left|x^{2}-P(y)\right| \leqslant 2|y| \Longleftrightarrow\left|y^{2}-P(-x)\right| \leqslant 2|x|
+$$
+
+for all real numbers $x$ and $y$. Considering just the equivalence of the first and third statement and taking into account that $y^{2}$ may vary through $\mathbb{R}_{\geqslant 0}$ we infer that
+
+$$
+[P(x)-2|x|, P(x)+2|x|] \cap \mathbb{R}_{\geqslant 0}=[P(-x)-2|x|, P(-x)+2|x|] \cap \mathbb{R}_{\geqslant 0}
+$$
+
+holds for all $x \in \mathbb{R}$. We claim that there are infinitely many real numbers $x$ such that $P(x)+2|x| \geqslant 0$. This holds in fact for any real polynomial with $P(0) \geqslant 0$; in order to see this, we may assume that the coefficient of $P$ appearing in front of $x$ is nonnegative. In this case the desired inequality holds for all sufficiently small positive real numbers.
+
+For such numbers $x$ satisfying $P(x)+2|x| \geqslant 0$ we have $P(x)+2|x|=P(-x)+2|x|$ by the previous displayed formula, and hence also $P(x)=P(-x)$. Consequently the polynomial $P(x)-P(-x)$ has infinitely many zeros, wherefore it has to vanish identically. Thus $P$ is indeed even. Second step: We prove that $P(t)>0$ for all $t \in \mathbb{R}$.
+
+Let us assume for a moment that there exists a real number $t \neq 0$ with $P(t)=0$. Then there is some open interval $I$ around $t$ such that $|P(y)| \leqslant 2|y|$ holds for all $y \in I$. Plugging $x=0$ into (1) we learn that $y^{2}=P(0)$ holds for all $y \in I$, which is clearly absurd. We have thus shown $P(t) \neq 0$ for all $t \neq 0$.
+
+In combination with $P(0) \geqslant 0$ this informs us that our claim could only fail if $P(0)=0$. In this case there is by our first step a polynomial $Q(x)$ such that $P(x)=x^{2} Q(x)$. Applying (1) to $x=0$ and an arbitrary $y \neq 0$ we get $|y Q(y)|>2$, which is surely false when $y$ is sufficiently small.
+
+Third step: We prove that $P$ is a quadratic polynomial.
+
+Notice that $P$ cannot be constant, for otherwise if $x=\sqrt{P(0)}$ and $y$ is sufficiently large, the first part of (1) is false whilst the second part is true. So the degree $n$ of $P$ has to be at least 1 . By our first step $n$ has to be even as well, whence in particular $n \geqslant 2$.
+
+Now assume that $n \geqslant 4$. Plugging $y=\sqrt{P(x)}$ into (1) we get $\left|x^{2}-P(\sqrt{P(x)})\right| \leqslant 2 \sqrt{P(x)}$ and hence
+
+$$
+P(\sqrt{P(x)}) \leqslant x^{2}+2 \sqrt{P(x)}
+$$
+
+for all real $x$. Choose positive real numbers $x_{0}, a$, and $b$ such that if $x \in\left(x_{0}, \infty\right)$, then $a x^{n}<$ $P(x)<b x^{n}$; this is indeed possible, for if $d>0$ denotes the leading coefficient of $P$, then $\lim _{x \rightarrow \infty} \frac{P(x)}{x^{n}}=d$, whence for instance the numbers $a=\frac{d}{2}$ and $b=2 d$ work provided that $x_{0}$ is chosen large enough.
+
+Now for all sufficiently large real numbers $x$ we have
+
+$$
+a^{n / 2+1} x^{n^{2} / 2}<a P(x)^{n / 2}<P(\sqrt{P(x)}) \leqslant x^{2}+2 \sqrt{P(x)}<x^{n / 2}+2 b^{1 / 2} x^{n / 2}
+$$
+
+i.e.
+
+$$
+x^{\left(n^{2}-n\right) / 2}<\frac{1+2 b^{1 / 2}}{a^{n / 2+1}},
+$$
+
+which is surely absurd. Thus $P$ is indeed a quadratic polynomial.
+
+Fourth step: We prove that $P(x)=x^{2}+1$.
+
+In the light of our first three steps there are two real numbers $a>0$ and $b$ such that $P(x)=$ $a x^{2}+b$. Now if $x$ is large enough and $y=\sqrt{a} x$, the left part of (1) holds and the right part reads $\left|\left(1-a^{2}\right) x^{2}-b\right| \leqslant 2 \sqrt{a} x$. In view of the fact that $a>0$ this is only possible if $a=1$. Finally, substituting $y=x+1$ with $x>0$ into (1) we get
+
+$$
+|2 x+1-b| \leqslant 2 x \Longleftrightarrow|2 x+1+b| \leqslant 2 x+2,
+$$
+
+i.e.,
+
+$$
+b \in[1,4 x+1] \Longleftrightarrow b \in[-4 x-3,1]
+$$
+
+for all $x>0$. Choosing $x$ large enough, we can achieve that at least one of these two statements holds; then both hold, which is only possible if $b=1$, as desired.","theorem lean_workbook_11044  (x : ℝ)
+  (h₀ : 0 < x)
+  (h₁ : 0 < x^4 + 2 * |x|) :
+  x^2 + 1 = x^2 + 1 := by sorry",4
+"Refer to the main equation as $E(a, b)$.
+
+$E(0, b)$ reads as $f^{b^{2}}(b)=b f(b)$. For $b=-1$ this gives $f(-1)=0$.
+
+Now $E(a,-1)$ reads as
+
+$$
+f^{a^{2}+1}(a-1)=a f(a)=f^{a^{2}}(a) .
+$$
+
+For $x \in \mathbb{Z}$ define the orbit of $x$ by $\mathcal{O}(x)=\{x, f(x), f(f(x)), \ldots\} \subseteq \mathbb{Z}$. We see that the orbits $\mathcal{O}(a-1)$ and $\mathcal{O}(a)$ differ by finitely many terms. Hence, any two orbits differ by finitely many terms. In particular, this implies that either all orbits are finite or all orbits are infinite.
+
+Case 1: All orbits are finite.
+
+Then $\mathcal{O}(0)$ is finite. Using $E(a,-a)$ we get
+
+$$
+a(f(a)-f(-a))=a f(a)-a f(-a)=f^{2 a^{2}}(0) \in \mathcal{O}(0) .
+$$
+
+For $|a|>\max _{z \in \mathcal{O}(0)}|z|$, this yields $f(a)=f(-a)$ and $f^{2 a^{2}}(0)=0$. Therefore, the sequence $\left(f^{k}(0): k=0,1, \ldots\right)$ is purely periodic with a minimal period $T$ which divides $2 a^{2}$. Analogously, $T$ divides $2(a+1)^{2}$, therefore, $T \mid \operatorname{gcd}\left(2 a^{2}, 2(a+1)^{2}\right)=2$, i.e., $f(f(0))=0$ and $a(f(a)-f(-a))=f^{2 a^{2}}(0)=0$ for all $a$. Thus,
+
+$$
+\begin{array}{ll}
+f(a) & =f(-a) \quad \text { for all } a \neq 0
+\end{array}
+$$
+
+Next, for each $n \in \mathbb{Z}$, by $E(n, 1-n)$ we get
+
+$$
+n f(n)+(1-n) f(1-n)=f^{n^{2}+(1-n)^{2}}(1)=f^{2 n^{2}-2 n}(0)=0 .
+$$
+
+Assume that there exists some $m \neq 0$ such that $f(m) \neq 0$. Choose such an $m$ for which $|m|$ is minimal possible. Then $|m|>1$ due to $(1)$; $f(|m|) \neq 0$ due to $(2)$; and $f(1-|m|) \neq 0$ due to $(3)$ for $n=|m|$. This contradicts to the minimality assumption.
+
+So, $f(n)=0$ for $n \neq 0$. Finally, $f(0)=f^{3}(0)=f^{4}(2)=2 f(2)=0$. Clearly, the function $f(x) \equiv 0$ satisfies the problem condition, which provides the first of the two answers.
+
+Case 2: All orbits are infinite.
+
+Since the orbits $\mathcal{O}(a)$ and $\mathcal{O}(a-1)$ differ by finitely many terms for all $a \in \mathbb{Z}$, each two orbits $\mathcal{O}(a)$ and $\mathcal{O}(b)$ have infinitely many common terms for arbitrary $a, b \in \mathbb{Z}$.
+
+For a minute, fix any $a, b \in \mathbb{Z}$. We claim that all pairs $(n, m)$ of nonnegative integers such that $f^{n}(a)=f^{m}(b)$ have the same difference $n-m$. Arguing indirectly, we have $f^{n}(a)=f^{m}(b)$ and $f^{p}(a)=f^{q}(b)$ with, say, $n-m>p-q$, then $f^{p+m+k}(b)=f^{p+n+k}(a)=f^{q+n+k}(b)$, for all nonnegative integers $k$. This means that $f^{\ell+(n-m)-(p-q)}(b)=f^{\ell}(b)$ for all sufficiently large $\ell$, i.e., that the sequence $\left(f^{n}(b)\right)$ is eventually periodic, so $\mathcal{O}(b)$ is finite, which is impossible.
+
+Now, for every $a, b \in \mathbb{Z}$, denote the common difference $n-m$ defined above by $X(a, b)$. We have $X(a-1, a)=1$ by (1). Trivially, $X(a, b)+X(b, c)=X(a, c)$, as if $f^{n}(a)=f^{m}(b)$ and $f^{p}(b)=f^{q}(c)$, then $f^{p+n}(a)=f^{p+m}(b)=f^{q+m}(c)$. These two properties imply that $X(a, b)=b-a$ for all $a, b \in \mathbb{Z}$. But (1) yields $f^{a^{2}+1}(f(a-1))=f^{a^{2}}(f(a))$, so
+
+$$
+1=X(f(a-1), f(a))=f(a)-f(a-1) \quad \text { for all } a \in \mathbb{Z} .
+$$
+
+Recalling that $f(-1)=0$, we conclude by (two-sided) induction on $x$ that $f(x)=x+1$ for all $x \in \mathbb{Z}$
+
+Finally, the obtained function also satisfies the assumption. Indeed, $f^{n}(x)=x+n$ for all $n \geqslant 0$, so
+
+$$
+f^{a^{2}+b^{2}}(a+b)=a+b+a^{2}+b^{2}=a f(a)+b f(b)
+$$",theorem lean_workbook_10144 (a b : ℤ) (f : ℤ → ℤ) (hf: f = fun x ↦ x + 1) : f a ^ 2 + b ^ 2 = a * f a + b * f b := by sorry,6
+"The only solution is the function $f(x)=x-1, x \in \mathbb{R}$.
+
+We set $g(x)=f(x)+1$ and show that $g(x)=x$ for all real $x$. The conditions take the form
+
+$$
+g(1+x y)-g(x+y)=(g(x)-1)(g(y)-1) \quad \text { for all } x, y \in \mathbb{R} \text { and } g(-1) \neq 1 .
+$$
+
+Denote $C=g(-1)-1 \neq 0$. Setting $y=-1$ in (1) gives
+
+$$
+g(1-x)-g(x-1)=C(g(x)-1) .
+$$
+
+Set $x=1$ in (2) to obtain $C(g(1)-1)=0$. Hence $g(1)=1$ as $C \neq 0$. Now plugging in $x=0$ and $x=2$ yields $g(0)=0$ and $g(2)=2$ respectively.
+
+We pass on to the key observations
+
+$$
+\begin{array}{ll}
+g(x)+g(2-x)=2 & \text { for all } x \in \mathbb{R}, \\
+g(x+2)-g(x)=2 & \text { for all } x \in \mathbb{R} .
+\end{array}
+$$
+
+Replace $x$ by $1-x$ in (2), then change $x$ to $-x$ in the resulting equation. We obtain the relations $g(x)-g(-x)=C(g(1-x)-1), g(-x)-g(x)=C(g(1+x)-1)$. Then adding them up leads to $C(g(1-x)+g(1+x)-2)=0$. Thus $C \neq 0$ implies (3).
+
+Let $u, v$ be such that $u+v=1$. Apply (1) to the pairs $(u, v)$ and $(2-u, 2-v)$ :
+
+$$
+g(1+u v)-g(1)=(g(u)-1)(g(v)-1), \quad g(3+u v)-g(3)=(g(2-u)-1)(g(2-v)-1) .
+$$
+
+Observe that the last two equations have equal right-hand sides by (3). Hence $u+v=1$ implies
+
+$$
+g(u v+3)-g(u v+1)=g(3)-g(1) .
+$$
+
+Each $x \leq 5 / 4$ is expressible in the form $x=u v+1$ with $u+v=1$ (the quadratic function $t^{2}-t+(x-1)$ has real roots for $\left.x \leq 5 / 4\right)$. Hence $g(x+2)-g(x)=g(3)-g(1)$ whenever $x \leq 5 / 4$. Because $g(x)=x$ holds for $x=0,1,2$, setting $x=0$ yields $g(3)=3$. This proves (4) for $x \leq 5 / 4$. If $x>5 / 4$ then $-x<5 / 4$ and so $g(2-x)-g(-x)=2$ by the above. On the other hand (3) gives $g(x)=2-g(2-x), g(x+2)=2-g(-x)$, so that $g(x+2)-g(x)=g(2-x)-g(-x)=2$. Thus (4) is true for all $x \in \mathbb{R}$.
+
+Now replace $x$ by $-x$ in (3) to obtain $g(-x)+g(2+x)=2$. In view of (4) this leads to $g(x)+g(-x)=0$, i. e. $g(-x)=-g(x)$ for all $x$. Taking this into account, we apply (1) to the pairs $(-x, y)$ and $(x,-y)$ :
+
+$g(1-x y)-g(-x+y)=(g(x)+1)(1-g(y)), \quad g(1-x y)-g(x-y)=(1-g(x))(g(y)+1)$.
+
+Adding up yields $g(1-x y)=1-g(x) g(y)$. Then $g(1+x y)=1+g(x) g(y)$ by (3). Now the original equation (1) takes the form $g(x+y)=g(x)+g(y)$. Hence $g$ is additive.
+
+By additvity $g(1+x y)=g(1)+g(x y)=1+g(x y)$; since $g(1+x y)=1+g(x) g(y)$ was shown above, we also have $g(x y)=g(x) g(y)(g$ is multiplicative $)$. In particular $y=x$ gives $g\left(x^{2}\right)=g(x)^{2} \geq 0$ for all $x$, meaning that $g(x) \geq 0$ for $x \geq 0$. Since $g$ is additive and bounded from below on $[0,+\infty)$, it is linear; more exactly $g(x)=g(1) x=x$ for all $x \in \mathbb{R}$.
+
+In summary $f(x)=x-1, x \in \mathbb{R}$. It is straightforward that this function satisfies the requirements.",theorem lean_workbook_14124 (x : ℝ) : x = 1 → x = 1 := by sorry,2
+"First, it is clear that all functions of the form $f(n)=n+c$ with a constant nonnegative integer $c$ satisfy the problem conditions since $(f(m)+n)(f(n)+m)=(n+m+c)^{2}$ is a square.
+
+We are left to prove that there are no other functions. We start with the following Lemma. Suppose that $p \mid f(k)-f(\ell)$ for some prime $p$ and positive integers $k, \ell$. Then $p \mid k-\ell$. Proof. Suppose first that $p^{2} \mid f(k)-f(\ell)$, so $f(\ell)=f(k)+p^{2} a$ for some integer $a$. Take some positive integer $D>\max \{f(k), f(\ell)\}$ which is not divisible by $p$ and set $n=p D-f(k)$. Then the positive numbers $n+f(k)=p D$ and $n+f(\ell)=p D+(f(\ell)-f(k))=p(D+p a)$ are both divisible by $p$ but not by $p^{2}$. Now, applying the problem conditions, we get that both the numbers $(f(k)+n)(f(n)+k)$ and $(f(\ell)+n)(f(n)+\ell)$ are squares divisible by $p$ (and thus by $\left.p^{2}\right)$; this means that the multipliers $f(n)+k$ and $f(n)+\ell$ are also divisible by $p$, therefore $p \mid(f(n)+k)-(f(n)+\ell)=k-\ell$ as well.
+
+On the other hand, if $f(k)-f(\ell)$ is divisible by $p$ but not by $p^{2}$, then choose the same number $D$ and set $n=p^{3} D-f(k)$. Then the positive numbers $f(k)+n=p^{3} D$ and $f(\ell)+n=$ $p^{3} D+(f(\ell)-f(k))$ are respectively divisible by $p^{3}$ (but not by $\left.p^{4}\right)$ and by $p$ (but not by $p^{2}$ ). Hence in analogous way we obtain that the numbers $f(n)+k$ and $f(n)+\ell$ are divisible by $p$, therefore $p \mid(f(n)+k)-(f(n)+\ell)=k-\ell$.
+
+We turn to the problem. First, suppose that $f(k)=f(\ell)$ for some $k, \ell \in \mathbb{N}$. Then by Lemma we have that $k-\ell$ is divisible by every prime number, so $k-\ell=0$, or $k=\ell$. Therefore, the function $f$ is injective.
+
+Next, consider the numbers $f(k)$ and $f(k+1)$. Since the number $(k+1)-k=1$ has no prime divisors, by Lemma the same holds for $f(k+1)-f(k)$; thus $|f(k+1)-f(k)|=1$.
+
+Now, let $f(2)-f(1)=q,|q|=1$. Then we prove by induction that $f(n)=f(1)+q(n-1)$. The base for $n=1,2$ holds by the definition of $q$. For the step, if $n>1$ we have $f(n+1)=$ $f(n) \pm q=f(1)+q(n-1) \pm q$. Since $f(n) \neq f(n-2)=f(1)+q(n-2)$, we get $f(n)=f(1)+q n$, as desired.
+
+Finally, we have $f(n)=f(1)+q(n-1)$. Then $q$ cannot be $-1$ since otherwise for $n \geq f(1)+1$ we have $f(n) \leq 0$ which is impossible. Hence $q=1$ and $f(n)=(f(1)-1)+n$ for each $n \in \mathbb{N}$, and $f(1)-1 \geq 0$, as desired.","theorem lean_workbook_10012  (n : ℕ)
+  (f : ℕ → ℕ)
+  (h₀ : ∀ k, f k = f 1 + k^4) :
+  ∀ k, f k = f 1 + k^4 := by sorry",2
+"For fixed values of $n$, the equation (1) is a simple quadratic equation in $m$. For $n \leq 5$ the solutions are listed in the following table.
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+case & equation & discriminant & integer roots \\
+\hline
+$n=0$ & $m^{2}-m+2=0$ & $-7$ & none \\
+$n=1$ & $m^{2}-3 m+6=0$ & $-15$ & none \\
+$n=2$ & $m^{2}-7 m+18=0$ & $-23$ & none \\
+$n=3$ & $m^{2}-15 m+54=0$ & 9 & $m=6$ and $m=9$ \\
+$n=4$ & $m^{2}-31 m+162=0$ & 313 & none \\
+$n=5$ & $m^{2}-63 m+486=0$ & $2025=45^{2}$ & $m=9$ and $m=54$ \\
+\hline
+\end{tabular}
+\end{center}
+
+We prove that there is no solution for $n \geq 6$.
+
+Suppose that $(m, n)$ satisfies (1) and $n \geq 6$. Since $m \mid 2 \cdot 3^{n}=m\left(2^{n+1}-1\right)-m^{2}$, we have $m=3^{p}$ with some $0 \leq p \leq n$ or $m=2 \cdot 3^{q}$ with some $0 \leq q \leq n$.
+
+In the first case, let $q=n-p$; then
+
+$$
+2^{n+1}-1=m+\frac{2 \cdot 3^{n}}{m}=3^{p}+2 \cdot 3^{q}
+$$
+
+In the second case let $p=n-q$. Then
+
+$$
+2^{n+1}-1=m+\frac{2 \cdot 3^{n}}{m}=2 \cdot 3^{q}+3^{p}
+$$
+
+Hence, in both cases we need to find the nonnegative integer solutions of
+
+$$
+3^{p}+2 \cdot 3^{q}=2^{n+1}-1, \quad p+q=n .
+$$
+
+Next, we prove bounds for $p, q$. From (2) we get
+
+$$
+3^{p}<2^{n+1}=8^{\frac{n+1}{3}}<9^{\frac{n+1}{3}}=3^{\frac{2(n+1)}{3}}
+$$
+
+and
+
+$$
+2 \cdot 3^{q}<2^{n+1}=2 \cdot 8^{\frac{n}{3}}<2 \cdot 9^{\frac{n}{3}}=2 \cdot 3^{\frac{2 n}{3}}<2 \cdot 3^{\frac{2(n+1)}{3}},
+$$
+
+so $p, q<\frac{2(n+1)}{3}$. Combining these inequalities with $p+q=n$, we obtain
+
+$$
+\frac{n-2}{3}<p, q<\frac{2(n+1)}{3} .
+$$
+
+Now let $h=\min (p, q)$. By (3) we have $h>\frac{n-2}{3}$; in particular, we have $h>1$. On the left-hand side of $(2)$, both terms are divisible by $3^{h}$, therefore $9\left|3^{h}\right| 2^{n+1}-1$. It is easy check that $\operatorname{ord}_{9}(2)=6$, so $9 \mid 2^{n+1}-1$ if and only if $6 \mid n+1$. Therefore, $n+1=6 r$ for some positive integer $r$, and we can write
+
+$$
+2^{n+1}-1=4^{3 r}-1=\left(4^{2 r}+4^{r}+1\right)\left(2^{r}-1\right)\left(2^{r}+1\right) .
+$$
+
+Notice that the factor $4^{2 r}+4^{r}+1=\left(4^{r}-1\right)^{2}+3 \cdot 4^{r}$ is divisible by 3 , but it is never divisible by 9 . The other two factors in (4), $2^{r}-1$ and $2^{r}+1$ are coprime: both are odd and their difference is 2 . Since the whole product is divisible by $3^{h}$, we have either $3^{h-1} \mid 2^{r}-1$ or $3^{h-1} \mid 2^{r}+1$. In any case, we have $3^{h-1} \leq 2^{r}+1$. Then
+
+$$
+\begin{gathered}
+3^{h-1} \leq 2^{r}+1 \leq 3^{r}=3^{\frac{n+1}{6}} \\
+\frac{n-2}{3}-1<h-1 \leq \frac{n+1}{6} \\
+n<11 .
+\end{gathered}
+$$
+
+But this is impossible since we assumed $n \geq 6$, and we proved $6 \mid n+1$.",theorem lean_workbook_plus_10014 (n : ℕ) (h : 6 ≤ n + 1) : 6 ∣ n + 1 := by sorry,8
+"A pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$. Suppose that $\operatorname{gcd}(m, n)=d>1$. The set
+
+$$
+A=\{\ldots,-2 d,-d, 0, d, 2 d, \ldots\}
+$$
+
+is admissible, because if $d$ divides $x$ and $y$ then it divides $x^{2}+k x y+y^{2}$ for every integer $k$. Also $m, n \in A$ and $A \neq \mathbb{Z}$.
+
+Now let $\operatorname{gcd}(m, n)=1$, and let $A$ be an admissible set containing $m$ and $n$. We use the following observations to prove that $A=\mathbb{Z}$ :
+
+(i) $k x^{2} \in A$ for every $x \in A$ and every integer $k$.
+
+(ii) $(x+y)^{2} \in A$ for all $x, y \in A$.
+
+To justify (i) let $y=x$ in the definition of an admissible set; to justify (ii) let $k=2$.
+
+Since $\operatorname{gcd}(m, n)=1$, we also have $\operatorname{gcd}\left(m^{2}, n^{2}\right)=1$. Hence one can find integers $a, b$ such that $a m^{2}+b n^{2}=1$. It follows from (i) that $a m^{2} \in A$ and $b n^{2} \in A$. Now we deduce from (ii) that $1=\left(a m^{2}+b n^{2}\right)^{2} \in A$. But if $1 \in A$ then (i) implies $k \in A$ for every integer $k$.","theorem lean_workbook_11144  (m n : ℤ)
+  (h₀ : 0 < m ∧ 0 < n)
+  (h₁ : m^4 + n^4 = 1) :
+  ∃ a b : ℤ, a * m^2 + b * n^2 = 1 := by sorry",3
+"Most solutions to this problem first prove that $f$ must be linear, before determining all linear functions satisfying (1).
+
+Substituting $a=0, b=n+1$ gives $f(f(n+1))=f(0)+2 f(n+1)$. Substituting $a=1, b=n$ gives $f(f(n+1))=f(2)+2 f(n)$.
+
+In particular, $f(0)+2 f(n+1)=f(2)+2 f(n)$, and so $f(n+1)-f(n)=\frac{1}{2}(f(2)-f(0))$. Thus $f(n+1)-f(n)$ must be constant. Since $f$ is defined only on $\mathbb{Z}$, this tells us that $f$ must be a linear function; write $f(n)=M n+K$ for arbitrary constants $M$ and $K$, and we need only determine which choices of $M$ and $K$ work.
+
+Now, (1) becomes
+
+$$
+2 M a+K+2(M b+K)=M(M(a+b)+K)+K
+$$
+
+which we may rearrange to form
+
+$$
+(M-2)(M(a+b)+K)=0 .
+$$
+
+Thus, either $M=2$, or $M(a+b)+K=0$ for all values of $a+b$. In particular, the only possible solutions are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$, and these are easily seen to work.","theorem lean_workbook_plus_11144 (f : ℤ → ℤ) (hf : f = fun n => 2 * n + k) : ∀ a b, f (2 * a + b) = f (a + b) := by sorry",3
+"We will prove that the largest possible number $k$ of indices satisfying the given condition is one.
+
+Firstly we prove that $b_{2009}, r_{2009}, w_{2009}$ are always lengths of the sides of a triangle. Without loss of generality we may assume that $w_{2009} \geq r_{2009} \geq b_{2009}$. We show that the inequality $b_{2009}+r_{2009}>w_{2009}$ holds. Evidently, there exists a triangle with side lengths $w, b, r$ for the white, blue and red side, respectively, such that $w_{2009}=w$. By the conditions of the problem we have $b+r>w, b_{2009} \geq b$ and $r_{2009} \geq r$. From these inequalities it follows
+
+$$
+b_{2009}+r_{2009} \geq b+r>w=w_{2009} \text {. }
+$$
+
+Secondly we will describe a sequence of triangles for which $w_{j}, b_{j}, r_{j}$ with $j<2009$ are not the lengths of the sides of a triangle. Let us define the sequence $\Delta_{j}, j=1,2, \ldots, 2009$, of triangles, where $\Delta_{j}$ has
+
+a blue side of length $2 j$,
+
+a red side of length $j$ for all $j \leq 2008$ and 4018 for $j=2009$,
+
+and a white side of length $j+1$ for all $j \leq 2007,4018$ for $j=2008$ and 1 for $j=2009$. Since
+
+$$
+\begin{aligned}
+& (j+1)+j>2 j \geq j+1>j, \quad \text { if } \quad j \leq 2007 \text {, } \\
+& 2 j+j>4018>2 j>j, \quad \text { if } j=2008 \text {, } \\
+& 4018+1>2 j=4018>1, \quad \text { if } \quad j=2009 \text {, }
+\end{aligned}
+$$
+
+such a sequence of triangles exists. Moreover, $w_{j}=j, r_{j}=j$ and $b_{j}=2 j$ for $1 \leq j \leq 2008$. Then
+
+$$
+w_{j}+r_{j}=j+j=2 j=b_{j},
+$$
+
+i.e., $b_{j}, r_{j}$ and $w_{j}$ are not the lengths of the sides of a triangle for $1 \leq j \leq 2008$.",theorem lean_workbook_11444 (b r w : ℝ) (h₁ : 0 < b ∧ b ≤ w) (h₂ : 0 < r ∧ r - w = b) (h₃ : 0 < w ∧ w - b = r) : 0 < b ∧ b - w = r ∧ w - b = b + r := by sorry,4
+"Every $a$ of the form $a=4 k-3$ with $k \geq 2$ is friendly. Indeed the numbers $m=2 k-1>0$ and $n=k-1>0$ satisfy the given equation with $a=4 k-3$ :
+
+$$
+\left(m^{2}+n\right)\left(n^{2}+m\right)=\left((2 k-1)^{2}+(k-1)\right)\left((k-1)^{2}+(2 k-1)\right)=(4 k-3) k^{3}=a(m-n)^{3} .
+$$
+
+Hence $5,9, \ldots, 2009$ are friendly and so $\{1,2, \ldots, 2012\}$ contains at least 502 friendly numbers.","theorem lean_workbook_11144  (m n : ℕ)
+  (h₀ : 0 < m ∧ m ≤ 2012)
+  (h₁ : 0 < n ∧ n <= 2012) :
+  502 ≤ m ∧ m <= 2012 ∧ 502 <= n ∧ n <= 2012 := by sorry",3
+"Fix a real number $a>1$, and take a new variable $t$. For the values $f(t), f\left(t^{2}\right)$, $f(a t)$ and $f\left(a^{2} t^{2}\right)$, the relation (1) provides a system of linear equations:
+
+$$
+\begin{aligned}
+& x=y=t: \quad\left(t+\frac{1}{t}\right) f(t) \quad=f\left(t^{2}\right)+f(1) \\
+& x=\frac{t}{a}, y=a t: \quad\left(\frac{t}{a}+\frac{a}{t}\right) f(a t)=f\left(t^{2}\right)+f\left(a^{2}\right) \\
+& x=a^{2} t, y=t: \quad\left(a^{2} t+\frac{1}{a^{2} t}\right) f(t)=f\left(a^{2} t^{2}\right)+f\left(\frac{1}{a^{2}}\right) \\
+& x=y=a t: \quad\left(a t+\frac{1}{a t}\right) f(a t)=f\left(a^{2} t^{2}\right)+f(1)
+\end{aligned}
+$$
+
+In order to eliminate $f\left(t^{2}\right)$, take the difference of $(2 \mathrm{a})$ and (2b); from (2c) and (2d) eliminate $f\left(a^{2} t^{2}\right)$; then by taking a linear combination, eliminate $f(a t)$ as well:
+
+$$
+\begin{gathered}
+\left(t+\frac{1}{t}\right) f(t)-\left(\frac{t}{a}+\frac{a}{t}\right) f(a t)=f(1)-f\left(a^{2}\right) \text { and } \\
+\left(a^{2} t+\frac{1}{a^{2} t}\right) f(t)-\left(a t+\frac{1}{a t}\right) f(a t)=f\left(1 / a^{2}\right)-f(1), \quad \text { so } \\
+\left(\left(a t+\frac{1}{a t}\right)\left(t+\frac{1}{t}\right)-\left(\frac{t}{a}+\frac{a}{t}\right)\left(a^{2} t+\frac{1}{a^{2} t}\right)\right) f(t) \\
+=\left(a t+\frac{1}{a t}\right)\left(f(1)-f\left(a^{2}\right)\right)-\left(\frac{t}{a}+\frac{a}{t}\right)\left(f\left(1 / a^{2}\right)-f(1)\right) .
+\end{gathered}
+$$
+
+Notice that on the left-hand side, the coefficient of $f(t)$ is nonzero and does not depend on $t$ :
+
+$$
+\left(a t+\frac{1}{a t}\right)\left(t+\frac{1}{t}\right)-\left(\frac{t}{a}+\frac{a}{t}\right)\left(a^{2} t+\frac{1}{a^{2} t}\right)=a+\frac{1}{a}-\left(a^{3}+\frac{1}{a^{3}}\right)<0 .
+$$
+
+After dividing by this fixed number, we get
+
+$$
+f(t)=C_{1} t+\frac{C_{2}}{t}
+$$
+
+where the numbers $C_{1}$ and $C_{2}$ are expressed in terms of $a, f(1), f\left(a^{2}\right)$ and $f\left(1 / a^{2}\right)$, and they do not depend on $t$.
+
+The functions of the form (3) satisfy the equation:
+
+$$
+\left(x+\frac{1}{x}\right) f(y)=\left(x+\frac{1}{x}\right)\left(C_{1} y+\frac{C_{2}}{y}\right)=\left(C_{1} x y+\frac{C_{2}}{x y}\right)+\left(C_{1} \frac{y}{x}+C_{2} \frac{x}{y}\right)=f(x y)+f\left(\frac{y}{x}\right) .
+$$",theorem lean_workbook_10112 (x y : ℝ) (f : ℝ → ℝ) (hf: f = fun t ↦ t * t) : f (x * y) = f (x * y) + f (1 / x) := by sorry,3
+"The equation has no integer solutions. To show this, we first prove a lemma.
+
+Lemma. If $x$ is an integer and $p$ is a prime divisor of $\frac{x^{7}-1}{x-1}$ then either $p \equiv 1(\bmod 7)$ or $p=7$.
+
+Proof. Both $x^{7}-1$ and $x^{p-1}-1$ are divisible by $p$, by hypothesis and by Fermat's little theorem, respectively. Suppose that 7 does not divide $p-1$. Then $\operatorname{gcd}(p-1,7)=1$, so there exist integers $k$ and $m$ such that $7 k+(p-1) m=1$. We therefore have
+
+$$
+x \equiv x^{7 k+(p-1) m} \equiv\left(x^{7}\right)^{k} \cdot\left(x^{p-1}\right)^{m} \equiv 1 \quad(\bmod p),
+$$
+
+and so
+
+$$
+\frac{x^{7}-1}{x-1}=1+x+\cdots+x^{6} \equiv 7 \quad(\bmod p) .
+$$
+
+It follows that $p$ divides 7 , hence $p=7$ must hold if $p \equiv 1(\bmod 7)$ does not, as stated.
+
+The lemma shows that each positive divisor $d$ of $\frac{x^{7}-1}{x-1}$ satisfies either $d \equiv 0(\bmod 7)$ or $d \equiv 1(\bmod 7)$
+
+Now assume that $(x, y)$ is an integer solution of the original equation. Notice that $y-1>0$, because $\frac{x^{7}-1}{x-1}>0$ for all $x \neq 1$. Since $y-1$ divides $\frac{x^{7}-1}{x-1}=y^{5}-1$, we have $y \equiv 1(\bmod 7)$ or $y \equiv 2(\bmod 7)$ by the previous paragraph. In the first case, $1+y+y^{2}+y^{3}+y^{4} \equiv 5(\bmod 7)$, and in the second $1+y+y^{2}+y^{3}+y^{4} \equiv 3(\bmod 7)$. Both possibilities contradict the fact that the positive divisor $1+y+y^{2}+y^{3}+y^{4}$ of $\frac{x^{7}-1}{x-1}$ is congruent to 0 or 1 modulo 7 . So the given equation has no integer solutions.",theorem lean_workbook_plus_10014 (x y : ℤ) (h : x ≠ 1) : 7 ∣ (x^ 7 - 1) ∧ 7 ∣ (x^ 7 - 1) := by sorry,1
+"Let $r$ be the unique positive integer for which $r^{2} \leqslant n<(r+1)^{2}$. Write $n=r^{2}+s$. Then we have $0 \leqslant s \leqslant 2 r$. We discuss in two cases according to the parity of $s$.
+
+\begin{itemize}
+  \item Case 1. $s$ is even.
+\end{itemize}
+
+Consider the number $\left(r+\frac{s}{2 r}\right)^{2}=r^{2}+s+\left(\frac{s}{2 r}\right)^{2}$. We find that
+
+$$
+n=r^{2}+s \leqslant r^{2}+s+\left(\frac{s}{2 r}\right)^{2} \leqslant r^{2}+s+1=n+1
+$$
+
+It follows that
+
+$$
+\sqrt{n} \leqslant r+\frac{s}{2 r} \leqslant \sqrt{n+1}
+$$
+
+Since $s$ is even, we can choose the fraction $r+\frac{s}{2 r}=\frac{r^{2}+(s / 2)}{r}$ since $r \leqslant \sqrt{n}$.
+
+\begin{itemize}
+  \item Case 2. $s$ is odd.
+\end{itemize}
+
+Consider the number $\left(r+1-\frac{2 r+1-s}{2(r+1)}\right)^{2}=(r+1)^{2}-(2 r+1-s)+\left(\frac{2 r+1-s}{2(r+1)}\right)^{2}$. We find that
+
+$$
+\begin{aligned}
+n=r^{2}+s=(r+1)^{2}-(2 r+1-s) & \leqslant(r+1)^{2}-(2 r+1-s)+\left(\frac{2 r+1-s}{2(r+1)}\right)^{2} \\
+& \leqslant(r+1)^{2}-(2 r+1-s)+1=n+1 .
+\end{aligned}
+$$
+
+It follows that
+
+$$
+\sqrt{n} \leqslant r+1-\frac{2 r+1-s}{2(r+1)} \leqslant \sqrt{n+1}
+$$
+
+Since $s$ is odd, we can choose the fraction $(r+1)-\frac{2 r+1-s}{2(r+1)}=\frac{(r+1)^{2}-r+((s-1) / 2)}{r+1}$ since $r+1 \leqslant \sqrt{n}+1$",theorem lean_workbook_plus_11044 (n r s : ℕ) (h₁ : 0 < s ∧ s ≤ 2 * r + 1) (h₂ : 0 < r ∧ r ≤ 2 * r + 1) : 0 < s ∧ s ≤ 2 * r + 1 := by sorry,3
+"Suppose there is an edge from $v_{i}$ to $v_{j}$. Then $i(j-1)=i j-i=k n$ for some integer $k$, which implies $i=i j-k n$. If $\operatorname{gcd}(i, n)=d$ and $\operatorname{gcd}(j, n)=e$, then $e$ divides $i j-k n=i$ and thus $e$ also divides $d$. Hence, if there is an edge from $v_{i}$ to $v_{j}$, then $\operatorname{gcd}(j, n) \mid \operatorname{gcd}(i, n)$.
+
+If there is a cycle in $G$, say $v_{i_{1}} \rightarrow v_{i_{2}} \rightarrow \cdots \rightarrow v_{i_{r}} \rightarrow v_{i_{1}}$, then we have
+
+$$
+\operatorname{gcd}\left(i_{1}, n\right)\left|\operatorname{gcd}\left(i_{r}, n\right)\right| \operatorname{gcd}\left(i_{r-1}, n\right)|\ldots| \operatorname{gcd}\left(i_{2}, n\right) \mid \operatorname{gcd}\left(i_{1}, n\right)
+$$
+
+which implies that all these greatest common divisors must be equal, say be equal to $t$.
+
+Now we pick any of the $i_{k}$, without loss of generality let it be $i_{1}$. Then $i_{r}\left(i_{1}-1\right)$ is a multiple of $n$ and hence also (by dividing by $t$ ), $i_{1}-1$ is a multiple of $\frac{n}{t}$. Since $i_{1}$ and $i_{1}-1$ are relatively prime, also $t$ and $\frac{n}{t}$ are relatively prime. So, by the Chinese remainder theorem, the value of $i_{1}$ is uniquely determined modulo $n=t \cdot \frac{n}{t}$ by the value of $t$. But, as $i_{1}$ was chosen arbitrarily among the $i_{k}$, this implies that all the $i_{k}$ have to be equal, a contradiction.","theorem lean_workbook_plus_11444 (n : ℕ) (i j : ℕ) (h : i ≠ j) (h' : i ≠ 1) (h'' : i ≠ 2) : ∃ k : ℕ, i = k * 1 - n := by sorry",2

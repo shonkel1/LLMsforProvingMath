@@ -1,0 +1,1431 @@
+natural,formal,score
+"First we prove the following fact: For every positive integer $y$ there exist infinitely many primes $p \equiv 3(\bmod 4)$ such that $p$ divides some number of the form $2^{n} y+1$.
+
+Clearly it is enough to consider the case $y$ odd. Let
+
+$$
+2 y+1=p_{1}^{e_{1}} \cdots p_{r}^{e_{r}}
+$$
+
+be the prime factorization of $2 y+1$. Suppose on the contrary that there are finitely many primes $p_{r+1}, \ldots, p_{r+s} \equiv 3(\bmod 4)$ that divide some number of the form $2^{n} y+1$ but do not divide $2 y+1$.
+
+We want to find an $n$ such that $p_{i}^{e_{i}} \| 2^{n} y+1$ for $1 \leq i \leq r$ and $p_{i} \nmid 2^{n} y+1$ for $r+1 \leq i \leq r+s$. For this it suffices to take
+
+$$
+n=1+\varphi\left(p_{1}^{e_{1}+1} \cdots p_{r}^{e_{r}+1} p_{r+1}^{1} \cdots p_{r+s}^{1}\right),
+$$
+
+because then
+
+$$
+2^{n} y+1 \equiv 2 y+1 \quad\left(\bmod p_{1}^{e_{1}+1} \cdots p_{r}^{e_{r}+1} p_{r+1}^{1} \cdots p_{r+s}^{1}\right)
+$$
+
+The last congruence means that $p_{1}^{e_{1}}, \ldots, p_{r}^{e_{r}}$ divide exactly $2^{n} y+1$ and no prime $p_{r+1}, \ldots, p_{r+s}$ divides $2^{n} y+1$. It follows that the prime factorization of $2^{n} y+1$ consists of the prime powers $p_{1}^{e_{1}}, \ldots, p_{r}^{e_{r}}$ and powers of primes $\equiv 1(\bmod 4)$. Because $y$ is odd, we obtain
+
+$$
+2^{n} y+1 \equiv p_{1}^{e_{1}} \cdots p_{r}^{e_{r}} \equiv 2 y+1 \equiv 3 \quad(\bmod 4)
+$$
+
+This is a contradiction since $n>1$, and so $2^{n} y+1 \equiv 1(\bmod 4)$.
+
+Now we proceed to the problem. If $p$ is a prime divisor of $2^{n} y+1$ the problem statement implies that $x^{d} \equiv 1(\bmod p)$ for $d=2^{n}$. By FERMAT's little theorem the same congruence holds for $d=p-1$, so it must also hold for $d=\left(2^{n}, p-1\right)$. For $p \equiv 3(\bmod 4)$ we have $\left(2^{n}, p-1\right)=2$, therefore in this case $x^{2} \equiv 1(\bmod p)$.
+
+In summary, we proved that every prime $p \equiv 3(\bmod 4)$ that divides some number of the form $2^{n} y+1$ also divides $x^{2}-1$. This is possible only if $x=1$, otherwise by the above $x^{2}-1$ would be a positive integer with infinitely many prime factors.",theorem lean_workbook_plus_6237 (x y : ℕ) (p : ℕ) (hp : p.Prime) (h : (2 : ℕ) ^ n ∣ (x ^ (2 ^ n) - 1)) (h2 : (2 : ℕ) ^ n ∣ (y + 1) ^ r) : x = 1 := by sorry,4
+"The proof goes by induction. For $n=1$ the formula yields $a_{1}=1 / 2$. Take $n \geq 1$, assume $a_{1}, \ldots, a_{n}>0$ and write the recurrence formula for $n$ and $n+1$, respectively as
+
+$$
+\sum_{k=0}^{n} \frac{a_{k}}{n-k+1}=0 \quad \text { and } \quad \sum_{k=0}^{n+1} \frac{a_{k}}{n-k+2}=0.
+$$
+
+Subtraction yields
+
+$$
+\begin{aligned}
+0=(n+2) \sum_{k=0}^{n+1} \frac{a_{k}}{n-k+2}-(n+1) \sum_{k=0}^{n} \frac{a_{k}}{n-k+1} \\
+=(n+2) a_{n+1}+\sum_{k=0}^{n}\left(\frac{n+2}{n-k+2}-\frac{n+1}{n-k+1}\right) a_{k}.
+\end{aligned}
+$$
+
+The coefficient of $a_{0}$ vanishes, so
+
+$$
+a_{n+1}=\frac{1}{n+2} \sum_{k=1}^{n}\left(\frac{n+1}{n-k+1}-\frac{n+2}{n-k+2}\right) a_{k}=\frac{1}{n+2} \sum_{k=1}^{n} \frac{k}{(n-k+1)(n-k+2)} a_{k}.
+$$
+
+The coefficients of $a_{1}, \ldots, a_{n}$ are all positive. Therefore, $a_{1}, \ldots, a_{n}>0$ implies $a_{n+1}>0$.","theorem lean_workbook_plus_65804 (n : ℕ) (a : ℕ → ℝ) (ha : a 0 = -1) (ha' : ∀ n, a (n + 1) = (n + 2) * a n) : a (n + 1) > 0 := by sorry",3
+"From the constraint (1), it can be seen that
+
+$$
+\frac{k}{a_{k+1}} \leqslant \frac{a_{k}^{2}+(k-1)}{a_{k}}=a_{k}+\frac{k-1}{a_{k}},
+$$
+
+and so
+
+$$
+a_{k} \geqslant \frac{k}{a_{k+1}}-\frac{k-1}{a_{k}}.
+$$
+
+Summing up the above inequality for $k=1, \ldots, m$, we obtain
+
+$$
+a_{1}+a_{2}+\cdots+a_{m} \geqslant\left(\frac{1}{a_{2}}-\frac{0}{a_{1}}\right)+\left(\frac{2}{a_{3}}-\frac{1}{a_{2}}\right)+\cdots+\left(\frac{m}{a_{m+1}}-\frac{m-1}{a_{m}}\right)=\frac{m}{a_{m+1}}.
+$$
+
+Now we prove the problem statement by induction on $n$. The case $n=2$ can be done by applying (1) to $k=1$ :
+
+$$
+a_{1}+a_{2} \geqslant a_{1}+\frac{1}{a_{1}} \geqslant 2.
+$$
+
+For the induction step, assume that the statement is true for some $n \geqslant 2$. If $a_{n+1} \geqslant 1$, then the induction hypothesis yields
+
+$$
+\left(a_{1}+\cdots+a_{n}\right)+a_{n+1} \geqslant n+1.
+$$
+
+Otherwise, if $a_{n+1}<1$ then apply (2) as
+
+$$
+\left(a_{1}+\cdots+a_{n}\right)+a_{n+1} \geqslant \frac{n}{a_{n+1}}+a_{n+1}=\frac{n-1}{a_{n+1}}+\left(\frac{1}{a_{n+1}}+a_{n+1}\right)>(n-1)+2.
+$$
+
+That completes the solution.","theorem lean_workbook_plus_76831 (n : ℕ) (a : ℕ → ℝ) (h₁ : ∀ k, 0 < a k) (h₂ : ∀ k, k > 1 → a k ≥ k * a (k + 1)) (h₃ : ∀ k, 2 * a k ≥ (k + 1) * a k) : ∑ i in Finset.Icc 2 n, a i ≥ n := by sorry",6
+"Let $f$ satisfy the given condition. Setting $p=q=r=s=1$ yields $f(1)^{2}=f(1)$ and hence $f(1)=1$. Now take any $x>0$ and set $p=x, q=1, r=s=\sqrt{x}$ to obtain
+
+$$
+\frac{f(x)^{2}+1}{2 f(x)}=\frac{x^{2}+1}{2 x}.
+$$
+
+This recasts into
+
+$$
+\begin{gathered}
+x f(x)^{2}+x=x^{2} f(x)+f(x), \\
+(x f(x)-1)(f(x)-x)=0.
+\end{gathered}
+$$
+
+And thus,
+
+$$
+\text { for every } x>0, \text { either } f(x)=x \text { or } f(x)=\frac{1}{x} \text {. }
+$$
+
+Obviously, if
+
+$$
+f(x)=x \quad \text { for all } x>0 \quad \text { or } \quad f(x)=\frac{1}{x} \quad \text { for all } x>0
+$$
+
+then the condition of the problem is satisfied. We show that actually these two functions are the only solutions.
+
+So let us assume that there exists a function $f$ satisfying the requirement, other than those in (2). Then $f(a) \neq a$ and $f(b) \neq 1 / b$ for some $a, b>0$. By (1), these values must be $f(a)=1 / a, f(b)=b$. Applying now the equation with $p=a, q=b, r=s=\sqrt{a b}$ we obtain $\left(a^{-2}+b^{2}\right) / 2 f(a b)=\left(a^{2}+b^{2}\right) / 2 a b ;$ equivalently
+
+$$
+f(a b)=\frac{a b\left(a^{-2}+b^{2}\right)}{a^{2}+b^{2}}.
+$$
+
+We know however (see (1)) that $f(a b)$ must be either $a b$ or $1 / a b$. If $f(a b)=a b$ then by (3) $a^{-2}+b^{2}=a^{2}+b^{2}$, so that $a=1$. But, as $f(1)=1$, this contradicts the relation $f(a) \neq a$. Likewise, if $f(a b)=1 / a b$ then $(3)$ gives $a^{2} b^{2}\left(a^{-2}+b^{2}\right)=a^{2}+b^{2}$, whence $b=1$, in contradiction to $f(b) \neq 1 / b$. Thus indeed the functions listed in (2) are the only two solutions.","theorem lean_workbook_plus_65556  (f : ℝ → ℝ)
+  (h₀ : ∀ x, 0 < f x)
+  (h₁ : ∀ x y, f x = f y → x = y)
+  (h₂ : ∀ x, f x = 1 / x → x = 1 / x) :
+  f x = x ∨ f x = 1 / x := by sorry",7
+"A straightforward check shows that $f(x)=x+1$ satisfies $(*)$. We divide the proof of the converse statement into a sequence of steps.
+
+Step 1: $f$ is injective.
+
+Put $x=1$ in $(*)$ and rearrange the terms to get
+
+$$
+y=f(1) f(y)+1-f(1+f(y))
+$$
+
+Therefore, if $f\left(y_{1}\right)=f\left(y_{2}\right)$, then $y_{1}=y_{2}$.
+
+Step 2: $f$ is (strictly) monotone increasing.
+
+For any fixed $y \in \mathbb{R}^{+}$, the function
+
+$$
+g(x):=f(x+f(x y))=f(x) f(y)+1-y
+$$
+
+is injective by Step 1. Therefore, $x_{1}+f\left(x_{1} y\right) \neq x_{2}+f\left(x_{2} y\right)$ for all $y, x_{1}, x_{2} \in \mathbb{R}^{+}$with $x_{1} \neq x_{2}$. Plugging in $z_{i}=x_{i} y$, we arrive at
+
+$$
+\frac{z_{1}-z_{2}}{y} \neq f\left(z_{2}\right)-f\left(z_{1}\right), \quad \text { or } \quad \frac{1}{y} \neq \frac{f\left(z_{2}\right)-f\left(z_{1}\right)}{z_{1}-z_{2}}
+$$
+
+for all $y, z_{1}, z_{2} \in \mathbb{R}^{+}$with $z_{1} \neq z_{2}$. This means that the right-hand side of the rightmost relation is always non-positive, i.e., $f$ is monotone non-decreasing. Since $f$ is injective, it is strictly monotone.
+
+Step 3: There exist constants $a$ and $b$ such that $f(y)=a y+b$ for all $y \in \mathbb{R}^{+}$.
+
+Since $f$ is monotone and bounded from below by 0, for each $x_{0} \geqslant 0$, there exists a right limit $\lim _{x \searrow x_{0}} f(x) \geqslant 0$. Put $p=\lim _{x \searrow 0} f(x)$ and $q=\lim _{x \searrow p} f(x)$.
+
+Fix an arbitrary $y$ and take the limit of $(*)$ as $x \searrow 0$. We have $f(x y) \searrow p$ and hence $f(x+f(x y)) \searrow q$; therefore, we obtain
+
+$$
+q+y=p f(y)+1, \quad \text { or } \quad f(y)=\frac{q+y-1}{p}.
+$$
+
+(Notice that $p \neq 0$, otherwise $q+y=1$ for all $y$, which is absurd.) The claim is proved. Step 4: $f(x)=x+1$ for all $x \in \mathbb{R}^{+}$.
+
+Based on the previous step, write $f(x)=a x+b$. Putting this relation into $(*)$ we get
+
+$$
+a(x+a x y+b)+b+y=(a x+b)(a y+b)+1,
+$$
+
+which can be rewritten as
+
+$$
+(a-a b) x+(1-a b) y+a b+b-b^{2}-1=0 \quad \text { for all } x, y \in \mathbb{R}^{+}.
+$$
+
+This identity may hold only if all the coefficients are 0, i.e.,
+
+$$
+a-a b=1-a b=a b+b-b^{2}-1=0.
+$$
+
+Hence, $a=b=1$.","theorem lean_workbook_plus_72429  (f : ℝ → ℝ)
+  (h₀ : ∀ x y, 0 < x ∧ 0 < y → f (x + f (x * y)) + y = f x * f y + 1)
+  (h₁ : ∀ x, 0 < x → f x = x + 1) :
+  ∀ x y, 0 < x ∧ 0 < y → f (x + f (x * y)) + y = f x * f y + 1 := by sorry",7
+"The residue classes modulo 3 yield such a partition:
+
+$$
+A=\{3 k \mid k \in \mathbb{Z}\}, \quad B=\{3 k+1 \mid k \in \mathbb{Z}\}, \quad C=\{3 k+2 \mid k \in \mathbb{Z}\}.
+$$",theorem lean_workbook_plus_13468 (A B C : Set ℤ) (hA : A = {k | k ∈ Set.Ici 0}) (hB : B = {k | k ∈ Set.Ici 0}) (hC : C = {k | k ∈ Set.Ici 0}) : A ∩ B ∩ C = ∅ := by sorry,2
+"Denote by $v_{p}(a)$ the exponent of the prime $p$ in the prime decomposition of $a$.
+
+Assume that there are only finitely many primes $p_{1}, p_{2}, \ldots, p_{m}$ that divide some function value produced of $f$.
+
+There are infinitely many positive integers $a$ such that $v_{p_{i}}(a)>v_{p_{i}}(f(1))$ for all $i=1,2, \ldots, m$, e.g. $a=\left(p_{1} p_{2} \ldots p_{m}\right)^{\alpha}$ with $\alpha$ sufficiently large. Pick any such $a$. The condition of the problem then yields $a \mid(f(a+1)-f(1))$. Assume $f(a+1) \neq f(1)$. Then we must have $v_{p_{i}}(f(a+1)) \neq$ $v_{p_{i}}(f(1))$ for at least one $i$. This yields $v_{p_{i}}(f(a+1)-f(1))=\min \left\{v_{p_{i}}(f(a+1)), v_{p_{i}}(f(1))\right\} \leq$ $v_{p_{1}}(f(1))<v_{p_{i}}(a)$. But this contradicts the fact that $a \mid(f(a+1)-f(1))$.
+
+Hence we must have $f(a+1)=f(1)$ for all such $a$.
+
+Now, for any positive integer $b$ and all such $a$, we have $(a+1-b) \mid(f(a+1)-f(b))$, i.e., $(a+1-b) \mid(f(1)-f(b))$. Since this is true for infinitely many positive integers $a$ we must have $f(b)=f(1)$. Hence $f$ is a constant function, a contradiction. Therefore, our initial assumption was false and there are indeed infinitely many primes $p$ dividing $f(c)$ for some positive integer $c$.","theorem lean_workbook_plus_71039 (f : ℕ → ℕ) (h₀ : ∀ a b : ℕ, (a - b) ∣ (f a - f b)) (h₁ : ∀ a : ℕ, ∃ p : ℕ, (p.Prime) ∧ (p ∣ f a - f 1)) : ∃ p : ℕ, (p.Prime) ∧ (p ∣ f a - f 1) := by sorry",3
+"Suppose that function $f: \mathbb{N} \rightarrow \mathbb{N}$ satisfies the problem conditions.
+
+Lemma. For any prime $p$ and any $x, y \in \mathbb{N}$, we have $x \equiv y(\bmod p)$ if and only if $f(x) \equiv f(y)$ $(\bmod p)$. Moreover, $p \mid f(x)$ if and only if $p \mid x$.
+
+Proof. Consider an arbitrary prime $p$. Since $f$ is surjective, there exists some $x \in \mathbb{N}$ such that $p \mid f(x)$. Let
+
+$$
+d=\min \{x \in \mathbb{N}: p \mid f(x)\}.
+$$
+
+By induction on $k$, we obtain that $p \mid f(k d)$ for all $k \in \mathbb{N}$. The base is true since $p \mid f(d)$. Moreover, if $p \mid f(k d)$ and $p \mid f(d)$ then, by the problem condition, $p \mid f(k d+d)=f((k+1) d)$ as required.
+
+Suppose that there exists an $x \in \mathbb{N}$ such that $d \nmid x$ but $p \mid f(x)$. Let
+
+$$
+y=\min \{x \in \mathbb{N}: d \backslash x, p \mid f(x)\}.
+$$
+
+By the choice of $d$, we have $y>d$, and $y-d$ is a positive integer not divisible by $d$. Then $p \nmid f(y-d)$, while $p \mid f(d)$ and $p \mid f(d+(y-d))=f(y)$. This contradicts the problem condition. Hence, there is no such $x$, and
+
+$$
+p|f(x) \Longleftrightarrow d| x.
+$$
+
+Take arbitrary $x, y \in \mathbb{N}$ such that $x \equiv y(\bmod d)$. We have $p \mid f(x+(2 x d-x))=f(2 x d)$; moreover, since $d \mid 2 x d+(y-x)=y+(2 x d-x)$, we get $p \mid f(y+(2 x d-x))$. Then by the problem condition $p|f(x)+f(2 x d-x), p| f(y)+f(2 x d-x)$, and hence $f(x) \equiv-f(2 x d-x) \equiv f(y)$ $(\bmod p)$
+
+On the other hand, assume that $f(x) \equiv f(y)(\bmod p)$. Again we have $p \mid f(x)+f(2 x d-x)$ which by our assumption implies that $p \mid f(x)+f(2 x d-x)+(f(y)-f(x))=f(y)+f(2 x d-x)$. Hence by the problem condition $p \mid f(y+(2 x d-x))$. Using (1) we get $0 \equiv y+(2 x d-x) \equiv y-x$ $(\bmod d)$
+
+Thus, we have proved that
+
+$$
+x \equiv y \quad(\bmod d) \Longleftrightarrow f(x) \equiv f(y) \quad(\bmod p).
+$$
+
+We are left to show that $p=d$ : in this case (1) and (2) provide the desired statements.
+
+The numbers $1,2, \ldots, d$ have distinct residues modulo $d$. By $(2)$, numbers $f(1), f(2), \ldots$, $f(d)$ have distinct residues modulo $p$; hence there are at least $d$ distinct residues, and $p \geq d$. On the other hand, by the surjectivity of $f$, there exist $x_{1}, \ldots, x_{p} \in \mathbb{N}$ such that $f\left(x_{i}\right)=i$ for any $i=1,2, \ldots, p$. By $(2)$, all these $x_{i}$'s have distinct residues modulo $d$. For the same reasons, $d \geq p$. Hence, $d=p$.
+
+Now we prove that $f(n)=n$ by induction on $n$. If $n=1$ then, by the Lemma, $p \nmid f(1)$ for any prime $p$, so $f(1)=1$, and the base is established. Suppose that $n>1$ and denote $k=f(n)$. Note that there exists a prime $q \mid n$, so by the Lemma $q \mid k$ and $k>1$.
+
+If $k>n$ then $k-n+1>1$, and there exists a prime $p \mid k-n+1$; we have $k \equiv n-1$ $(\bmod p)$. By the induction hypothesis we have $f(n-1)=n-1 \equiv k=f(n)(\bmod p)$. Now, by the Lemma we obtain $n-1 \equiv n(\bmod p)$ which cannot be true. Analogously, if $k<n$, then $f(k-1)=k-1$ by induction hypothesis. Moreover, $n-k+1>1$, so there exists a prime $p \mid n-k+1$ and $n \equiv k-1(\bmod p)$. By the Lemma again, $k=f(n) \equiv$ $f(k-1)=k-1(\bmod p)$, which is also false. The only remaining case is $k=n$, so $f(n)=n$.
+
+Finally, the function $f(n)=n$ obviously satisfies the condition.","theorem lean_workbook_plus_69046  (f : ℕ → ℕ)
+  (h₀ : Function.Surjective f)
+  (h₁ : ∀ (m n : ℕ), 0 < n ∧ 0 < m → (f m + f n) % f n = 0)
+  (h₂ : ∀ (m n : ℕ), 0 < n ∧ 0 < m → (f m + f n) % f n = 0 → p ∣ f (m + n))
+  (h₃ : ∀ (m n : ℕ), 0 < n ∧ 0 < m → (f m + f n) % f n = 0 → p ∣ f (m + n) - f n)
+  (h₄ : ∀ (m n : ℕ), 0 < n ∧ 0 < m → (f m + f n) % f n = 0 → p ∣ f (m + n) - f 1) :
+  ∀ (m n : ℕ), 0 < n ∧ 0 < m → (f m + f n) % f n = 0 → p ∣ f (m + n) := by sorry",4
+"At first we notice that
+
+$$
+\begin{aligned}
+(1-\alpha)^{\frac{1}{2}}(1-\beta)^{\frac{1}{2}} & =\left(1-\frac{1}{2} \cdot \alpha-\frac{1}{8} \cdot \alpha^{2}-\cdots\right)\left(1-\frac{1}{2} \cdot \beta-\frac{1}{8} \cdot \beta^{2}-\cdots\right) \\
+& =\sum_{k, \ell \geq 0} c_{k, \ell} \cdot \alpha^{k} \beta^{\ell} \quad \text { for all } \alpha, \beta \in(0,1),
+\end{aligned}
+$$
+
+where $c_{0,0}=1$ and $c_{k, \ell}$ are certain coefficients.
+
+For an indirect proof, we suppose that $x_{n}=\sqrt{\left(a^{n}-1\right)\left(b^{n}-1\right)} \in \mathbb{Z}$ for all positive integers $n$. Replacing $a$ by $a^{2}$ and $b$ by $b^{2}$ if necessary, we may assume that $a$ and $b$ are perfect squares, hence $\sqrt{a b}$ is an integer.
+
+At first we shall assume that $a^{\mu} \neq b^{\nu}$ for all positive integers $\mu, \nu$. We have
+
+$$
+x_{n}=(\sqrt{a b})^{n}\left(1-\frac{1}{a^{n}}\right)^{\frac{1}{2}}\left(1-\frac{1}{b^{n}}\right)^{\frac{1}{2}}=\sum_{k, \ell \geq 0} c_{k, \ell}\left(\frac{\sqrt{a b}}{a^{k} b^{\ell}}\right)^{n}.
+$$
+
+Choosing $k_{0}$ and $\ell_{0}$ such that $a^{k_{0}}>\sqrt{a b}, b^{\ell_{0}}>\sqrt{a b}$, we define the polynomial
+
+$$
+P(x)=\prod_{k=0, \ell=0}^{k_{0}-1, \ell_{0}-1}\left(a^{k} b^{\ell} x-\sqrt{a b}\right)=: \sum_{i=0}^{k_{0} \cdot \ell_{0}} d_{i} x^{i}
+$$
+
+with integer coefficients $d_{i}$. By our assumption, the zeros
+
+$$
+\frac{\sqrt{a b}}{a^{k} b^{\ell}}, \quad k=0, \ldots, k_{0}-1, \quad \ell=0, \ldots, \ell_{0}-1,
+$$
+
+of $P$ are pairwise distinct.
+
+Furthermore, we consider the integer sequence
+
+$$
+y_{n}=\sum_{i=0}^{k_{0} \cdot \ell_{0}} d_{i} x_{n+i}, \quad n=1,2, \ldots
+$$
+
+By the theory of linear recursions, we obtain
+
+$$
+y_{n}=\sum_{\substack{k, \ell \geq 0 \\ k \geq k_{0} \text { or } \ell \geq \ell_{0}}} e_{k, \ell}\left(\frac{\sqrt{a b}}{a^{k} b^{\ell}}\right)^{n}, \quad n=1,2, \ldots,
+$$
+
+with real numbers $e_{k, \ell}$. We have
+
+$$
+\left|y_{n}\right| \leq \sum_{\substack{k, \ell \geq 0 \\ k \geq k_{0} \text { or } \ell \geq \ell_{0}}} \mid e_{k, \ell}\left(\frac{\sqrt{a b}}{a^{k} b^{\ell}}\right)^{n}=: M_{n}.
+$$
+
+Because the series in (4) is obtained by a finite linear combination of the absolutely convergent series (1), we conclude that in particular $M_{1}<\infty$. Since
+
+$$
+\frac{\sqrt{a b}}{a^{k} b^{\ell}} \leq \lambda:=\max \left\{\frac{\sqrt{a b}}{a^{k_{0}}}, \frac{\sqrt{a b}}{b^{\ell_{0}}}\right\} \quad \text { for all } k, \ell \geq 0 \text { such that } k \geq k_{0} \text { or } \ell \geq \ell_{0},
+$$
+
+we get the estimates $M_{n+1} \leq \lambda M_{n}, n=1,2, \ldots$ Our choice of $k_{0}$ and $\ell_{0}$ ensures $\lambda<1$, which implies $M_{n} \rightarrow 0$ and consequently $y_{n} \rightarrow 0$ as $n \rightarrow \infty$. It follows that $y_{n}=0$ for all sufficiently large $n$.
+
+So, equation (3) reduces to $\sum_{i=0}^{k_{0} \cdot \ell_{0}} d_{i} x_{n+i}=0$
+
+Using the theory of linear recursions again, for sufficiently large $n$ we have
+
+$$
+x_{n}=\sum_{k=0, \ell=0}^{k_{0}-1, \ell_{0}-1} f_{k, \ell}\left(\frac{\sqrt{a b}}{a^{k} b^{\ell}}\right)^{n}
+$$
+
+for certain real numbers $f_{k, \ell}$.
+
+Comparing with (2), we see that $f_{k, \ell}=c_{k, \ell}$ for all $k, \ell \geq 0$ with $k<k_{0}, \ell<\ell_{0}$, and $c_{k, \ell}=0$ if $k \geq k_{0}$ or $\ell \geq \ell_{0}$, since we assumed that $a^{\mu} \neq b^{\nu}$ for all positive integers $\mu, \nu$.
+
+In view of (1), this means
+
+$$
+(1-\alpha)^{\frac{1}{2}}(1-\beta)^{\frac{1}{2}}=\sum_{k=0, \ell=0}^{k_{0}-1, \ell_{0}-1} c_{k, \ell} \cdot \alpha^{k} \beta^{\ell}
+$$
+
+for all real numbers $\alpha, \beta \in(0,1)$. We choose $k^{*}<k_{0}$ maximal such that there is some $i$ with $c_{k^{*}, i} \neq 0$. Squaring (5) and comparing coefficients of $\alpha^{2 k^{*}} \beta^{2 i^{*}}$, where $i^{*}$ is maximal with $c_{k^{*}, i^{*}} \neq 0$, we see that $k^{*}=0$. This means that the right hand side of $(5)$ is independent of $\alpha$, which is clearly impossible.
+
+We are left with the case that $a^{\mu}=b^{\nu}$ for some positive integers $\mu$ and $\nu$. We may assume that $\mu$ and $\nu$ are relatively prime. Then there is some positive integer $c$ such that $a=c^{\nu}$ and $b=c^{\mu}$. Now starting with the expansion (2), i. e.,
+
+$$
+x_{n}=\sum_{j \geq 0} g_{j}\left(\frac{\sqrt{c^{\mu+\nu}}}{c^{j}}\right)^{n}
+$$
+
+for certain coefficients $g_{j}$, and repeating the arguments above, we see that $g_{j}=0$ for sufficiently large $j$, say $j>j_{0}$. But this means that
+
+$$
+\left(1-x^{\mu}\right)^{\frac{1}{2}}\left(1-x^{\nu}\right)^{\frac{1}{2}}=\sum_{j=0}^{j_{0}} g_{j} x^{j}
+$$
+
+for all real numbers $x \in(0,1)$. Squaring, we see that
+
+$$
+\left(1-x^{\mu}\right)\left(1-x^{\nu}\right)
+$$
+
+is the square of a polynomial in $x$. In particular, all its zeros are of order at least 2, which implies $\mu=\nu$ by looking at roots of unity. So we obtain $\mu=\nu=1$, i. e., $a=b$, a contradiction.","theorem lean_workbook_plus_72300  (a b : ℤ)
+  (h₀ : 1 < a ∧ 1 < b)
+  (h₁ : a ≠ b)
+  (h₂ : 0 < a ∧ 0 < b)
+  (h₃ : a^2 ≠ b^2)
+  (h₄ : (1 - a)^(1 / 2) * (1 - b)^(1 / 2) = (1 - a * b)^(1 / 2)) :
+  0 < (1 - a)^(1 / 2) * (1 - b)^(1 / 2) := by sorry",4
+"Let $A=a_{1} \cdots a_{n}$. Throughout the solution, all intervals will be nonempty and have integer end-points. For any interval $X$, the length of $X$ will be denoted by $|X|$.
+
+Define the following two families of intervals:
+
+$$
+\begin{aligned}
+& \mathcal{S}=\{[x, y]: x<y \text { are consecutive marked points }\} \\
+& \mathcal{T}=\{[x, y]: x<y \text { are integers, } 0 \leqslant x \leqslant A-1, \text { and no point is marked in }(x, y)\}
+\end{aligned}
+$$
+
+We are interested in computing $\sum_{X \in \mathcal{S}}|X|^{2} \operatorname{modulo} a_{1}$.
+
+Note that the number $A$ is marked, so in the definition of $\mathcal{T}$ the condition $y \leqslant A$ is enforced without explicitly prescribing it.
+
+Assign weights to the intervals in $\mathcal{T}$, depending only on their lengths. The weight of an arbitrary interval $Y \in \mathcal{T}$ will be $w(|Y|)$, where
+
+$$
+w(k)= \begin{cases}1 & \text { if } k=1 \\ 2 & \text { if } k \geqslant 2\end{cases}
+$$
+
+Consider an arbitrary interval $X \in \mathcal{S}$ and its sub-intervals $Y \in \mathcal{T}$. Clearly, $X$ has one sub-interval of length $|X|$, two sub-intervals of length $|X|-1$ and so on; in general $X$ has $|X|-d+1$ sub-intervals of length $d$ for every $d=1,2, \ldots,|X|$. The sum of the weights of the sub-intervals of $X$ is
+
+$\sum_{Y \in \mathcal{T}, Y \subseteq X} w(|Y|)=\sum_{d=1}^{|X|}(|X|-d+1) \cdot w(d)=|X| \cdot 1+((|X|-1)+(|X|-2)+\cdots+1) \cdot 2=|X|^{2}$.
+
+Since the intervals in $\mathcal{S}$ are non-overlapping, every interval $Y \in \mathcal{T}$ is a sub-interval of a single interval $X \in \mathcal{S}$. Therefore,
+
+$$
+\sum_{X \in \mathcal{S}}|X|^{2}=\sum_{X \in \mathcal{S}}\left(\sum_{Y \in \mathcal{T}, Y \subseteq X} w(|Y|)\right)=\sum_{Y \in \mathcal{T}} w(|Y|)
+$$
+
+For every $d=1,2, \ldots, a_{1}$, we count how many intervals in $\mathcal{T}$ are of length $d$. Notice that the multiples of $a_{1}$ are all marked, so the lengths of the intervals in $\mathcal{S}$ and $\mathcal{T}$ cannot exceed $a_{1}$. Let $x$ be an arbitrary integer with $0 \leqslant x \leqslant A-1$ and consider the interval $[x, x+d]$. Let $r_{1}$, $\ldots, r_{n}$ be the remainders of $x$ modulo $a_{1}, \ldots, a_{n}$, respectively. Since $a_{1}, \ldots, a_{n}$ are pairwise coprime, the number $x$ is uniquely identified by the sequence $\left(r_{1}, \ldots, r_{n}\right)$, due to the Chinese remainder theorem.
+
+For every $i=1, \ldots, n$, the property that the interval $(x, x+d)$ does not contain any multiple of $a_{i}$ is equivalent with $r_{i}+d \leqslant a_{i}$, i.e. $r_{i} \in\left\{0,1, \ldots, a_{i}-d\right\}$, so there are $a_{i}-d+1$ choices for the number $r_{i}$ for each $i$. Therefore, the number of the remainder sequences $\left(r_{1}, \ldots, r_{n}\right)$ that satisfy $[x, x+d] \in \mathcal{T}$ is precisely $\left(a_{1}+1-d\right) \cdots\left(a_{n}+1-d\right)$. Denote this product by $f(d)$. Now we can group the last sum in (1) by length of the intervals. As we have seen, for every $d=1, \ldots, a_{1}$ there are $f(d)$ intervals $Y \in \mathcal{T}$ with $|Y|=d$. Therefore, (1) can be continued as
+
+$$
+\sum_{X \in \mathcal{S}}|X|^{2}=\sum_{Y \in \mathcal{T}} w(|Y|)=\sum_{d=1}^{a_{1}} f(d) \cdot w(d)=2 \sum_{d=1}^{a_{1}} f(d)-f(1)
+$$
+
+Having the formula (2), the solution can be finished using the following well-known fact: Lemma. If $p$ is a prime, $F(x)$ is a polynomial with integer coefficients, and $\operatorname{deg} F \leqslant p-2$, then $\sum_{x=1}^{p} F(x)$ is divisible by $p$
+
+Proof. Obviously, it is sufficient to prove the lemma for monomials of the form $x^{k}$ with $k \leqslant p-2$. Apply induction on $k$. If $k=0$ then $F=1$, and the statement is trivial.
+
+Let $1 \leqslant k \leqslant p-2$, and assume that the lemma is proved for all lower degrees. Then
+
+$$
+\begin{aligned}
+0 & \equiv p^{k+1}=\sum_{x=1}^{p}\left(x^{k+1}-(x-1)^{k+1}\right)=\sum_{x=1}^{p}\left(\sum_{\ell=0}^{k}(-1)^{k-\ell}\left(\begin{array}{c}
+k+1 \\
+\ell
+\end{array}\right) x^{\ell}\right) \\
+& =(k+1) \sum_{x=1}^{p} x^{k}+\sum_{\ell=0}^{k-1}(-1)^{k-\ell}\left(\begin{array}{c}
+k+1 \\
+\ell
+\end{array}\right) \sum_{x=1}^{p} x^{\ell} \equiv(k+1) \sum_{x=1}^{p} x^{k} \quad(\bmod p)
+\end{aligned}
+$$
+
+Since $0<k+1<p$, this proves $\sum_{x=1}^{p} x^{k} \equiv 0(\bmod p)$.
+
+In (2), by applying the lemma to the polynomial $f$ and the prime $a_{1}$, we obtain that $\sum_{d=1}^{a_{1}} f(d)$ is divisible by $a_{1}$. The term $f(1)=a_{1} \cdots a_{n}$ is also divisible by $a_{1}$; these two facts together prove that $\sum_{X \in \mathcal{S}}|X|^{2}$ is divisible by $a_{1}$.","theorem lean_workbook_plus_40678  (p : ℕ)
+  (h₀ : 0 < p)
+  (h₁ : ∀ x, 0 < x → (x^k) % p = (x^k % p))
+  (h₂ : 0 < n → ∑ k in Finset.Icc 1 n, (x^k) % p = 0) :
+  0 < ∑ k in Finset.Icc 1 n, (x^k)^2 % p := by sorry",4
+"For $n=1, a_{1} \in \mathbb{Z}_{>0}$ and $\frac{1}{a_{1}} \in \mathbb{Z}_{>0}$ if and only if $a_{1}=1$. Next we show that
+
+(i) There are finitely many $(x, y) \in \mathbb{Q}_{>0}^{2}$ satisfying $x+y \in \mathbb{Z}$ and $\frac{1}{x}+\frac{1}{y} \in \mathbb{Z}$
+
+Write $x=\frac{a}{b}$ and $y=\frac{c}{d}$ with $a, b, c, d \in \mathbb{Z}_{>0}$ and $\operatorname{gcd}(a, b)=\operatorname{gcd}(c, d)=1$. Then $x+y \in \mathbb{Z}$ and $\frac{1}{x}+\frac{1}{y} \in \mathbb{Z}$ is equivalent to the two divisibility conditions
+
+$$
+b d \mid a d+b c(1) \quad \text { and } \quad a c \mid a d+b c \quad(2)
+$$
+
+Condition (1) implies that $d|a d+b c \Longleftrightarrow d| b c \Longleftrightarrow d \mid b$ since $\operatorname{gcd}(c, d)=1$. Still from (1) we get $b|a d+b c \Longleftrightarrow b| a d \Longleftrightarrow b \mid d$ since $\operatorname{gcd}(a, b)=1$. From $b \mid d$ and $d \mid b$ we have $b=d$.
+
+An analogous reasoning with condition (2) shows that $a=c$. Hence $x=\frac{a}{b}=\frac{c}{d}=y$, i.e., the problem amounts to finding all $x \in \mathbb{Q}_{>0}$ such that $2 x \in \mathbb{Z}_{>0}$ and $\frac{2}{x} \in \mathbb{Z}_{>0}$. Letting $n=2 x \in \mathbb{Z}_{>0}$, we have that $\frac{2}{x} \in \mathbb{Z}_{>0} \Longleftrightarrow \frac{4}{n} \in \mathbb{Z}_{>0} \Longleftrightarrow n=1,2$ or 4, and there are finitely many solutions, namely $(x, y)=\left(\frac{1}{2}, \frac{1}{2}\right),(1,1)$ or $(2,2)$.
+
+(ii) There are infinitely many triples $(x, y, z) \in \mathbb{Q}_{>0}^{2}$ such that $x+y+z \in \mathbb{Z}$ and $\frac{1}{x}+\frac{1}{y}+\frac{1}{z} \in \mathbb{Z}$. We will look for triples such that $x+y+z=1$, so we may write them in the form
+
+$$
+(x, y, z)=\left(\frac{a}{a+b+c}, \frac{b}{a+b+c}, \frac{c}{a+b+c}\right) \quad \text { with } a, b, c \in \mathbb{Z}_{>0}
+$$
+
+We want these to satisfy
+
+$$
+\frac{1}{x}+\frac{1}{y}+\frac{1}{z}=\frac{a+b+c}{a}+\frac{a+b+c}{b}+\frac{a+b+c}{c} \in \mathbb{Z} \Longleftrightarrow \frac{b+c}{a}+\frac{a+c}{b}+\frac{a+b}{c} \in \mathbb{Z}
+$$
+
+Fixing $a=1$, it suffices to find infinitely many pairs $(b, c) \in \mathbb{Z}_{>0}^{2}$ such that
+
+$$
+\frac{1}{b}+\frac{1}{c}+\frac{c}{b}+\frac{b}{c}=3 \Longleftrightarrow b^{2}+c^{2}-3 b c+b+c=0
+$$
+
+To show that equation $(*)$ has infinitely many solutions, we use Vieta jumping (also known as root flipping): starting with $b=2, c=3$, the following algorithm generates infinitely many solutions. Let $c \geqslant b$, and view $(*)$ as a quadratic equation in $b$ for $c$ fixed:
+
+$$
+b^{2}-(3 c-1) \cdot b+\left(c^{2}+c\right)=0
+$$
+
+Then there exists another root $b_{0} \in \mathbb{Z}$ of $(* *)$ which satisfies $b+b_{0}=3 c-1$ and $b \cdot b_{0}=c^{2}+c$. Since $c \geqslant b$ by assumption,
+
+$$
+b_{0}=\frac{c^{2}+c}{b} \geqslant \frac{c^{2}+c}{c}>c
+$$
+
+Hence from the solution $(b, c)$ we obtain another one $\left(c, b_{0}\right)$ with $b_{0}>c$, and we can then ""jump"" again, this time with $c$ as the ""variable"" in the quadratic $(*)$. This algorithm will generate an infinite sequence of distinct solutions, whose first terms are
+
+$(2,3),(3,6),(6,14),(14,35),(35,90),(90,234),(234,611),(611,1598),(1598,4182), \ldots$",theorem lean_workbook_plus_62879 (x y z : ℚ) (hx : 0 < x) (hy : 0 < y) (hz : 0 < z) : (x + y + z = 1 ∧ 1 / x + 1 / y + 1 / z = a ∧ a / (b + c) + b / (c + a) + c / (a + b) = b ∧ b * (a / (b + c) + b / (c + a) + c / (a + b)) = c) ↔ (x + y + z = 1 ∧ 1 / x + 1 / y + 1 / z = a ∧ a / (b + c) + b / (c + a) + c / (a + b) = b ∧ b * (a / (b + c) + b / (c + a) + c / (a + b)) = c) := by sorry,4
+"First, it is clear that all functions of the form $f(n)=n+c$ with a constant nonnegative integer $c$ satisfy the problem conditions since $(f(m)+n)(f(n)+m)=(n+m+c)^{2}$ is a square.
+
+We are left to prove that there are no other functions. We start with the following Lemma. Suppose that $p \mid f(k)-f(\ell)$ for some prime $p$ and positive integers $k, \ell$. Then $p \mid k-\ell$. Proof. Suppose first that $p^{2} \mid f(k)-f(\ell)$, so $f(\ell)=f(k)+p^{2} a$ for some integer $a$. Take some positive integer $D>\max \{f(k), f(\ell)\}$ which is not divisible by $p$ and set $n=p D-f(k)$. Then the positive numbers $n+f(k)=p D$ and $n+f(\ell)=p D+(f(\ell)-f(k))=p(D+p a)$ are both divisible by $p$ but not by $p^{2}$. Now, applying the problem conditions, we get that both the numbers $(f(k)+n)(f(n)+k)$ and $(f(\ell)+n)(f(n)+\ell)$ are squares divisible by $p$ (and thus by $\left.p^{2}\right)$; this means that the multipliers $f(n)+k$ and $f(n)+\ell$ are also divisible by $p$, therefore $p \mid(f(n)+k)-(f(n)+\ell)=k-\ell$ as well.
+
+On the other hand, if $f(k)-f(\ell)$ is divisible by $p$ but not by $p^{2}$, then choose the same number $D$ and set $n=p^{3} D-f(k)$. Then the positive numbers $f(k)+n=p^{3} D$ and $f(\ell)+n=$ $p^{3} D+(f(\ell)-f(k))$ are respectively divisible by $p^{3}$ (but not by $\left.p^{4}\right)$ and by $p$ (but not by $p^{2}$ ). Hence in analogous way we obtain that the numbers $f(n)+k$ and $f(n)+\ell$ are divisible by $p$, therefore $p \mid(f(n)+k)-(f(n)+\ell)=k-\ell$.
+
+We turn to the problem. First, suppose that $f(k)=f(\ell)$ for some $k, \ell \in \mathbb{N}$. Then by Lemma we have that $k-\ell$ is divisible by every prime number, so $k-\ell=0$, or $k=\ell$. Therefore, the function $f$ is injective.
+
+Next, consider the numbers $f(k)$ and $f(k+1)$. Since the number $(k+1)-k=1$ has no prime divisors, by Lemma the same holds for $f(k+1)-f(k)$; thus $|f(k+1)-f(k)|=1$.
+
+Now, let $f(2)-f(1)=q,|q|=1$. Then we prove by induction that $f(n)=f(1)+q(n-1)$. The base for $n=1,2$ holds by the definition of $q$. For the step, if $n>1$ we have $f(n+1)=$ $f(n) \pm q=f(1)+q(n-1) \pm q$. Since $f(n) \neq f(n-2)=f(1)+q(n-2)$, we get $f(n)=f(1)+q n$, as desired.
+
+Finally, we have $f(n)=f(1)+q(n-1)$. Then $q$ cannot be $-1$ since otherwise for $n \geq f(1)+1$ we have $f(n) \leq 0$ which is impossible. Hence $q=1$ and $f(n)=(f(1)-1)+n$ for each $n \in \mathbb{N}$, and $f(1)-1 \geq 0$, as desired.","theorem lean_workbook_plus_62375  (f : ℕ → ℕ)
+  (h₀ : ∀ n, 0 < (f n + n) ∧ 0 < (f n + (f n) / p))
+  (h₁ : ∀ n, (f n + n) / p = f (n + 1) / p)
+  (h₂ : ∀ n, f (n + 1) = f n + p * f (n - 1)) :
+  ∀ n, 0 < (f n + n) ∧ 0 < (f n + (f n) / p) := by sorry",3
+"Define sets $B$ and $C$ by
+
+$$
+\begin{aligned}
+& B=\left\{(i, j)|1 \leqslant i, j \leqslant n,| a_{i}-a_{j} \mid \geqslant 1\right\}, \\
+& C=\left\{(i, j)|1 \leqslant i, j \leqslant n,| a_{i}-a_{j} \mid<1\right\}.
+\end{aligned}
+$$
+
+We have
+
+$$
+\begin{aligned}
+\sum_{(i, j) \in A} a_{i} a_{j} & =\frac{1}{2} \sum_{(i, j) \in B} a_{i} a_{j} \\
+\sum_{(i, j) \in B} a_{i} a_{j} & =\sum_{1 \leqslant i, j \leqslant n} a_{i} a_{j}-\sum_{(i, j) \notin B} a_{i} a_{j}=0-\sum_{(i, j) \in C} a_{i} a_{j}.
+\end{aligned}
+$$
+
+So it suffices to show that if $A$ (and hence $B$ ) are nonempty, then
+
+$$
+\sum_{(i, j) \in C} a_{i} a_{j}>0
+$$
+
+Partition the indices into sets $P, Q, R$, and $S$ such that
+
+$$
+\begin{array}{ll}
+P=\left\{i \mid a_{i} \leqslant-1\right\} & R=\left\{i \mid 0<a_{i}<1\right\} \\
+Q=\left\{i \mid-1<a_{i} \leqslant 0\right\} & S=\left\{i \mid 1 \leqslant a_{i}\right\}.
+\end{array}
+$$
+
+Then
+
+$$
+\sum_{(i, j) \in C} a_{i} a_{j} \geqslant \sum_{i \in P \cup S} a_{i}^{2}+\sum_{i, j \in Q \cup R} a_{i} a_{j}=\sum_{i \in P \cup S} a_{i}^{2}+\left(\sum_{i \in Q \cup R} a_{i}\right)^{2} \geqslant 0.
+$$
+
+The first inequality holds because all of the positive terms in the RHS are also in the LHS, and all of the negative terms in the LHS are also in the RHS. The first inequality attains equality only if both sides have the same negative terms, which implies $\left|a_{i}-a_{j}\right|<1$ whenever $i, j \in Q \cup R$; the second inequality attains equality only if $P=S=\varnothing$. But then we would have $A=\varnothing$. So $A$ nonempty implies that the inequality holds strictly, as required.","theorem lean_workbook_plus_74657  (n : ℕ)
+  (a : ℕ → ℝ)
+  (h₀ : 2 ≤ n)
+  (h₁ : ∀ i j, 1 ≤ a i ∧ a j ≤ a i)
+  (h₂ : ∑ i in Finset.range n, a i = 0) :
+  ∃ i j, 1 ≤ i ∧ j ≤ n ∧ |a i - a j| ≥ 1 := by sorry",6
+"We have the following observations.
+
+(i) $(P(n), P(n+1))=1$ for any $n$.
+
+We have $(P(n), P(n+1))=\left(n^{2}+n+1, n^{2}+3 n+3\right)=\left(n^{2}+n+1,2 n+2\right)$. Noting that $n^{2}+n+1$ is odd and $\left(n^{2}+n+1, n+1\right)=(1, n+1)=1$, the claim follows.
+
+(ii) $(P(n), P(n+2))=1$ for $n \not \equiv 2(\bmod 7)$ and $(P(n), P(n+2))=7$ for $n \equiv 2(\bmod 7)$.
+
+From $(2 n+7) P(n)-(2 n-1) P(n+2)=14$ and the fact that $P(n)$ is odd, $(P(n), P(n+2))$ must be a divisor of 7. The claim follows by checking $n \equiv 0,1, \ldots, 6(\bmod 7)$ directly.
+
+(iii) $(P(n), P(n+3))=1$ for $n \not \equiv 1(\bmod 3)$ and $3 \mid(P(n), P(n+3))$ for $n \equiv 1(\bmod 3)$.
+
+From $(n+5) P(n)-(n-1) P(n+3)=18$ and the fact that $P(n)$ is odd, $(P(n), P(n+3))$ must be a divisor of 9. The claim follows by checking $n \equiv 0,1,2(\bmod 3)$ directly.
+
+Suppose there exists a fragrant set with at most 5 elements. We may assume it contains exactly 5 elements $P(a), P(a+1), \ldots, P(a+4)$ since the following argument also works with fewer elements. Consider $P(a+2)$. From (i), it is relatively prime to $P(a+1)$ and $P(a+3)$. Without loss of generality, assume $(P(a), P(a+2))>1$. From (ii), we have $a \equiv 2(\bmod 7)$. The same observation implies $(P(a+1), P(a+3))=1$. In order that the set is fragrant, $(P(a), P(a+3))$ and $(P(a+1), P(a+4))$ must both be greater than 1. From (iii), this holds only when both $a$ and $a+1$ are congruent to $1 \bmod 3$, which is a contradiction.
+
+It now suffices to construct a fragrant set of size 6. By the Chinese Remainder Theorem, we can take a positive integer $a$ such that
+
+$$
+a \equiv 7 \quad(\bmod 19), \quad a+1 \equiv 2 \quad(\bmod 7), \quad a+2 \equiv 1 \quad(\bmod 3).
+$$
+
+For example, we may take $a=197$. From (ii), both $P(a+1)$ and $P(a+3)$ are divisible by 7. From (iii), both $P(a+2)$ and $P(a+5)$ are divisible by 3. One also checks from 19|P(7) $=57$ and $19 \mid P(11)=133$ that $P(a)$ and $P(a+4)$ are divisible by 19. Therefore, the set $\{P(a), P(a+1), \ldots, P(a+5)\}$ is fragrant.
+
+Therefore, the smallest size of a fragrant set is 6.","theorem lean_workbook_plus_66534  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : n % 2 = 1)
+  (h₂ : n % 3 = 1)
+  (h₃ : n % 7 = 1)
+  (h₄ : 0 < n + 1)
+  (h₅ : 0 < n + 2)
+  (h₆ : 0 < n + 3)
+  (h₇ : 0 < n + 4)
+  (h₈ : 0 < n + 5) :
+  n % 2 + n + 1 ≡ 0 [ZMOD 2] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 7] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 3] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 4] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 5] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 6] ∧ n % 2 + n + 1 ≡ 0 [ZMOD 7] := by sorry",4
+"Clearly, each of the functions $x \mapsto x$ and $x \mapsto 2-x$ satisfies (1). It suffices now to show that they are the only solutions to the problem.
+
+Suppose that $f$ is any function satisfying (1). Then setting $y=1$ in (1), we obtain
+
+$$
+f(x+f(x+1))=x+f(x+1)
+$$
+
+in other words, $x+f(x+1)$ is a fixed point of $f$ for every $x \in \mathbb{R}$.
+
+We distinguish two cases regarding the value of $f(0)$.
+
+Case 1. $f(0) \neq 0$.
+
+By letting $x=0$ in (1), we have
+
+$$
+f(f(y))+f(0)=f(y)+y f(0).
+$$
+
+So, if $y_{0}$ is a fixed point of $f$, then substituting $y=y_{0}$ in the above equation we get $y_{0}=1$. Thus, it follows from (2) that $x+f(x+1)=1$ for all $x \in \mathbb{R}$. That is, $f(x)=2-x$ for all $x \in \mathbb{R}$.
+
+Case 2. $f(0)=0$.
+
+By letting $y=0$ and replacing $x$ by $x+1$ in (1), we obtain
+
+$$
+f(x+f(x+1)+1)=x+f(x+1)+1.
+$$
+
+From (1), the substitution $x=1$ yields
+
+$$
+f(1+f(y+1))+f(y)=1+f(y+1)+y f(1).
+$$
+
+By plugging $x=-1$ into (2), we see that $f(-1)=-1$. We then plug $y=-1$ into (4) and deduce that $f(1)=1$. Hence, (4) reduces to
+
+$$
+f(1+f(y+1))+f(y)=1+f(y+1)+y.
+$$
+
+Accordingly, if both $y_{0}$ and $y_{0}+1$ are fixed points of $f$, then so is $y_{0}+2$. Thus, it follows from (2) and (3) that $x+f(x+1)+2$ is a fixed point of $f$ for every $x \in \mathbb{R}$; i.e.,
+
+$$
+f(x+f(x+1)+2)=x+f(x+1)+2.
+$$
+
+Replacing $x$ by $x-2$ simplifies the above equation to
+
+$$
+f(x+f(x-1))=x+f(x-1).
+$$
+
+On the other hand, we set $y=-1$ in (1) and get
+
+$$
+f(x+f(x-1))=x+f(x-1)-f(x)-f(-x).
+$$
+
+Therefore, $f(-x)=-f(x)$ for all $x \in \mathbb{R}$.
+
+Finally, we substitute $(x, y)$ by $(-1,-y)$ in $(1)$ and use the fact that $f(-1)=-1$ to get
+
+$$
+f(-1+f(-y-1))+f(y)=-1+f(-y-1)+y.
+$$
+
+Since $f$ is an odd function, the above equation becomes
+
+$$
+-f(1+f(y+1))+f(y)=-1-f(y+1)+y.
+$$
+
+By adding this equation to (5), we conclude that $f(y)=y$ for all $y \in \mathbb{R}$.","theorem lean_workbook_plus_78764  (f : ℝ → ℝ)
+  (h₀ : ∀ x y, f (x + f (x + y)) + f (x * y) = x + f (x + y) + y * f (x))
+  (h₁ : f 0 = 0) :
+  ∀ x, f x = 2 - x := by sorry",7
+"Part I. Let us first check that each of the functions above really satisfies the given functional equation. If $f(n)=n+1$ for all $n$, then we have
+
+$$
+n^{2}+4 f(n)=n^{2}+4 n+4=(n+2)^{2}=f(n+1)^{2}=f(f(n))^{2}.
+$$
+
+If $f(n)=n+1$ for $n>-a$ and $f(n)=-n+1$ otherwise, then we have the same identity for $n>-a$ and
+
+$$
+n^{2}+4 f(n)=n^{2}-4 n+4=(2-n)^{2}=f(1-n)^{2}=f(f(n))^{2}
+$$
+
+otherwise. The same applies to the third solution (with $a=0$ ), where in addition one has
+
+$$
+0^{2}+4 f(0)=0=f(f(0))^{2}.
+$$
+
+Part II. It remains to prove that these are really the only functions that satisfy our functional equation. We do so in three steps:
+
+Step 1: We prove that $f(n)=n+1$ for $n>0$.
+
+Consider the sequence $\left(a_{k}\right)$ given by $a_{k}=f^{k}(1)$ for $k \geqslant 0$. Setting $n=a_{k}$ in (1), we get
+
+$$
+a_{k}^{2}+4 a_{k+1}=a_{k+2}^{2}.
+$$
+
+Of course, $a_{0}=1$ by definition. Since $a_{2}^{2}=1+4 a_{1}$ is odd, $a_{2}$ has to be odd as well, so we set $a_{2}=2 r+1$ for some $r \in \mathbb{Z}$. Then $a_{1}=r^{2}+r$ and consequently
+
+$$
+a_{3}^{2}=a_{1}^{2}+4 a_{2}=\left(r^{2}+r\right)^{2}+8 r+4.
+$$
+
+Since $8 r+4 \neq 0, a_{3}^{2} \neq\left(r^{2}+r\right)^{2}$, so the difference between $a_{3}^{2}$ and $\left(r^{2}+r\right)^{2}$ is at least the distance from $\left(r^{2}+r\right)^{2}$ to the nearest even square (since $8 r+4$ and $r^{2}+r$ are both even). This implies that
+
+$$
+|8 r+4|=\left|a_{3}^{2}-\left(r^{2}+r\right)^{2}\right| \geqslant\left(r^{2}+r\right)^{2}-\left(r^{2}+r-2\right)^{2}=4\left(r^{2}+r-1\right),
+$$
+
+(for $r=0$ and $r=-1$, the estimate is trivial, but this does not matter). Therefore, we ave
+
+$$
+4 r^{2} \leqslant|8 r+4|-4 r+4.
+$$
+
+If $|r| \geqslant 4$, then
+
+$$
+4 r^{2} \geqslant 16|r| \geqslant 12|r|+16>8|r|+4+4|r|+4 \geqslant|8 r+4|-4 r+4,
+$$
+
+a contradiction. Thus $|r|<4$. Checking all possible remaining values of $r$, we find that $\left(r^{2}+r\right)^{2}+8 r+4$ is only a square in three cases: $r=-3, r=0$ and $r=1$. Let us now distinguish these three cases:
+
+\begin{itemize}
+  \item $r=-3$, thus $a_{1}=6$ and $a_{2}=-5$. For each $k \geqslant 1$, we have
+\end{itemize}
+
+$$
+a_{k+2}=\pm \sqrt{a_{k}^{2}+4 a_{k+1}},
+$$
+
+and the sign needs to be chosen in such a way that $a_{k+1}^{2}+4 a_{k+2}$ is again a square. This yields $a_{3}=-4, a_{4}=-3, a_{5}=-2, a_{6}=-1, a_{7}=0, a_{8}=1, a_{9}=2$. At this point we have reached a contradiction, since $f(1)=f\left(a_{0}\right)=a_{1}=6$ and at the same time $f(1)=f\left(a_{8}\right)=a_{9}=2$.
+
+\begin{itemize}
+  \item $r=0$, thus $a_{1}=0$ and $a_{2}=1$. Then $a_{3}^{2}=a_{1}^{2}+4 a_{2}=4$, so $a_{3}=\pm 2$. This, however, is a contradiction again, since it gives us $f(1)=f\left(a_{0}\right)=a_{1}=0$ and at the same time $f(1)=f\left(a_{2}\right)=a_{3}=\pm 2$
+
+  \item $r=1$, thus $a_{1}=2$ and $a_{2}=3$. We prove by induction that $a_{k}=k+1$ for all $k \geqslant 0$ in this case, which we already know for $k \leqslant 2$ now. For the induction step, assume that $a_{k-1}=k$ and $a_{k}=k+1$. Then
+
+\end{itemize}
+
+$$
+a_{k+1}^{2}=a_{k-1}^{2}+4 a_{k}=k^{2}+4 k+4=(k+2)^{2},
+$$
+
+so $a_{k+1}=\pm(k+2)$. If $a_{k+1}=-(k+2)$, then
+
+$$
+a_{k+2}^{2}=a_{k}^{2}+4 a_{k+1}=(k+1)^{2}-4 k-8=k^{2}-2 k-7=(k-1)^{2}-8.
+$$
+
+The latter can only be a square if $k=4$ (since 1 and 9 are the only two squares whose difference is 8). Then, however, $a_{4}=5, a_{5}=-6$ and $a_{6}=\pm 1$, so
+
+$$
+a_{7}^{2}=a_{5}^{2}+4 a_{6}=36 \pm 4,
+$$
+
+but neither 32 nor 40 is a perfect square. Thus $a_{k+1}=k+2$, which completes our induction. This also means that $f(n)=f\left(a_{n-1}\right)=a_{n}=n+1$ for all $n \geqslant 1$.
+
+Step 2: We prove that either $f(0)=1$, or $f(0)=0$ and $f(n) \neq 0$ for $n \neq 0$.
+
+Set $n=0$ in (1) to get
+
+$$
+4 f(0)=f(f(0))^{2}.
+$$
+
+This means that $f(0) \geqslant 0$. If $f(0)=0$, then $f(n) \neq 0$ for all $n \neq 0$, since we would otherwise have
+
+$$
+n^{2}=n^{2}+4 f(n)=f(f(n))^{2}=f(0)^{2}=0.
+$$
+
+If $f(0)>0$, then we know that $f(f(0))=f(0)+1$ from the first step, so
+
+$$
+4 f(0)=(f(0)+1)^{2},
+$$
+
+which yields $f(0)=1$. Step 3: We discuss the values of $f(n)$ for $n<0$.
+
+Lemma. For every $n \geqslant 1$, we have $f(-n)=-n+1$ or $f(-n)=n+1$. Moreover, if $f(-n)=$ $-n+1$ for some $n \geqslant 1$, then also $f(-n+1)=-n+2$.
+
+Proof. We prove this statement by strong induction on $n$. For $n=1$, we get
+
+$$
+1+4 f(-1)=f(f(-1))^{2}.
+$$
+
+Thus $f(-1)$ needs to be nonnegative. If $f(-1)=0$, then $f(f(-1))=f(0)=\pm 1$, so $f(0)=1$ (by our second step). Otherwise, we know that $f(f(-1))=f(-1)+1$, so
+
+$$
+1+4 f(-1)=(f(-1)+1)^{2} \text {, }
+$$
+
+which yields $f(-1)=2$ and thus establishes the base case. For the induction step, we consider two cases:
+
+\begin{itemize}
+  \item If $f(-n) \leqslant-n$, then
+\end{itemize}
+
+$$
+f(f(-n))^{2}=(-n)^{2}+4 f(-n) \leqslant n^{2}-4 n<(n-2)^{2},
+$$
+
+so $|f(f(-n))| \leqslant n-3$ (for $n=2$, this case cannot even occur). If $f(f(-n)) \geqslant 0$, then we already know from the first two steps that $f(f(f(-n)))=f(f(-n))+1$, unless perhaps if $f(0)=0$ and $f(f(-n))=0$. However, the latter would imply $f(-n)=0$ (as shown in Step 2) and thus $n=0$, which is impossible. If $f(f(-n))<0$, we can apply the induction hypothesis to $f(f(-n))$. In either case, $f(f(f(-n)))=\pm f(f(-n))+1$. Therefore,
+
+$$
+f(-n)^{2}+4 f(f(-n))=f(f(f(-n)))^{2}=(\pm f(f(-n))+1)^{2}
+$$
+
+which gives us
+
+$$
+\begin{aligned}
+n^{2} & \leqslant f(-n)^{2}=(\pm f(f(-n))+1)^{2}-4 f(f(-n)) \leqslant f(f(-n))^{2}+6|f(f(-n))|+1 \\
+& \leqslant(n-3)^{2}+6(n-3)+1=n^{2}-8
+\end{aligned}
+$$
+
+a contradiction.
+
+\begin{itemize}
+  \item Thus, we are left with the case that $f(-n)>-n$. Now we argue as in the previous case: if $f(-n) \geqslant 0$, then $f(f(-n))=f(-n)+1$ by the first two steps, since $f(0)=0$ and $f(-n)=0$ would imply $n=0$ (as seen in Step 2) and is thus impossible. If $f(-n)<0$, we can apply the induction hypothesis, so in any case we can infer that $f(f(-n))=\pm f(-n)+1$. We obtain
+\end{itemize}
+
+$$
+(-n)^{2}+4 f(-n)=(\pm f(-n)+1)^{2}
+$$
+
+so either
+
+$$
+n^{2}=f(-n)^{2}-2 f(-n)+1=(f(-n)-1)^{2},
+$$
+
+which gives us $f(-n)=\pm n+1$, or
+
+$$
+n^{2}=f(-n)^{2}-6 f(-n)+1=(f(-n)-3)^{2}-8.
+$$
+
+Since 1 and 9 are the only perfect squares whose difference is 8, we must have $n=1$, which we have already considered.
+
+Finally, suppose that $f(-n)=-n+1$ for some $n \geqslant 2$. Then
+
+$$
+f(-n+1)^{2}=f(f(-n))^{2}=(-n)^{2}+4 f(-n)=(n-2)^{2},
+$$
+
+so $f(-n+1)=\pm(n-2)$. However, we already know that $f(-n+1)=-n+2$ or $f(-n+1)=n$, so $f(-n+1)=-n+2$. Combining everything we know, we find the solutions as stated in the answer:
+
+\begin{itemize}
+  \item One solution is given by $f(n)=n+1$ for all $n$.
+
+  \item If $f(n)$ is not always equal to $n+1$, then there is a largest integer $m$ (which cannot be positive) for which this is not the case. In view of the lemma that we proved, we must then have $f(n)=-n+1$ for any integer $n<m$. If $m=-a<0$, we obtain $f(n)=-n+1$ for $n \leqslant-a$ (and $f(n)=n+1$ otherwise). If $m=0$, we have the additional possibility that $f(0)=0, f(n)=-n+1$ for negative $n$ and $f(n)=n+1$ for positive $n$.
+
+\end{itemize}","theorem lean_workbook_plus_43762  (f : ℤ → ℤ)
+  (h₀ : ∀ n, 0 < n → f n = n + 1)
+  (h₁ : ∀ n, 1 ≤ n → f n = (f n)^2)
+  (h₂ : ∀ n, f n = f (f n))
+  (h₃ : ∀ n, f n = n + 1)
+  (h₄ : ∀ n, f n = -n + 1)
+  (h₅ : ∀ n, f n = n + 1) :
+  ∀ n, 0 < n → f n = n + 1 := by sorry",4
+"A pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$. Suppose that $\operatorname{gcd}(m, n)=d>1$. The set
+
+$$
+A=\{\ldots,-2 d,-d, 0, d, 2 d, \ldots\}
+$$
+
+is admissible, because if $d$ divides $x$ and $y$ then it divides $x^{2}+k x y+y^{2}$ for every integer $k$. Also $m, n \in A$ and $A \neq \mathbb{Z}$.
+
+Now let $\operatorname{gcd}(m, n)=1$, and let $A$ be an admissible set containing $m$ and $n$. We use the following observations to prove that $A=\mathbb{Z}$ :
+
+(i) $k x^{2} \in A$ for every $x \in A$ and every integer $k$.
+
+(ii) $(x+y)^{2} \in A$ for all $x, y \in A$.
+
+To justify (i) let $y=x$ in the definition of an admissible set; to justify (ii) let $k=2$.
+
+Since $\operatorname{gcd}(m, n)=1$, we also have $\operatorname{gcd}\left(m^{2}, n^{2}\right)=1$. Hence one can find integers $a, b$ such that $a m^{2}+b n^{2}=1$. It follows from (i) that $a m^{2} \in A$ and $b n^{2} \in A$. Now we deduce from (ii) that $1=\left(a m^{2}+b n^{2}\right)^{2} \in A$. But if $1 \in A$ then (i) implies $k \in A$ for every integer $k$.","theorem lean_workbook_plus_71975 (A : Set ℤ) (hA : A = {x | ∃ k : ℤ, x ^ 2 ∈ A}) : (∀ x ∈ A, ∃ k : ℤ, x ^ 2 ∈ A) ∧ (∀ x ∈ A, ∃ k : ℤ, x ^ 2 ∈ A) := by sorry",3 out of 10
+"Most solutions to this problem first prove that $f$ must be linear, before determining all linear functions satisfying (1).
+
+Substituting $a=0, b=n+1$ gives $f(f(n+1))=f(0)+2 f(n+1)$. Substituting $a=1, b=n$ gives $f(f(n+1))=f(2)+2 f(n)$.
+
+In particular, $f(0)+2 f(n+1)=f(2)+2 f(n)$, and so $f(n+1)-f(n)=\frac{1}{2}(f(2)-f(0))$. Thus $f(n+1)-f(n)$ must be constant. Since $f$ is defined only on $\mathbb{Z}$, this tells us that $f$ must be a linear function; write $f(n)=M n+K$ for arbitrary constants $M$ and $K$, and we need only determine which choices of $M$ and $K$ work.
+
+Now, (1) becomes
+
+$$
+2 M a+K+2(M b+K)=M(M(a+b)+K)+K
+$$
+
+which we may rearrange to form
+
+$$
+(M-2)(M(a+b)+K)=0.
+$$
+
+Thus, either $M=2$, or $M(a+b)+K=0$ for all values of $a+b$. In particular, the only possible solutions are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$, and these are easily seen to work.","theorem lean_workbook_plus_49749  (a b : ℤ)
+  (f : ℤ → ℤ)
+  (h₀ : ∀ x, f (2 * x + a) + 2 * f b = f (a + b))
+  (h₁ : f 0 + 2 * f (n + 1) = f (2 + n))
+  (h₂ : f (a + b) + 2 * f n = f (a + b + n)) :
+  f n = 0 ∨ f n = 2 * n + K := by sorry",7
+"Define $b_{k}=2 a_{k}$ for all $k \geqslant 0$. Then
+
+$$
+b_{k+1}=2 a_{k+1}=2 a_{k}\left\lfloor a_{k}\right\rfloor=b_{k}\left\lfloor\frac{b_{k}}{2}\right\rfloor.
+$$
+
+Since $b_{0}$ is an integer, it follows that $b_{k}$ is an integer for all $k \geqslant 0$.
+
+Suppose that the sequence $a_{0}, a_{1}, a_{2}, \ldots$ does not contain any integer term. Then $b_{k}$ must be an odd integer for all $k \geqslant 0$, so that
+
+$$
+b_{k+1}=b_{k}\left\lfloor\frac{b_{k}}{2}\right\rfloor=\frac{b_{k}\left(b_{k}-1\right)}{2}.
+$$
+
+Hence
+
+$$
+b_{k+1}-3=\frac{b_{k}\left(b_{k}-1\right)}{2}-3=\frac{\left(b_{k}-3\right)\left(b_{k}+2\right)}{2}
+$$
+
+for all $k \geqslant 0$.
+
+Suppose that $b_{0}-3>0$. Then equation (2) yields $b_{k}-3>0$ for all $k \geqslant 0$. For each $k \geqslant 0$, define $c_{k}$ to be the highest power of 2 that divides $b_{k}-3$. Since $b_{k}-3$ is even for all $k \geqslant 0$, the number $c_{k}$ is positive for every $k \geqslant 0$.
+
+Note that $b_{k}+2$ is an odd integer. Therefore, from equation (2), we have that $c_{k+1}=c_{k}-1$. Thus, the sequence $c_{0}, c_{1}, c_{2}, \ldots$ of positive integers is strictly decreasing, a contradiction. So, $b_{0}-3 \leqslant 0$, which implies $M=1$.
+
+For $M=1$, we can check that the sequence is constant with $a_{k}=\frac{3}{2}$ for all $k \geqslant 0$. Therefore, the answer is $M \geqslant 2$.","theorem lean_workbook_plus_81218  (m : ℕ)
+  (a : ℕ → ℕ)
+  (h₀ : a 0 = (2 * m + 1) / 2)
+  (h₁ : ∀ k, a (k + 1) = a k * (Nat.floor (a k))) :
+  m ≥ 2 := by sorry",6
+"For positive integers $a$ and $b$, let us denote
+
+$$
+f(a, b)=a\lceil b \nu\rceil-b\lfloor a \nu\rfloor.
+$$
+
+We will deal with various values of $m$; thus it is convenient to say that a pair $(a, b)$ is $m$-good or m-excellent if the corresponding conditions are satisfied.
+
+To start, let us investigate how the values $f(a+b, b)$ and $f(a, b+a)$ are related to $f(a, b)$. If $\{a \nu\}+\{b \nu\}<1$, then we have $\lfloor(a+b) \nu\rfloor=\lfloor a \nu\rfloor+\lfloor b \nu\rfloor$ and $\lceil(a+b) \nu\rceil=\lceil a \nu\rceil+\lceil b \nu\rceil-1$, so
+
+$$
+f(a+b, b)=(a+b)\lceil b \nu\rceil-b(\lfloor a \nu\rfloor+\lfloor b \nu\rfloor)=f(a, b)+b(\lceil b \nu\rceil-\lfloor b \nu\rfloor)=f(a, b)+b
+$$
+
+and
+
+$$
+f(a, b+a)=a(\lceil b \nu\rceil+\lceil a \nu\rceil-1)-(b+a)\lfloor a \nu\rfloor=f(a, b)+a(\lceil a \nu\rceil-1-\lfloor a \nu\rfloor)=f(a, b).
+$$
+
+Similarly, if $\{a \nu\}+\{b \nu\} \geqslant 1$ then one obtains
+
+$$
+f(a+b, b)=f(a, b) \quad \text { and } \quad f(a, b+a)=f(a, b)+a.
+$$
+
+So, in both cases one of the numbers $f(a+b, a)$ and $f(a, b+a)$ is equal to $f(a, b)$ while the other is greater than $f(a, b)$ by one of $a$ and $b$. Thus, exactly one of the pairs $(a+b, b)$ and $(a, b+a)$ is excellent (for an appropriate value of $m$ ).
+
+Now let us say that the pairs $(a+b, b)$ and $(a, b+a)$ are the children of the pair $(a, b)$, while this pair is their parent. Next, if a pair $(c, d)$ can be obtained from $(a, b)$ by several passings from a parent to a child, we will say that $(c, d)$ is a descendant of $(a, b)$, while $(a, b)$ is an ancestor of $(c, d)$ (a pair is neither an ancestor nor a descendant of itself). Thus each pair $(a, b)$ has two children, it has a unique parent if $a \neq b$, and no parents otherwise. Therefore, each pair of distinct positive integers has a unique ancestor of the form $(a, a)$; our aim is now to find how many m-excellent descendants each such pair has.
+
+Notice now that if a pair $(a, b)$ is m-excellent then $\min \{a, b\} \leqslant m$. Indeed, if $a=b$ then $f(a, a)=a=m$, so the statement is valid. Otherwise, the pair $(a, b)$ is a child of some pair $\left(a^{\prime}, b^{\prime}\right)$. If $b=b^{\prime}$ and $a=a^{\prime}+b^{\prime}$, then we should have $m=f(a, b)=f\left(a^{\prime}, b^{\prime}\right)+b^{\prime}$, so $b=b^{\prime}=m-f\left(a^{\prime}, b^{\prime}\right)<m$. Similarly, if $a=a^{\prime}$ and $b=b^{\prime}+a^{\prime}$ then $a<m$.
+
+Let us consider the set $S_{m}$ of all pairs $(a, b)$ such that $f(a, b) \leqslant m$ and $\min \{a, b\} \leqslant m$. Then all the ancestors of the elements in $S_{m}$ are again in $S_{m}$, and each element in $S_{m}$ either is of the form $(a, a)$ with $a \leqslant m$, or has a unique ancestor of this form. From the arguments above we see that all $m$-excellent pairs lie in $S_{m}$.
+
+We claim now that the set $S_{m}$ is finite. Indeed, assume, for instance, that it contains infinitely many pairs $(c, d)$ with $d>2 m$. Such a pair is necessarily a child of $(c, d-c)$, and thus a descendant of some pair $\left(c, d^{\prime}\right)$ with $m<d^{\prime} \leqslant 2 m$. Therefore, one of the pairs $(a, b) \in S_{m}$ with $m<b \leqslant 2 m$ has infinitely many descendants in $S_{m}$, and all these descendants have the form $(a, b+k a)$ with $k$ a positive integer. Since $f(a, b+k a)$ does not decrease as $k$ grows, it becomes constant for $k \geqslant k_{0}$, where $k_{0}$ is some positive integer. This means that $\{a \nu\}+\{(b+k a) \nu\}<1$ for all $k \geqslant k_{0}$. But this yields $1>\{(b+k a) \nu\}=\left\{\left(b+k_{0} a\right) \nu\right\}+\left(k-k_{0}\right)\{a \nu\}$ for all $k>k_{0}$, which is absurd.
+
+Similarly, one can prove that $S_{m}$ contains finitely many pairs $(c, d)$ with $c>2 m$, thus finitely many elements at all.
+
+We are now prepared for proving the following crucial lemma.
+
+Lemma. Consider any pair $(a, b)$ with $f(a, b) \neq m$. Then the number $g(a, b)$ of its $m$-excellent descendants is equal to the number $h(a, b)$ of ways to represent the number $t=m-f(a, b)$ as $t=k a+\ell b$ with $k$ and $\ell$ being some nonnegative integers.
+
+Proof. We proceed by induction on the number $N$ of descendants of $(a, b)$ in $S_{m}$. If $N=0$ then clearly $g(a, b)=0$. Assume that $h(a, b)>0$; without loss of generality, we have $a \leqslant b$. Then, clearly, $m-f(a, b) \geqslant a$, so $f(a, b+a) \leqslant f(a, b)+a \leqslant m$ and $a \leqslant m$, hence $(a, b+a) \in S_{m}$ which is impossible. Thus in the base case we have $g(a, b)=h(a, b)=0$, as desired.
+
+Now let $N>0$. Assume that $f(a+b, b)=f(a, b)+b$ and $f(a, b+a)=f(a, b)$ (the other case is similar). If $f(a, b)+b \neq m$, then by the induction hypothesis we have
+
+$$
+g(a, b)=g(a+b, b)+g(a, b+a)=h(a+b, b)+h(a, b+a).
+$$
+
+Notice that both pairs $(a+b, b)$ and $(a, b+a)$ are descendants of $(a, b)$ and thus each of them has strictly less descendants in $S_{m}$ than $(a, b)$ does.
+
+Next, each one of the $h(a+b, b)$ representations of $m-f(a+b, b)=m-b-f(a, b)$ as the sum $k^{\prime}(a+b)+\ell^{\prime} b$ provides the representation $m-f(a, b)=k a+\ell b$ with $k=k^{\prime}<k^{\prime}+\ell^{\prime}+1=\ell$. Similarly, each one of the $h(a, b+a)$ representations of $m-f(a, b+a)=m-f(a, b)$ as the sum $k^{\prime} a+\ell^{\prime}(b+a)$ provides the representation $m-f(a, b)=k a+\ell b$ with $k=k^{\prime}+\ell^{\prime} \geqslant \ell^{\prime}=\ell$. This correspondence is obviously bijective, so
+
+$$
+h(a, b)=h(a+b, b)+h(a, b+a)=g(a, b),
+$$
+
+as required.
+
+Finally, if $f(a, b)+b=m$ then $(a+b, b)$ is m-excellent, so $g(a, b)=1+g(a, b+a)=1+h(a, b+a)$ by the induction hypothesis. On the other hand, the number $m-f(a, b)=b$ has a representation $0 \cdot a+1 \cdot b$ and sometimes one more representation as $k a+0 \cdot b$; this last representation exists simultaneously with the representation $m-f(a, b+a)=k a+0 \cdot(b+a)$, so $h(a, b)=1+h(a, b+a)$ as well. Thus in this case the step is also proved.
+
+Now it is easy to finish the solution. There exists a unique $m$-excellent pair of the form $(a, a)$, and each other $m$-excellent pair $(a, b)$ has a unique ancestor of the form $(x, x)$ with $x<m$. By the lemma, for every $x<m$ the number of its $m$-excellent descendants is $h(x, x)$, which is the number of ways to represent $m-f(x, x)=m-x$ as $k x+\ell x$ (with nonnegative integer $k$ and $\ell$ ). This number is 0 if $x \backslash m$, and $m / x$ otherwise. So the total number of excellent pairs is
+
+$$
+1+\sum_{x \mid m, x<m} \frac{m}{x}=1+\sum_{d \mid m, d>1} d=\sum_{d \mid m} d
+$$
+
+as required.","theorem lean_workbook_plus_32344  (m : ℕ)
+  (h₀ : 0 < m)
+  (h₁ : ∀ (a b : ℕ), 0 < a ∧ 0 < b ∧ (a + b) % m = 0 → (a + b) % m = 0 ∧ (a + b) % m < m)
+  (h₂ : ∀ (a b : ℕ), 0 < a ∧ 0 < b ∧ (a + b) % m = 0 → (a + b) % m = 0 ∧ (a + b) % m < m) :
+  m = (m + 1) / 2 := by sorry",3
+"First of all, assume that $a_{n}<N / 2$ satisfies the condition. Take $x=1+t$ for $t>0$, we should have
+
+$$
+\frac{(1+t)^{2 N}+1}{2} \leqslant\left(1+t+a_{n} t^{2}\right)^{N}
+$$
+
+Expanding the brackets we get
+
+$$
+\left(1+t+a_{n} t^{2}\right)^{N}-\frac{(1+t)^{2 N}+1}{2}=\left(N a_{n}-\frac{N^{2}}{2}\right) t^{2}+c_{3} t^{3}+\ldots+c_{2 N} t^{2 N}
+$$
+
+with some coefficients $c_{3}, \ldots, c_{2 N}$. Since $a_{n}<N / 2$, the right hand side of (1) is negative for sufficiently small $t$. A contradiction.
+
+It remains to prove the following inequality
+
+$$
+\sqrt[N]{\frac{1+x^{2 N}}{2}} \leqslant x+\frac{N}{2}(x-1)^{2}
+$$
+
+where $N=2^{n}$.
+
+Use induction in $n$. The base case $n=0$ is trivial: $N=1$ and both sides of $\mathcal{I}(N, x)$ are equal to $\left(1+x^{2}\right) / 2$. For completing the induction we prove $\mathcal{I}(2 N, x)$ assuming that $\mathcal{I}(N, y)$ is established for all real $y$. We have
+
+$$
+\begin{aligned}
+\left(x+N(x-1)^{2}\right)^{2} & =x^{2}+N^{2}(x-1)^{4}+N(x-1)^{2} \frac{(x+1)^{2}-(x-1)^{2}}{2} \\
+& =x^{2}+\frac{N}{2}\left(x^{2}-1\right)^{2}+\left(N^{2}-\frac{N}{2}\right)(x-1)^{4} \geqslant x^{2}+\frac{N}{2}\left(x^{2}-1\right)^{2} \geqslant \sqrt[N]{\frac{1+x^{4 N}}{2}},
+\end{aligned}
+$$
+
+where the last inequality is $\mathcal{I}\left(N, x^{2}\right)$. Since
+
+$$
+x+N(x-1)^{2} \geqslant x+\frac{(x-1)^{2}}{2}=\frac{x^{2}+1}{2} \geqslant 0,
+$$
+
+taking square root we get $\mathcal{I}(2 N, x)$. The inductive step is complete.","theorem lean_workbook_plus_5880  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ x, 0 < x → (Real.sqrt ((1 + x^2) / 2) ≤ (1 + x^2 + 1) / 2)) :
+  ∀ x, 0 < x → (Real.sqrt ((1 + x^2) / 2) ≤ (1 + x^2 + 1) / 2) := by sorry",3
+"Let $P(x)=a_{n} x^{n}+\cdots+a_{0} x^{0}$ with $a_{n} \neq 0$. Comparing the coefficients of $x^{n+1}$ on both sides gives $a_{n}(n-2 m)(n-1)=0$, so $n=1$ or $n=2 m$.
+
+If $n=1$, one easily verifies that $P(x)=x$ is a solution, while $P(x)=1$ is not. Since the given condition is linear in $P$, this means that the linear solutions are precisely $P(x)=t x$ for $t \in \mathbb{R}$.
+
+Now assume that $n=2 m$. The polynomial $x P(x+1)-(x+1) P(x)=(n-1) a_{n} x^{n}+\cdots$ has degree $n$, and therefore it has at least one (possibly complex) root $r$. If $r \notin\{0,-1\}$, define $k=P(r) / r=P(r+1) /(r+1)$. If $r=0$, let $k=P(1)$. If $r=-1$, let $k=-P(-1)$. We now consider the polynomial $S(x)=P(x)-k x$. It also satisfies (1) because $P(x)$ and $k x$ satisfy it. Additionally, it has the useful property that $r$ and $r+1$ are roots.
+
+Let $A(x)=x^{3}-m x^{2}+1$ and $B(x)=x^{3}+m x^{2}+1$. Plugging in $x=s$ into (1) implies that:
+
+If $s-1$ and $s$ are roots of $S$ and $s$ is not a root of $A$, then $s+1$ is a root of $S$.
+
+If $s$ and $s+1$ are roots of $S$ and $s$ is not a root of $B$, then $s-1$ is a root of $S$.
+
+Let $a \geqslant 0$ and $b \geqslant 1$ be such that $r-a, r-a+1, \ldots, r, r+1, \ldots, r+b-1, r+b$ are roots of $S$, while $r-a-1$ and $r+b+1$ are not. The two statements above imply that $r-a$ is a root of $B$ and $r+b$ is a root of $A$.
+
+Since $r-a$ is a root of $B(x)$ and of $A(x+a+b)$, it is also a root of their greatest common divisor $C(x)$ as integer polynomials. If $C(x)$ was a non-trivial divisor of $B(x)$, then $B$ would have a rational root $\alpha$. Since the first and last coefficients of $B$ are $1, \alpha$ can only be 1 or $-1$; but $B(-1)=m>0$ and $B(1)=m+2>0$ since $n=2 m$.
+
+Therefore $B(x)=A(x+a+b)$. Writing $c=a+b \geqslant 1$ we compute
+
+$$
+0=A(x+c)-B(x)=(3 c-2 m) x^{2}+c(3 c-2 m) x+c^{2}(c-m).
+$$
+
+Then we must have $3 c-2 m=c-m=0$, which gives $m=0$, a contradiction. We conclude that $f(x)=t x$ is the only solution.","theorem lean_workbook_plus_7257  (m : ℝ)
+  (P : ℝ → ℝ)
+  (h₀ : ∀ x, P x = x^3 - m * x^2 + 1)
+  (h₁ : ∀ x, (x + 1) * P (x + 1) + (x - 1) * P (x - 1) = 2 * (x^3 - m * x + 1) * P x)
+  (h₂ : 0 < m) :
+  (x + 1) * P (x + 1) + (x - 1) * P (x - 1) = 0 := by sorry",6
+"We will prove that the largest possible number $k$ of indices satisfying the given condition is one.
+
+Firstly we prove that $b_{2009}, r_{2009}, w_{2009}$ are always lengths of the sides of a triangle. Without loss of generality we may assume that $w_{2009} \geq r_{2009} \geq b_{2009}$. We show that the inequality $b_{2009}+r_{2009}>w_{2009}$ holds. Evidently, there exists a triangle with side lengths $w, b, r$ for the white, blue and red side, respectively, such that $w_{2009}=w$. By the conditions of the problem we have $b+r>w, b_{2009} \geq b$ and $r_{2009} \geq r$. From these inequalities it follows
+
+$$
+b_{2009}+r_{2009} \geq b+r>w=w_{2009} \text {. }
+$$
+
+Secondly we will describe a sequence of triangles for which $w_{j}, b_{j}, r_{j}$ with $j<2009$ are not the lengths of the sides of a triangle. Let us define the sequence $\Delta_{j}, j=1,2, \ldots, 2009$, of triangles, where $\Delta_{j}$ has
+
+a blue side of length $2 j$,
+
+a red side of length $j$ for all $j \leq 2008$ and 4018 for $j=2009$,
+
+and a white side of length $j+1$ for all $j \leq 2007,4018$ for $j=2008$ and 1 for $j=2009$. Since
+
+$$
+\begin{aligned}
+& (j+1)+j>2 j \geq j+1>j, \quad \text { if } \quad j \leq 2007 \text {, } \\
+& 2 j+j>4018>2 j>j, \quad \text { if } j=2008 \text {, } \\
+& 4018+1>2 j=4018>1, \quad \text { if } \quad j=2009 \text {, }
+\end{aligned}
+$$
+
+such a sequence of triangles exists. Moreover, $w_{j}=j, r_{j}=j$ and $b_{j}=2 j$ for $1 \leq j \leq 2008$. Then
+
+$$
+w_{j}+r_{j}=j+j=2 j=b_{j},
+$$
+
+i.e., $b_{j}, r_{j}$ and $w_{j}$ are not the lengths of the sides of a triangle for $1 \leq j \leq 2008$.","theorem lean_workbook_plus_26673  (b r w : ℕ → ℕ)
+  (h₀ : ∀ i, 0 < i ∧ 0 < b i ∧ 0 < r i ∧ 0 < w i)
+  (h₁ : ∀ i, i < 2009 → b i ≤ b (i + 1) ∧ r i ≤ r (i + 1) ∧ w i ≤ w (i + 1))
+  (h₂ : ∀ i, i < 2009 → b i + r i ≤ b (i + 1) + r (i + 1))
+  (h₃ : ∀ i, i < 2009 → w i + w (i + 1) ≤ w (i + 1))
+  (h₄ : ∀ i, i < 2009 → b i + r i + w i ≤ b (i + 1) + r (i + 1) + w (i + 1)) :
+  0 < 2009 ∧ 0 < 2009 := by sorry",4
+"Every $a$ of the form $a=4 k-3$ with $k \geq 2$ is friendly. Indeed the numbers $m=2 k-1>0$ and $n=k-1>0$ satisfy the given equation with $a=4 k-3$ :
+
+$$
+\left(m^{2}+n\right)\left(n^{2}+m\right)=\left((2 k-1)^{2}+(k-1)\right)\left((k-1)^{2}+(2 k-1)\right)=(4 k-3) k^{3}=a(m-n)^{3}.
+$$
+
+Hence $5,9, \ldots, 2009$ are friendly and so $\{1,2, \ldots, 2012\}$ contains at least 502 friendly numbers.","theorem lean_workbook_plus_66239 :
+  Finset.card (Finset.filter (λ x => Nat.gcd x 2 = 1) (Finset.range 2013)) = 500 := by sorry",3
+"The equation has no integer solutions. To show this, we first prove a lemma.
+
+Lemma. If $x$ is an integer and $p$ is a prime divisor of $\frac{x^{7}-1}{x-1}$ then either $p \equiv 1(\bmod 7)$ or $p=7$.
+
+Proof. Both $x^{7}-1$ and $x^{p-1}-1$ are divisible by $p$, by hypothesis and by Fermat's little theorem, respectively. Suppose that 7 does not divide $p-1$. Then $\operatorname{gcd}(p-1,7)=1$, so there exist integers $k$ and $m$ such that $7 k+(p-1) m=1$. We therefore have
+
+$$
+x \equiv x^{7 k+(p-1) m} \equiv\left(x^{7}\right)^{k} \cdot\left(x^{p-1}\right)^{m} \equiv 1 \quad(\bmod p),
+$$
+
+and so
+
+$$
+\frac{x^{7}-1}{x-1}=1+x+\cdots+x^{6} \equiv 7 \quad(\bmod p).
+$$
+
+It follows that $p$ divides 7, hence $p=7$ must hold if $p \equiv 1(\bmod 7)$ does not, as stated.
+
+The lemma shows that each positive divisor $d$ of $\frac{x^{7}-1}{x-1}$ satisfies either $d \equiv 0(\bmod 7)$ or $d \equiv 1(\bmod 7)$
+
+Now assume that $(x, y)$ is an integer solution of the original equation. Notice that $y-1>0$, because $\frac{x^{7}-1}{x-1}>0$ for all $x \neq 1$. Since $y-1$ divides $\frac{x^{7}-1}{x-1}=y^{5}-1$, we have $y \equiv 1(\bmod 7)$ or $y \equiv 2(\bmod 7)$ by the previous paragraph. In the first case, $1+y+y^{2}+y^{3}+y^{4} \equiv 5(\bmod 7)$, and in the second $1+y+y^{2}+y^{3}+y^{4} \equiv 3(\bmod 7)$. Both possibilities contradict the fact that the positive divisor $1+y+y^{2}+y^{3}+y^{4}$ of $\frac{x^{7}-1}{x-1}$ is congruent to 0 or 1 modulo 7. So the given equation has no integer solutions.",theorem lean_workbook_plus_38971 (x y : ℤ) (p : ℕ) (hp : p.Prime) (h : (x^7 - 1) / (x - 1) = y^5 - 1) : (x ≡ 0 [ZMOD 7] ∨ x ≡ 1 [ZMOD 7]) := by sorry,4
+"The substitution $a=b=c=0$ gives $3 f(0)^{2}=6 f(0)^{2}$, hence
+
+$$
+f(0)=0 \text {. }
+$$
+
+The substitution $b=-a$ and $c=0$ gives $\left((f(a)-f(-a))^{2}=0\right.$. Hence $f$ is an even function:
+
+$$
+f(a)=f(-a) \quad \text { for all } a \in \mathbb{Z} \text {. }
+$$
+
+Now set $b=a$ and $c=-2 a$ to obtain $2 f(a)^{2}+f(2 a)^{2}=2 f(a)^{2}+4 f(a) f(2 a)$. Hence
+
+$$
+f(2 a)=0 \text { or } f(2 a)=4 f(a) \text { for all } a \in \mathbb{Z}.
+$$
+
+If $f(r)=0$ for some $r \geq 1$ then the substitution $b=r$ and $c=-a-r$ gives $(f(a+r)-f(a))^{2}=0$. So $f$ is periodic with period $r$, i. e.
+
+$$
+f(a+r)=f(a) \quad \text { for all } a \in \mathbb{Z}.
+$$
+
+In particular, if $f(1)=0$ then $f$ is constant, thus $f(a)=0$ for all $a \in \mathbb{Z}$. This function clearly satisfies the functional equation. For the rest of the analysis, we assume $f(1)=k \neq 0$.
+
+By (3) we have $f(2)=0$ or $f(2)=4 k$. If $f(2)=0$ then $f$ is periodic of period 2, thus $f($ even $)=0$ and $f($ odd $)=k$. This function is a solution for every $k$. We postpone the verification; for the sequel assume $f(2)=4 k \neq 0$.
+
+By (3) again, we have $f(4)=0$ or $f(4)=16 k$. In the first case $f$ is periodic of period 4, and $f(3)=f(-1)=f(1)=k$, so we have $f(4 n)=0, f(4 n+1)=f(4 n+3)=k$, and $f(4 n+2)=4 k$ for all $n \in \mathbb{Z}$. This function is a solution too, which we justify later. For the rest of the analysis, we assume $f(4)=16 k \neq 0$.
+
+We show now that $f(3)=9 k$. In order to do so, we need two substitutions:
+
+$$
+\begin{gathered}
+a=1, b=2, c=-3 \Longrightarrow f(3)^{2}-10 k f(3)+9 k^{2}=0 \Longrightarrow f(3) \in\{k, 9 k\} \\
+a=1, b=3, c=-4 \Longrightarrow f(3)^{2}-34 k f(3)+225 k^{2}=0 \Longrightarrow f(3) \in\{9 k, 25 k\}
+\end{gathered}
+$$
+
+Therefore $f(3)=9 k$, as claimed. Now we prove inductively that the only remaining function is $f(x)=k x^{2}, x \in \mathbb{Z}$. We proved this for $x=0,1,2,3,4$. Assume that $n \geq 4$ and that $f(x)=k x^{2}$ holds for all integers $x \in[0, n]$. Then the substitutions $a=n, b=1, c=-n-1$ and $a=n-1$, $b=2, c=-n-1$ lead respectively to
+
+$$
+f(n+1) \in\left\{k(n+1)^{2}, k(n-1)^{2}\right\} \quad \text { and } \quad f(n+1) \in\left\{k(n+1)^{2}, k(n-3)^{2}\right\}.
+$$
+
+Since $k(n-1)^{2} \neq k(n-3)^{2}$ for $n \neq 2$, the only possibility is $f(n+1)=k(n+1)^{2}$. This completes the induction, so $f(x)=k x^{2}$ for all $x \geq 0$. The same expression is valid for negative values of $x$ since $f$ is even. To verify that $f(x)=k x^{2}$ is actually a solution, we need to check the identity $a^{4}+b^{4}+(a+b)^{4}=2 a^{2} b^{2}+2 a^{2}(a+b)^{2}+2 b^{2}(a+b)^{2}$, which follows directly by expanding both sides. Therefore the only possible solutions of the functional equation are the constant function $f_{1}(x)=0$ and the following functions:
+
+$$
+f_{2}(x)=k x^{2} \quad f_{3}(x)=\left\{\begin{array}{ccc}
+0 & x \text { even } \\
+k & x \text { odd }
+\end{array} \quad f_{4}(x)=\left\{\begin{array}{ccc}
+0 & x \equiv 0 & (\bmod 4) \\
+k & x \equiv 1 & (\bmod 2) \\
+4 k & x \equiv 2 & (\bmod 4)
+\end{array}\right.\right.
+$$
+
+for any non-zero integer $k$. The verification that they are indeed solutions was done for the first two. For $f_{3}$ note that if $a+b+c=0$ then either $a, b, c$ are all even, in which case $f(a)=f(b)=f(c)=0$, or one of them is even and the other two are odd, so both sides of the equation equal $2 k^{2}$. For $f_{4}$ we use similar parity considerations and the symmetry of the equation, which reduces the verification to the triples $(0, k, k),(4 k, k, k),(0,0,0),(0,4 k, 4 k)$. They all satisfy the equation.","theorem lean_workbook_plus_54367  (f : ℤ → ℤ)
+  (h₀ : ∀ x, (f x)^2 + (f x)^2 + (f x)^2 = 2 * (f x)^2)
+  (h₁ : ∀ x, f x = 0 ∨ f x = k * x^2)
+  (h₂ : 0 ≤ k)
+  (h₃ : f 1 = 0)
+  (h₄ : f 2 = 0)
+  (h₅ : f (-1) = 1)
+  (h₆ : f 3 = 9 * k)
+  (h₇ : f 4 = 16 * k)
+  (h₈ : 0 ≤ k) :
+  ∀ x, (f x)^2 + (f x)^2 = 2 * (f x)^2 := by sorry",6
+"We will make repeated use of the following simple observation:
+
+Lemma 1. If a positive integer $d$ divides $a_{n}$ and $a_{n-m}$ for some $m$ and $n>2 m$, it also divides $a_{n-2 m}$. If $d$ divides $a_{n}$ and $a_{n-2 m}$, it also divides $a_{n-m}$.
+
+Proof. Both parts are obvious since $a_{n}$ divides $a_{n-2 m}+a_{n-m}$.
+
+Claim. The sequence $\left(a_{n}\right)$ is bounded.
+
+Proof. Suppose the contrary. Then there exist infinitely many indices $n$ such that $a_{n}$ is greater than each of the previous terms $a_{1}, a_{2}, \ldots, a_{n-1}$. Let $a_{n}=k$ be such a term, $n>10$. For each $s<\frac{n}{2}$ the number $a_{n}=k$ divides $a_{n-s}+a_{n-2 s}<2 k$, therefore
+
+$$
+a_{n-s}+a_{n-2 s}=k
+$$
+
+In particular,
+
+$$
+a_{n}=a_{n-1}+a_{n-2}=a_{n-2}+a_{n-4}=a_{n-4}+a_{n-8}
+$$
+
+that is, $a_{n-1}=a_{n-4}$ and $a_{n-2}=a_{n-8}$. It follows from Lemma 1 that $a_{n-1}$ divides $a_{n-1-3 s}$ for $3 s<n-1$ and $a_{n-2}$ divides $a_{n-2-6 s}$ for $6 s<n-2$. Since at least one of the numbers $a_{n-1}$ and $a_{n-2}$ is at least $a_{n} / 2$, so is some $a_{i}$ with $i \leqslant 6$. However, $a_{n}$ can be arbitrarily large, a contradiction.
+
+Since $\left(a_{n}\right)$ is bounded, there exist only finitely many $i$ for which $a_{i}$ appears in the sequence finitely many times. In other words, there exists $N$ such that if $a_{i}=t$ and $i>N$, then $a_{j}=t$ for infinitely many $j$.
+
+Clearly the sequence $\left(a_{n+N}\right)_{n>0}$ satisfies the divisibility condition, and it is enough to prove that this sequence is eventually periodic. Thus truncating the sequence if necessary, we can assume that each number appears infinitely many times in the sequence. Let $k$ be the maximum number appearing in the sequence.
+
+Lemma 2. If a positive integer $d$ divides $a_{n}$ for some $n$, then the numbers $i$ such that $d$ divides $a_{i}$ form an arithmetical progression with an odd difference.
+
+Proof. Let $i_{1}<i_{2}<i_{3}<\ldots$ be all the indices $i$ such that $d$ divides $a_{i}$. If $i_{s}+i_{s+1}$ is even, it follows from Lemma 1 that $d$ also divides $a_{\frac{i_{s}+i_{s+1}}{2}}$, impossible since $i_{s}<\frac{i_{s}+i_{s+1}}{2}<i_{s+1}$. Thus $i_{s}$ and $i_{s+1}$ are always of different parity, and therefore $i_{s}+i_{s+2}$ is even. Applying Lemma 1 again, we see that $d$ divides $a_{\frac{i_{s}+i_{s+2}}{2}}^{2}$, hence $\frac{i_{s}+i_{s+2}}{2}=i_{s+1}$,
+
+We are ready now to solve the problem.
+
+The number of positive divisors of all terms of the progression is finite. Let $d_{s}$ be the difference of the progression corresponding to $s$, that is, $s$ divides $a_{n}$ if and only if it divides $a_{n+t d_{s}}$ for any positive integer $t$. Let $D$ be the product of all $d_{s}$. Then each $s$ dividing a term of the progression divides $a_{n}$ if and only if it divides $a_{n+D}$. This means that the sets of divisors of $a_{n}$ and $a_{n+D}$ coincide, and $a_{n+D}=a_{n}$. Thus $D$ is a period of the sequence.","theorem lean_workbook_plus_65320  (a : ℕ → ℕ)
+  (h₀ : ∀ n, 0 < a n)
+  (h₁ : ∀ n, ∀ m, n < m → a n ∣ a (n + m))
+  (h₂ : ∀ n, ∀ m, n < m → a n ∣ a (n + (m - 1)))
+  (h₃ : ∀ n, ∀ m, n < m → a n ∣ a (n + (m - 2))) :
+  ∃ N, ∀ n, N < n → a n = a (n - N) := by sorry",7
+"We will prove by induction on $d$ that, for every positive integer $N$, there exist positive integers $b_{0}, b_{1}, \ldots, b_{d-1}$ such that, for each $i=0,1,2, \ldots, d-1$, we have $b_{i}>N$ and
+
+$$
+2^{b_{i}}+b_{i} \equiv i \quad(\bmod d)
+$$
+
+This yields the claim for $m=b_{0}$.
+
+The base case $d=1$ is trivial. Take an $a>1$ and assume that the statement holds for all $d<a$. Note that the remainders of $2^{i}$ modulo a repeat periodically starting with some exponent $M$. Let $k$ be the length of the period; this means that $2^{M+k^{\prime}} \equiv 2^{M}(\bmod a)$ holds only for those $k^{\prime}$ which are multiples of $k$. Note further that the period cannot contain all the $a$ remainders, since 0 either is missing or is the only number in the period. Thus $k<a$.
+
+Let $d=\operatorname{gcd}(a, k)$ and let $a^{\prime}=a / d, k^{\prime}=k / d$. Since $0<k<a$, we also have $0<d<a$. By the induction hypothesis, there exist positive integers $b_{0}, b_{1}, \ldots, b_{d-1}$ such that $b_{i}>\max \left(2^{M}, N\right)$ and
+
+$$
+2^{b_{i}}+b_{i} \equiv i \quad(\bmod d) \quad \text { for } \quad i=0,1,2, \ldots, d-1.
+$$
+
+For each $i=0,1, \ldots, d-1$ consider the sequence
+
+$$
+2^{b_{i}}+b_{i}, \quad 2^{b_{i}+k}+\left(b_{i}+k\right), \ldots, \quad 2^{b_{i}+\left(a^{\prime}-1\right) k}+\left(b_{i}+\left(a^{\prime}-1\right) k\right).
+$$
+
+Modulo $a$, these numbers are congruent to
+
+$$
+2^{b_{i}}+b_{i}, \quad 2^{b_{i}}+\left(b_{i}+k\right), \quad \ldots, \quad 2^{b_{i}}+\left(b_{i}+\left(a^{\prime}-1\right) k\right),
+$$
+
+respectively. The $d$ sequences contain $a^{\prime} d=a$ numbers altogether. We shall now prove that no two of these numbers are congruent modulo $a$.
+
+Suppose that
+
+$$
+2^{b_{i}}+\left(b_{i}+m k\right) \equiv 2^{b_{j}}+\left(b_{j}+n k\right) \quad(\bmod a)
+$$
+
+for some values of $i, j \in\{0,1, \ldots, d-1\}$ and $m, n \in\left\{0,1, \ldots, a^{\prime}-1\right\}$. Since $d$ is a divisor of $a$, we also have
+
+$$
+2^{b_{i}}+\left(b_{i}+m k\right) \equiv 2^{b_{j}}+\left(b_{j}+n k\right) \quad(\bmod d).
+$$
+
+Because $d$ is a divisor of $k$ and in view of $(1)$, we obtain $i \equiv j(\bmod d)$. As $i, j \in\{0,1, \ldots, d-1\}$, this just means that $i=j$. Substituting this into (3) yields $m k \equiv n k(\bmod a)$. Therefore $m k^{\prime} \equiv n k^{\prime}\left(\bmod a^{\prime}\right) ;$ and since $a^{\prime}$ and $k^{\prime}$ are coprime, we get $m \equiv n\left(\bmod a^{\prime}\right)$. Hence also $m=n$.
+
+It follows that the $a$ numbers that make up the $d$ sequences (2) satisfy all the requirements; they are certainly all greater than $N$ because we chose each $b_{i}>\max \left(2^{M}, N\right)$. So the statement holds for $a$, completing the induction.","theorem lean_workbook_plus_68304 (d : ℕ) (a : ℕ) (N : ℕ) (h₁ : 0 < a) (h₂ : ∀ i ∈ Finset.range d, 0 < i) (h₃ : ∀ i ∈ Finset.range d, 2 ^ i + i ≡ i [ZMOD a]) : ∃ m : ℕ, 0 < m ∧ ∀ i ∈ Finset.range d, 0 < i → 2 ^ (m * i) + m ≡ i [ZMOD a] := by sorry",6
+"Let $A_{i, j}$ be the entry in the $i^{\text {th }}$ row and the $j^{\text {th }}$ column; let $P$ be the product of all $n^{2}$ entries. For convenience, denote $a_{i, j}=A_{i, j}-1$ and $r_{i}=R_{i}-1$. We show that
+
+$$
+\sum_{i=1}^{n} R_{i} \equiv(n-1)+P \quad\left(\bmod n^{4}\right)
+$$
+
+Due to symmetry of the problem conditions, the sum of all the $C_{j}$ is also congruent to $(n-1)+P$ modulo $n^{4}$, whence the conclusion.
+
+By condition $(i)$, the number $n$ divides $a_{i, j}$ for all $i$ and $j$. So, every product of at least two of the $a_{i, j}$ is divisible by $n^{2}$, hence
+
+$R_{i}=\prod_{j=1}^{n}\left(1+a_{i, j}\right)=1+\sum_{j=1}^{n} a_{i, j}+\sum_{1 \leqslant j_{1}<j_{2} \leqslant n} a_{i, j_{1}} a_{i, j_{2}}+\cdots \equiv 1+\sum_{j=1}^{n} a_{i, j} \equiv 1-n+\sum_{j=1}^{n} A_{i, j} \quad\left(\bmod n^{2}\right)$
+
+for every index $i$. Using condition $(i i)$, we obtain $R_{i} \equiv 1\left(\bmod n^{2}\right)$, and so $n^{2} \mid r_{i}$.
+
+Therefore, every product of at least two of the $r_{i}$ is divisible by $n^{4}$. Repeating the same argument, we obtain
+
+$$
+P=\prod_{i=1}^{n} R_{i}=\prod_{i=1}^{n}\left(1+r_{i}\right) \equiv 1+\sum_{i=1}^{n} r_{i} \quad\left(\bmod n^{4}\right)
+$$
+
+whence
+
+$$
+\sum_{i=1}^{n} R_{i}=n+\sum_{i=1}^{n} r_{i} \equiv n+(P-1) \quad\left(\bmod n^{4}\right)
+$$
+
+as desired.","theorem lean_workbook_plus_35653  (n : ℕ)
+  (h₀ : 1 < n)
+  (h₁ : ∀ i j, 0 < i ∧ 0 < j →
+    i * j ∣ (∑ j in Finset.range n, j * i) ^ 2) :
+  ∀ i j, 0 < i ∧ 0 < j →
+    i * j ∣ (∑ j in Finset.range n, j * i) ^ 2 := by sorry",3
+"Let $r$ be the unique positive integer for which $r^{2} \leqslant n<(r+1)^{2}$. Write $n=r^{2}+s$. Then we have $0 \leqslant s \leqslant 2 r$. We discuss in two cases according to the parity of $s$.
+
+\begin{itemize}
+  \item Case 1. $s$ is even.
+\end{itemize}
+
+Consider the number $\left(r+\frac{s}{2 r}\right)^{2}=r^{2}+s+\left(\frac{s}{2 r}\right)^{2}$. We find that
+
+$$
+n=r^{2}+s \leqslant r^{2}+s+\left(\frac{s}{2 r}\right)^{2} \leqslant r^{2}+s+1=n+1
+$$
+
+It follows that
+
+$$
+\sqrt{n} \leqslant r+\frac{s}{2 r} \leqslant \sqrt{n+1}
+$$
+
+Since $s$ is even, we can choose the fraction $r+\frac{s}{2 r}=\frac{r^{2}+(s / 2)}{r}$ since $r \leqslant \sqrt{n}$.
+
+\begin{itemize}
+  \item Case 2. $s$ is odd.
+\end{itemize}
+
+Consider the number $\left(r+1-\frac{2 r+1-s}{2(r+1)}\right)^{2}=(r+1)^{2}-(2 r+1-s)+\left(\frac{2 r+1-s}{2(r+1)}\right)^{2}$. We find that
+
+$$
+\begin{aligned}
+n=r^{2}+s=(r+1)^{2}-(2 r+1-s) & \leqslant(r+1)^{2}-(2 r+1-s)+\left(\frac{2 r+1-s}{2(r+1)}\right)^{2} \\
+& \leqslant(r+1)^{2}-(2 r+1-s)+1=n+1.
+\end{aligned}
+$$
+
+It follows that
+
+$$
+\sqrt{n} \leqslant r+1-\frac{2 r+1-s}{2(r+1)} \leqslant \sqrt{n+1}
+$$
+
+Since $s$ is odd, we can choose the fraction $(r+1)-\frac{2 r+1-s}{2(r+1)}=\frac{(r+1)^{2}-r+((s-1) / 2)}{r+1}$ since $r+1 \leqslant \sqrt{n}+1$","theorem lean_workbook_plus_69436 (n : ℕ) (h : 0 < n) : ∃ a b : ℤ, 0 < b ∧ 0 < a ∧ a ≤ n ∧ n < (b + a) ∧ (b + a) ≤ (n + 1) ^ 2 := by sorry",4
+"We will show that if a pair $(a, b)$ is 2010-good then $(a, b)$ is $67^{i}$-good for all positive integer $i$.
+
+Claim 1. If $(a, b)$ is 2010-good then $(a, b)$ is 67-good.
+
+Proof. Assume that $P(m)=P(k)(\bmod 67)$. Since 67 and 30 are coprime, there exist integers $m^{\prime}$ and $k^{\prime}$ such that $k^{\prime} \equiv k(\bmod 67), k^{\prime} \equiv 0(\bmod 30)$, and $m^{\prime} \equiv m(\bmod 67), m^{\prime} \equiv 0$ $(\bmod 30)$. Then we have $P\left(m^{\prime}\right) \equiv P(0) \equiv P\left(k^{\prime}\right)(\bmod 30)$ and $P\left(m^{\prime}\right) \equiv P(m) \equiv P(k) \equiv P\left(k^{\prime}\right)$ $(\bmod 67)$, hence $P\left(m^{\prime}\right) \equiv P\left(k^{\prime}\right)(\bmod 2010)$. This implies $m^{\prime} \equiv k^{\prime}(\bmod 2010)$ as $(a, b)$ is 2010-good. It follows that $m \equiv m^{\prime} \equiv k^{\prime} \equiv k(\bmod 67)$. Therefore, $(a, b)$ is 67-good.
+
+Claim 2. If $(a, b)$ is 67-good then $67 \mid a$.
+
+Proof. Suppose that $67 \nmid a$. Consider the sets $\left\{a t^{2}(\bmod 67): 0 \leq t \leq 33\right\}$ and $\left\{-3 a s^{2}-b\right.$ $\bmod 67: 0 \leq s \leq 33\}$. Since $a \not \equiv 0(\bmod 67)$, each of these sets has 34 elements. Hence they have at least one element in common. If $a t^{2} \equiv-3 a s^{2}-b(\bmod 67)$ then for $m=t \pm s, k=\mp 2 s$ we have
+
+$$
+\begin{aligned}
+P(m)-P(k)=a\left(m^{3}-k^{3}\right)+b(m-k) & =(m-k)\left(a\left(m^{2}+m k+k^{2}\right)+b\right) \\
+& =(t \pm 3 s)\left(a t^{2}+3 a s^{2}+b\right) \equiv 0 \quad(\bmod 67).
+\end{aligned}
+$$
+
+Since $(a, b)$ is 67-good, we must have $m \equiv k(\bmod 67)$ in both cases, that is, $t \equiv 3 s(\bmod 67)$ and $t \equiv-3 s(\bmod 67)$. This means $t \equiv s \equiv 0(\bmod 67)$ and $b \equiv-3 a s^{2}-a t^{2} \equiv 0(\bmod 67)$. But then $67 \mid P(7)-P(2)=67 \cdot 5 a+5 b$ and $67 / 7-2$, contradicting that $(a, b)$ is 67 -good.
+
+Claim 3. If $(a, b)$ is 2010 -good then $(a, b)$ is $67^{i}$-good all $i \geq 1$.
+
+Proof. By Claim 2, we have $67 \mid a$. If $67 \mid b$, then $P(x) \equiv P(0)(\bmod 67)$ for all $x$, contradicting that $(a, b)$ is 67 -good. Hence, $67 \nmid b$.
+
+Suppose that $67^{i} \mid P(m)-P(k)=(m-k)\left(a\left(m^{2}+m k+k^{2}\right)+b\right)$. Since $67 \mid a$ and $67 \chi b$, the second factor $a\left(m^{2}+m k+k^{2}\right)+b$ is coprime to 67 and hence $67^{i} \mid m-k$. Therefore, $(a, b)$ is $67^{i}-\operatorname{good}$.","theorem lean_workbook_plus_56282  (a b : ℤ)
+  (h₀ : 0 < a ∧ 0 < b)
+  (h₁ : a * (a * b^3 + b * a^3) + b * (b * a^3 + a * b^3) ≡ 0 [ZMOD 67])
+  (h₂ : a * (b * a^2 + b * a * b + a * b^2) + b * (c * b^2 + c * a^2 + b * c^2) ≡ 0 [ZMOD 67])
+  (h₃ : 0 < a * b^2 + b * c^2 + c * a^2) :
+  67 ∣ a * (b * a^2 + 3 * a * b * c + c * b^2) + b * (c * b^2 + 3 * b * a * c + a * c^2) := by sorry",4
+"The statement follows from the following fact.
+
+Lemma. For arbitrary positive integers $x$ and $y$, the number $4 x y-1$ divides $\left(4 x^{2}-1\right)^{2}$ if and only if $x=y$.
+
+Proof. If $x=y$ then $4 x y-1=4 x^{2}-1$ obviously divides $\left(4 x^{2}-1\right)^{2}$ so it is sufficient to consider the opposite direction.
+
+Call a pair $(x, y)$ of positive integers bad if $4 x y-1$ divides $\left(4 x^{2}-1\right)^{2}$ but $x \neq y$. In order to prove that bad pairs do not exist, we present two properties of them which provide an infinite descent.
+
+Property (i). If $(x, y)$ is a bad pair and $x<y$ then there exists a positive integer $z<x$ such that $(x, z)$ is also bad.
+
+Let $r=\frac{\left(4 x^{2}-1\right)^{2}}{4 x y-1}$. Then
+
+$$
+r=-r \cdot(-1) \equiv-r(4 x y-1)=-\left(4 x^{2}-1\right)^{2} \equiv-1 \quad(\bmod 4 x)
+$$
+
+and $r=4 x z-1$ with some positive integer $z$. From $x<y$ we obtain that
+
+$$
+4 x z-1=\frac{\left(4 x^{2}-1\right)^{2}}{4 x y-1}<4 x^{2}-1
+$$
+
+and therefore $z<x$. By the construction, the number $4 x z-1$ is a divisor of $\left(4 x^{2}-1\right)^{2}$ so $(x, z)$ is a bad pair.
+
+Property (ii). If $(x, y)$ is a bad pair then $(y, x)$ is also bad.
+
+Since $1=1^{2} \equiv(4 x y)^{2}(\bmod 4 x y-1)$, we have
+
+$$
+\left(4 y^{2}-1\right)^{2} \equiv\left(4 y^{2}-(4 x y)^{2}\right)^{2}=16 y^{4}\left(4 x^{2}-1\right)^{2} \equiv 0 \quad(\bmod 4 x y-1).
+$$
+
+Hence, the number $4 x y-1$ divides $\left(4 y^{2}-1\right)^{2}$ as well.
+
+Now suppose that there exists at least one bad pair. Take a bad pair $(x, y)$ such that $2 x+y$ attains its smallest possible value. If $x<y$ then property (i) provides a bad pair $(x, z)$ with $z<y$ and thus $2 x+z<2 x+y$. Otherwise, if $y<x$, property (ii) yields that pair $(y, x)$ is also bad while $2 y+x<2 x+y$. Both cases contradict the assumption that $2 x+y$ is minimal; the Lemma is proved.
+
+To prove the problem statement, apply the Lemma for $x=k$ and $y=2 n$; the number $8 k n-1$ divides $\left(4 k^{2}-1\right)^{2}$ if and only if $k=2 n$. Hence, there is no such $n$ if $k$ is odd and $n=k / 2$ is the only solution if $k$ is even.","theorem lean_workbook_plus_13431  (k : ℕ)
+  (h₀ : 0 < k)
+  (h₁ : 2 * k^2 - 1 < 4 * k^2) :
+  (4 * k^2 - 1)^2 ∣ (8 * k^2 - 1) / (4 * k^2) := by sorry",3
+"Suppose there is an edge from $v_{i}$ to $v_{j}$. Then $i(j-1)=i j-i=k n$ for some integer $k$, which implies $i=i j-k n$. If $\operatorname{gcd}(i, n)=d$ and $\operatorname{gcd}(j, n)=e$, then $e$ divides $i j-k n=i$ and thus $e$ also divides $d$. Hence, if there is an edge from $v_{i}$ to $v_{j}$, then $\operatorname{gcd}(j, n) \mid \operatorname{gcd}(i, n)$.
+
+If there is a cycle in $G$, say $v_{i_{1}} \rightarrow v_{i_{2}} \rightarrow \cdots \rightarrow v_{i_{r}} \rightarrow v_{i_{1}}$, then we have
+
+$$
+\operatorname{gcd}\left(i_{1}, n\right)\left|\operatorname{gcd}\left(i_{r}, n\right)\right| \operatorname{gcd}\left(i_{r-1}, n\right)|\ldots| \operatorname{gcd}\left(i_{2}, n\right) \mid \operatorname{gcd}\left(i_{1}, n\right)
+$$
+
+which implies that all these greatest common divisors must be equal, say be equal to $t$.
+
+Now we pick any of the $i_{k}$, without loss of generality let it be $i_{1}$. Then $i_{r}\left(i_{1}-1\right)$ is a multiple of $n$ and hence also (by dividing by $t$ ), $i_{1}-1$ is a multiple of $\frac{n}{t}$. Since $i_{1}$ and $i_{1}-1$ are relatively prime, also $t$ and $\frac{n}{t}$ are relatively prime. So, by the Chinese remainder theorem, the value of $i_{1}$ is uniquely determined modulo $n=t \cdot \frac{n}{t}$ by the value of $t$. But, as $i_{1}$ was chosen arbitrarily among the $i_{k}$, this implies that all the $i_{k}$ have to be equal, a contradiction.","theorem lean_workbook_plus_71929  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ i j : ℕ, 0 < i ∧ 0 < j → i * j - i = 1 → i ∈ ({i, j} : Finset ℕ)) :
+  ∀ i j : ℕ, 0 < i ∧ 0 < j → i * j - i = 1 → i ∈ ({i, j} : Finset ℕ) := by sorry",3 out of 10

@@ -1,0 +1,15 @@
+models,score,score2,score3
+,,,
+,,,
+llama base ,11.28%,6.79%,9.74%
+Llama base instruct one shot,13.46%,15.25%,9.61%
+Llama base instruct few shot,29.62%,19.74%,9.74%
+Llama fine tuned ,12.05%,19.48%,6.67%
+Llama fine tuned one shot,20.65%,27.31%,7.30%
+Llama fine tuned few shot,8.07%,20.90%,8.85%
+Qwen instruct one shot,46.79%,41.28%,36.92%
+Qwen base ,32.69%,29.23%,30.64%
+Qwen instruct few shot,40%,36.79%,31.79%
+Qwen fine tuned,22.95%,38.07%,24.23%
+Qwen fine tuned one shot,31.41%,37.17%,26.92%
+Qwen fine tuned few shot,29.62%,47.44%,29.48%

@@ -1,0 +1,319 @@
+natural,formal,score
+"Let $x$ and $y$ be positive integers. If $x^{2^{n}}-1$ is divisible by $2^{n} y+1$ for every positive integer $n$, prove that $x=1$.","theorem lean_workbook_plus_65600  (x y : ℕ)
+  (h₀ : 0 < x ∧ 0 < y)
+  (h₁ : x^2 - 1 ∣ 2^n * y + 1) :
+  x = 1 := by sorry",3
+"The sequence of real numbers $a_{0}, a_{1}, a_{2}, \ldots$ is defined recursively by
+
+$$
+a_{0}=-1, \quad \sum_{k=0}^{n} \frac{a_{n-k}}{k+1}=0 \quad \text { for } \quad n \geq 1.
+$$
+
+Show that $a_{n}>0$ for $n \geq 1$","theorem lean_workbook_plus_13461 (n : ℕ) (hn : 1 ≤ n) (a : ℕ → ℝ) (h : ∀ n, a n = (n + 2) * (-n)^(n - 1)) : ∀ n, 0 < a n := by sorry",3
+"Prove the inequality
+
+$$
+\sum_{i<j} \frac{a_{i} a_{j}}{a_{i}+a_{j}} \leq \frac{n}{2\left(a_{1}+a_{2}+\cdots+a_{n}\right)} \sum_{i<j} a_{i} a_{j}
+$$
+
+for positive real numbers $a_{1}, a_{2}, \ldots, a_{n}$.","theorem lean_workbook_plus_55488  (n : ℕ)
+  (a : ℕ → ℝ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ i j, 0 < a i ∧ 0 < a j)
+  (h₂ : ∀ i j, a i * a j / (a i + a j) ≤ (a i + a j) / (n - 1)) :
+  ∀ i j, 0 < i ∧ 0 < j → a i * a j / (a i + a j) ≤ (a i + a j) / (n - 1) := by sorry",4
+"For every positive integer $N$, determine the smallest real number $b_{N}$ such that, for all real $x$,
+
+$$
+\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant b_{N}(x-1)^{2}+x
+$$
+
+The final answer is $b_{n}=N / 2$.","theorem lean_workbook_plus_66808  (x : ℝ)
+  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 0 < x)
+  (h₂ : 0 < (1 + N / 2) * t)
+  (h₃ : 0 < (2 + N / 2) * t)
+  (h₄ : 0 < (N / 2) * t)
+  (h₅ : 0 < (N + 1 / 2) * t)
+  (h₆ : 0 < (N + 2 / 2) * t)
+  (h₇ : 0 < (N + 3 / 2) * t)
+  (h₈ : 0 < (N + 4 / 2) * t)
+  (h₉ : 0 < (N + 5 / 2) * t)
+  (h₁₀ : 0 < (N + 6 / 2) * t)
+  (h₁₁ : 0 < (N + 7 / 2) * t)
+  (h₁₂ : 0 < (N + 8 / 2) * t) :
+  (1 + N / 2) * t ^ (2 * n) ≤ (1 + N / 2) * (1 + t) ^ (2 * n) + (N - 1) * t ^ (2 * n) := by sorry",2
+"Let $z_{0}<z_{1}<z_{2}<\cdots$ be an infinite sequence of positive integers. Prove that there exists a unique integer $n \geqslant 1$ such that
+
+$$
+z_{n}<\frac{z_{0}+z_{1}+\cdots+z_{n}}{n} \leqslant z_{n+1}.
+$$","theorem lean_workbook_plus_71059 (z : ℕ → ℤ) (h : ∀ n, 0 < z n) (h' : ∀ n, z n < z (n + 1)) : ∃! n, 1 ≤ n ∧ n ≤ n + 1 ∧ (∑ i in Finset.range n, z i) / n < z (n + 1) := by sorry",6
+"Let $S \subseteq \mathbb{R}$ be a set of real numbers. We say that a pair $(f, g)$ of functions from $S$ into $S$ is a Spanish Couple on $S$, if they satisfy the following conditions:
+
+(i) Both functions are strictly increasing, i.e. $f(x)<f(y)$ and $g(x)<g(y)$ for all $x, y \in S$ with $x<y$
+
+(ii) The inequality $f(g(g(x)))<g(f(x))$ holds for all $x \in S$.
+
+Decide whether there exists a Spanish Couple on the set $S=\mathbb{N}$ of positive integers;
+
+The final answer is NO.","theorem lean_workbook_plus_69864 (S : Set ℝ) (hS : S ⊆ Set.Ioi 0) : ¬ ∃ f g : ℝ → ℝ, Function.Bijective f ∧ Function.Bijective g ∧ ∀ x y : ℝ, x ∈ S ∧ y ∈ S → f x < f y ∧ g x < g y := by sorry",4
+"Let $\mathbb{Z}$ and $\mathbb{Q}$ be the sets of integers and rationals respectively.
+
+Does there exist a partition of $\mathbb{Z}$ into three non-empty subsets $A, B, C$ such that the sets $A+B, B+C, C+A$ are disjoint?
+
+The final answer is yes.","theorem lean_workbook_plus_74139 : ∃ A B C : Set ℤ, A = {k | 0 < k ∧ k % 3 = 0} ∧ B = {k | 0 < k ∧ k % 3 = 1} ∧ C = {k | 0 < k ∧ k % 3 = 2} → A ∪ B ∪ C = ∅ := by sorry",2
+"Call a rational number short if it has finitely many digits in its decimal expansion. For a positive integer $m$, we say that a positive integer $t$ is $m$-tastic if there exists a number $c \in\{1,2,3, \ldots, 2017\}$ such that $\frac{10^{t}-1}{c \cdot m}$ is short, and such that $\frac{10^{k}-1}{c \cdot m}$ is not short for any $1 \leqslant k<t$. Let $S(m)$ be the set of $m$-tastic numbers. Consider $S(m)$ for $m=1,2, \ldots$. What is the maximum number of elements in $S(m)$?
+
+The final answer is 807.","theorem lean_workbook_plus_80583  (m : ℕ)
+  (h₀ : 0 < m)
+  (h₁ : m ≤ 2017)
+  (h₂ : 1 ≤ (10^m - 1) / (m * 10^k))
+  (h₃ : (10^m - 1) / (m * 10^k) ≤ 1) :
+  m = 0 := by sorry",3
+"Find all surjective functions $f: \mathbb{N} \rightarrow \mathbb{N}$ such that for every $m, n \in \mathbb{N}$ and every prime $p$, the number $f(m+n)$ is divisible by $p$ if and only if $f(m)+f(n)$ is divisible by $p$.
+
+( $\mathbb{N}$ is the set of all positive integers.)
+
+The final answer is $f(n)=n$.","theorem lean_workbook_plus_79987  (f : ℕ → ℕ)
+  (h₀ : Function.Surjective f)
+  (h₁ : ∀ n, 0 < n → (n % f n) ∣ (n % f n)) :
+  ∀ n, 0 < n → (n % f n) ∣ (n % f n) := by sorry",1
+"Let $f: \mathbb{R} \rightarrow \mathbb{N}$ be a function which satisfies
+
+$$
+f\left(x+\frac{1}{f(y)}\right)=f\left(y+\frac{1}{f(x)}\right) \quad \text { for all } x, y \in \mathbb{R}
+$$
+
+Prove that there is a positive integer which is not a value of $f$.","theorem lean_workbook_plus_68071  (f : ℝ → ℕ)
+  (h₀ : ∀ x, ∀ y, f (x + 1 / f y) = f (y + 1 / f x))
+  (h₁ : f 1 = 1)
+  (h₂ : ∀ n, ∃ k, f (1 / k) = n)
+  (h₃ : 0 < k) :
+  ∃ n, f (1 / n) = n := by sorry",3
+Let $a$ and $b$ be distinct integers greater than 1. Prove that there exists a positive integer $n$ such that $\left(a^{n}-1\right)\left(b^{n}-1\right)$ is not a perfect square.,"theorem lean_workbook_plus_66731  (a b : ℝ)
+  (h₀ : 1 < a ∧ 1 < b)
+  (h₁ : a ≠ b)
+  (h₂ : 0 < a ∧ 0 < b)
+  (h₃ : a^(1 / 2) ≠ b^(1 / 2))
+  (h₄ : 0 < a ∧ 0 < b)
+  (h₅ : a^(1 / 2) * b^(1 / 2) = 1)
+  (h₆ : 0 < a ∧ 0 < b)
+  (h₇ : a^(1 / 2) = b^(1 / 2))
+  (h₈ : 0 < a ∧ 0 < b)
+  (h₉ : a^(1 / 2) = b^(1 / 2))
+  (h₁₀ : 0 < a ∧ 0 < b)
+  (h₁₁ : a^(1 / 2) * b^(1 / 2) = 1) :
+  (1 - a)^(1 / 2) * (1 - b)^(1 / 2) = 1 := by sorry",2
+"Determine all integers $n \geqslant 2$ with the following property: every $n$ pairwise distinct integers whose sum is not divisible by $n$ can be arranged in some order $a_{1}, a_{2}, \ldots, a_{n}$ so that $n$ divides $1 \cdot a_{1}+2 \cdot a_{2}+\cdots+n \cdot a_{n}$.
+
+The final answers are all odd integers and all powers of 2.","theorem lean_workbook_plus_69558  (n : ℕ)
+  (h₀ : 2 ≤ n)
+  (h₁ : n ∣ (∑ i in Finset.Icc 2 n, i * i)) :
+  ∃ k : ℕ,
+  n ∣ ∑ i in Finset.Icc 2 n, i * k := by sorry",3
+"For every real number $x$, let $\|x\|$ denote the distance between $x$ and the nearest integer. Prove that for every pair $(a, b)$ of positive integers there exist an odd prime $p$ and a positive integer $k$ satisfying
+
+$$
+\left\|\frac{a}{p^{k}}\right\|+\left\|\frac{b}{p^{k}}\right\|+\left\|\frac{a+b}{p^{k}}\right\|=1.
+$$","theorem lean_workbook_plus_62629  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 0 < a ∧ 0 < b)
+  (h₂ : 0 < p ∧ 0 < 2)
+  (h₃ : Odd p)
+  (h₄ : 1 < (2 * n - 1) / p^k)
+  (h₅ : 0 < (2 * n - 1) / p^k)
+  (h₆ : 0 < (2 * n - 1) / p^k)
+  (h₇ : 0 < (2 * n - 1) / p^k)
+  (h₈ : 0 < (2 * n - 1) / p^k) :
+  (2 * a + 2 * b - 1) / p^k + (2 * a + 2 * b - 1) / (2 * b - 1) * p^k + (2 * a + 2 * b - 1) / (2 * b - 1) * p^k + (2 * a + 2 * b - 1) / (2 * b - 1) * p^k = 1 := by sorry",2
+"Let $a_{1}<a_{2}<\cdots<a_{n}$ be pairwise coprime positive integers with $a_{1}$ being prime and $a_{1} \geqslant n+2$. On the segment $I=\left[0, a_{1} a_{2} \cdots a_{n}\right]$ of the real line, mark all integers that are divisible by at least one of the numbers $a_{1}, \ldots, a_{n}$. These points split $I$ into a number of smaller segments. Prove that the sum of the squares of the lengths of these segments is divisible by $a_{1}$.","theorem lean_workbook_plus_71628  (p : ℕ)
+  (h₀ : 0 < p)
+  (h₁ : p.Prime)
+  (h₂ : ∀ x y, 0 < x ∧ 0 < y → (x + y) % p = 0 → (x % p + y % p) = 0)
+  (h₃ : ∀ x, 0 < x → (x % p) + 1 = 0 → (x + 1) % p = 0)
+  (h₄ : ∀ x, 0 < x → (x % p) + d = 0 → (x + d) % p = 0)
+  (h₅ : ∀ x, 0 < x → (x % p) + d + 1 = 0 → (x + d + 1) % p = 0)
+  (h₆ : ∀ x, 0 < x → (x % p) + d + 1 + 1 = 0 → (x + d + 1 + 1) % p = 0) :
+  ∑ x in Finset.Icc 1 p, (x % p)^2 = 0 := by sorry",3
+"Let $\mathbb{N}$ be the set of all positive integers. Find all functions $f: \mathbb{N} \rightarrow \mathbb{N}$ such that the number $(f(m)+n)(m+f(n))$ is a square for all $m, n \in \mathbb{N}$.
+
+The final answers are all functions of the form $f(n)=n+c$, where $c \in \mathbb{N} \cup\{0\}$.","theorem lean_workbook_plus_77043  (f : ℕ → ℕ)
+  (h₀ : ∀ n, 0 < f n)
+  (h₁ : ∀ n, ∀ k, f n + k = f (k + n))
+  (h₂ : ∀ n, ∀ k, f (m + n) * f (n + f k) = (n + m + k + n) ^ 2) :
+  ∀ n, f n = f 1 + q * (n - 1) := by sorry",6
+"Let $n \geqslant 2$ be a positive integer and $a_{1}, a_{2}, \ldots, a_{n}$ be real numbers such that
+
+$$
+a_{1}+a_{2}+\cdots+a_{n}=0
+$$
+
+Define the set $A$ by
+
+$$
+A=\left\{(i, j)|1 \leqslant i<j \leqslant n,| a_{i}-a_{j} \mid \geqslant 1\right\}
+$$
+
+Prove that, if $A$ is not empty, then
+
+$$
+\sum_{(i, j) \in A} a_{i} a_{j}<0
+$$","theorem lean_workbook_plus_72819  (n : ℕ)
+  (a : Fin n → ℝ)
+  (h₀ : 2 ≤ n)
+  (h₁ : ∀ i, 0 ≤ a i)
+  (h₂ : ∑ i, a i = 0)
+  (h₃ : ∑ i, a i < 1)
+  (h₄ : ∀ i, 0 < a i) :
+  ∑ i, a i * a i < 0 := by sorry",2
+"Define $P(n)=n^{2}+n+1$. For any positive integers $a$ and $b$, the set
+
+$$
+\{P(a), P(a+1), P(a+2), \ldots, P(a+b)\}
+$$
+
+is said to be fragrant if none of its elements is relatively prime to the product of the other elements. Determine the smallest size of a fragrant set.
+
+The final answer is 6.","theorem lean_workbook_plus_35683  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : n % 2 = 1)
+  (h₂ : (n^2 + n + 1) % 7 = 1)
+  (h₃ : (n^2 + n + 1) % 7 = 7)
+  (h₄ : (n^2 + n + 1) % 7 = 3)
+  (h₅ : (n^2 + n + 1) % 7 = 2) :
+  n % 2 = 1 ∧ n % 7 = 1 ∧ (n^2 + n + 1) % 7 = 1 ∧ (n^2 + n + 1) % 7 = 7 ∧ (n^2 + n + 1) % 7 = 3 ∧ (n^2 + n + 1) % 7 = 2 := by sorry",2
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ satisfying the equation
+
+$$
+f(x+f(x+y))+f(x y)=x+f(x+y)+y f(x)
+$$
+
+for all real numbers $x$ and $y$.
+
+The final answer is that there are two such functions, namely the identity function and $x \mapsto 2-x$.","theorem lean_workbook_plus_49741  (f : ℝ → ℝ)
+  (h₀ : ∀ x y, f (x + f (x + y)) + f (x * y) = x + f (x + y) + y * f (x))
+  (h₁ : f 0 = 0) :
+  ∀ x, f x = 2 - x := by sorry",7
+"Find all pairs $(m, n)$ of nonnegative integers for which
+
+$$
+m^{2}+2 \cdot 3^{n}=m\left(2^{n+1}-1\right).
+$$
+
+The final answers are $(6,3),(9,3),(9,5),(54,5)$.","theorem lean_workbook_plus_6801  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 6 ≤ n)
+  (h₂ : n % 3 < 1) :
+  n % 3 < 6 ∧ n < 11 := by sorry",1
+"Call admissible a set $A$ of integers that has the following property:
+
+$$
+\text { If } x, y \in A \text { (possibly } x=y \text { ) then } x^{2}+k x y+y^{2} \in A \text { for every integer } k \text {. }
+$$
+
+Determine all pairs $m, n$ of nonzero integers such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+
+The final answer is that a pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$.","theorem lean_workbook_plus_72945  (a b : ℤ)
+  (h₀ : 0 < a ∧ 0 < b)
+  (h₁ : a * b = 1)
+  (h₂ : 1 ∈ Set.Icc a b) :
+  1 ∈ Set.Icc a b := by sorry",2
+"Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$
+
+$$
+f(2 a)+2 f(b)=f(f(a+b))
+$$
+
+The final answers are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$.","theorem lean_workbook_plus_73567  (f : ℤ → ℤ)
+  (h₀ : ∀ a b, f (2 * a + b) + 2 * f b = f (a + b) + f 0)
+  (h₁ : ∀ a b, f (a + b) + 2 * f b = f (2 * a) + f 1) :
+  ∀ a b, f (a + b) = 0 ∨ f (a + b) = 2 * a + K := by sorry",6
+"Determine all positive integers $M$ for which the sequence $a_{0}, a_{1}, a_{2}, \ldots$, defined by $a_{0}=\frac{2 M+1}{2}$ and $a_{k+1}=a_{k}\left\lfloor a_{k}\right\rfloor$ for $k=0,1,2, \ldots$, contains at least one integer term.
+
+The final answers are all integers $M \geqslant 2$.","theorem lean_workbook_plus_62643  (m : ℕ)
+  (a : ℕ → ℤ)
+  (h₀ : a 0 = (2 * m + 1) / 2)
+  (h₁ : ∀ k, a (k + 1) = a k * (2 * m + 1) / (2 * m + 1)) :
+  m ≥ 2 := by sorry",3
+"A function $f: \mathbb{Z} \rightarrow \mathbb{Z}$ is chosen so that $a-b \mid f(a)-f(b)$ for all $a, b \in \mathbb{Z}$ with $a \neq b$. Let $S_{0}=\mathbb{Z}$, and for each positive integer $m$, let $S_{m}$ denote the image of $f$ on the set $S_{m-1}$. It is given that, for each nonnegative integer $m$, there are exactly $\left\lceil n / 2^{m}\right\rceil$ distinct residues modulo $n$ in the set $S_{m}$. Find all possible values of $n$.
+
+The final answers are all powers of primes.","theorem lean_workbook_plus_69227  (p k : ℕ)
+  (h₀ : 0 < p ∧ 0 < k)
+  (h₁ : p.Prime)
+  (h₂ : (p : ℤ) ∣ (3^k) / 2) :
+  (p - 2) * 3^(k - 2) ≤ (p : ℤ) := by sorry",3
+"Let $n$ be a positive integer, and set $N=2^{n}$. Determine the smallest real number $a_{n}$ such that, for all real $x$,
+
+$$
+\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant a_{n}(x-1)^{2}+x
+$$
+
+The final answer is $a_{n}=N / 2$.","theorem lean_workbook_plus_66269  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ x, 0 < x → (Real.sqrt ((1 + x^2) / 2) ≤ (1 + x^2) / 2 * (x - 1)^2 + x)) :
+  ∀ x, 0 < x → (1 + x^2) / 2 * (x - 1)^2 ≤ (1 + x^4) / 2 := by sorry",3
+"Let $m \neq 0$ be an integer. Find all polynomials $P(x)$ with real coefficients such that
+
+$$
+\left(x^{3}-m x^{2}+1\right) P(x+1)+\left(x^{3}+m x^{2}+1\right) P(x-1)=2\left(x^{3}-m x+1\right) P(x)
+$$
+
+for all real numbers $x$.
+
+The final answer is $P(x)=t x$ for any real number $t$.","theorem lean_workbook_plus_65920  (m : ℝ)
+  (a b c : ℝ)
+  (h₀ : m ≥ 0)
+  (h₁ : a ≥ 0 ∧ b ≥ 1)
+  (h₂ : ∀ x, (x^3 - m * x^2 + 1) * (x + 1) + (x^3 + m * x^2 + 1) * (x - 1) = 2 * (x^3 - m * x + 1) * (x^2 - x + 1))
+  (h₃ : 0 < a ∧ 0 < b)
+  (h₄ : a + b = 1)
+  (h₅ : ∀ x, (x^3 - m * x^2 + 1) * (x + 1) + (x^3 + m * x^2 + 1) * (x - 1) = 2 * (x^3 - m * x + 1) * (x^2 - x + 1)) :
+  (a + b) * (x + r) = (3 * c - 2 * m) * x^2 + (c * (3 * c - 2 * m)) * x + (c^2 * (c - m)) := by sorry",2
+"Find the largest possible integer $k$, such that the following statement is true:
+
+Let 2009 arbitrary non-degenerated triangles be given. In every triangle the three sides are colored, such that one is blue, one is red and one is white. Now, for every color separately, let us sort the lengths of the sides. We obtain
+
+$$
+\begin{aligned}
+& b_{1} \leq b_{2} \leq \ldots \leq b_{2009} \quad \text { the lengths of the blue sides, } \\
+& r_{1} \leq r_{2} \leq \ldots \leq r_{2009} \quad \text { the lengths of the red sides, } \\
+& \text { and } \quad w_{1} \leq w_{2} \leq \ldots \leq w_{2009} \quad \text { the lengths of the white sides. }
+\end{aligned}
+$$
+
+Then there exist $k$ indices $j$ such that we can form a non-degenerated triangle with side lengths $b_{j}, r_{j}, w_{j}$
+
+The final answer is that the largest possible number $k$ of indices satisfying the given condition is one.","theorem lean_workbook_plus_6543  (b r w : ℕ → ℕ)
+  (h₀ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b i ≤ b (i + 1))
+  (h₁ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → r i ≤ r (i + 1))
+  (h₂ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → w i ≤ w (i + 1))
+  (h₃ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b + r i = w + r i)
+  (h₄ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b + r i = w + r i)
+  (h₅ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b + r i = w + r i)
+  (h₆ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b + r i = w + r i)
+  (h₇ : ∀ i, 1 ≤ i ∧ i ≤ 2008 → b + r i = w + r i) :
+  1 ≤ k ∧ k ≤ 2008 := by sorry",3
+"Let $a_{1}, a_{2}, a_{3}, \ldots$ be an infinite sequence of positive integers such that $a_{n+2 m}$ divides $a_{n}+a_{n+m}$ for all positive integers $n$ and $m$. Prove that this sequence is eventually periodic, i.e. there exist positive integers $N$ and $d$ such that $a_{n}=a_{n+d}$ for all $n>N$.","theorem lean_workbook_plus_56667 (a : ℕ → ℕ) (h : ∀ n, ∃ m, n > m ∧ a (n + 2 * m) ∣ a n + a (n - m)) : ∃ N, ∀ n > N, a n = a (n - N) := by sorry",3
+"Prove that, for every positive integer $n$, there exists an integer $m$ such that $2^{m}+m$ is divisible by $n$.","theorem lean_workbook_plus_64337 (d : ℕ) (h : 0 < d) (N : ℕ) (hN : 0 < N) (hN2 : ∀ i ∈ Finset.range d, 0 < i) (hN3 : ∀ i ∈ Finset.range d, 0 < i → 2 ^ i + i ≡ i [ZMOD d]) : ∃ m : ℕ, 0 < m ∧ ∀ i ∈ Finset.range d, 0 < i → 2 ^ (m * i) + m ≡ i [ZMOD d] := by sorry",3
+Let $k$ be a positive integer. Prove that the number $\left(4 k^{2}-1\right)^{2}$ has a positive divisor of the form $8 k n-1$ if and only if $k$ is even.,"theorem lean_workbook_plus_54571  (k : ℕ)
+  (h₀ : 0 < k)
+  (h₁ : 2 * k^2 - 1 < 4 * k^2) :
+  (4 * k^2 - 1)^2 ∣ (8 * k * (4 * k^2 - 1) - 1) / (4 * (k^2 - 1)) := by sorry",3
+"For an integer $m$, denote by $t(m)$ the unique number in $\{1,2,3\}$ such that $m+t(m)$ is a multiple of 3. A function $f: \mathbb{Z} \rightarrow \mathbb{Z}$ satisfies $f(-1)=0, f(0)=1, f(1)=-1$ and
+
+$$
+f\left(2^{n}+m\right)=f\left(2^{n}-t(m)\right)-f(m) \quad \text { for all integers } m, n \geq 0 \text { with } 2^{n}>m.
+$$
+
+Prove that $f(3 p) \geq 0$ holds for all integers $p \geq 0$","theorem lean_workbook_plus_79888  (n m : ℕ)
+  (h₀ : 0 < n ∧ 0 < m)
+  (h₁ : 2^n + m = 3 * 2^(n - 1))
+  (h₂ : 2^m = 3 * 2^(m - 1)) :
+  0 ≤ 3 * (2^(n - 1) / 2) * 3 ^ (n / 2) := by sorry",2
+"For any odd prime $p$ and any integer $n$, let $d_{p}(n) \in\{0,1, \ldots, p-1\}$ denote the remainder when $n$ is divided by $p$. We say that $\left(a_{0}, a_{1}, a_{2}, \ldots\right)$ is a $p$-sequence, if $a_{0}$ is a positive integer coprime to $p$, and $a_{n+1}=a_{n}+d_{p}\left(a_{n}\right)$ for $n \geqslant 0$.
+
+Do there exist infinitely many primes $p$ for which there exist $p$-sequences $\left(a_{0}, a_{1}, a_{2}, \ldots\right)$ and $\left(b_{0}, b_{1}, b_{2}, \ldots\right)$ such that $a_{0}<b_{0}$, but $a_{n}>b_{n}$ for all $n \geqslant 1$?
+
+The final answer is yes.","theorem lean_workbook_plus_69408 (p : ℕ) (hp : p.Prime) (x : ℕ → ℕ) (y : ℕ → ℕ) (h₁ : ∀ n, 0 ≤ x n ∧ 0 ≤ y n) (h₂ : ∀ n, x n < y n) (h₃ : ∀ n, 0 < (x n) ∧ 0 < (y n)) (h₄ : ∀ n, x n % p = 0 ∧ y n % p = 0) (h₅ : ∀ n, x n + y n % p = 0) : ∃ n, 0 < x n ∧ 0 < y n := by sorry",3
+,,95

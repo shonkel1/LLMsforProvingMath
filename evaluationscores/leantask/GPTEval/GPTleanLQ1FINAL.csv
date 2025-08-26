@@ -1,0 +1,169 @@
+natural,formal,score
+"Consider all polynomials $P(x)$ with real coefficients that have the following property: for any two real numbers $x$ and $y$ one has
+
+$$
+\left|y^{2}-P(x)\right| \leqslant 2|x| \quad \text { if and only if } \quad\left|x^{2}-P(y)\right| \leqslant 2|y| \text {. }
+$$
+
+Determine all possible values of $P(0)$.
+
+The final answer is that the set of possible values of $P(0)$ is $(-\infty, 0) \cup\{1\}$.","theorem lean_workbook_10144  (x : ℝ)
+  (h₀ : 0 < x)
+  (h₁ : 0 < x^4 + 2 * |x|) :
+  x^2 + 1 = x^2 + 1 := by sorry",2
+"Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+f^{a^{2}+b^{2}}(a+b)=a f(a)+b f(b) \quad \text { for every } a, b \in \mathbb{Z} .
+$$
+
+Here, $f^{n}$ denotes the $n^{\text {th }}$ iteration of $f$, i.e., $f^{0}(x)=x$ and $f^{n+1}(x)=f\left(f^{n}(x)\right)$ for all $n \geqslant 0$.
+
+The final answer is either $f(x)=0$ for all $x \in \mathbb{Z}$, or $f(x)=x+1$ for all $x \in \mathbb{Z}$.",theorem lean_workbook_10144 (a b : ℤ) (f : ℤ → ℤ) (hf: f = fun x ↦ x + 1) : f a ^ 2 + b ^ 2 = a * f a + b * f b := by sorry,3
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ that satisfy the conditions
+
+$$
+f(1+x y)-f(x+y)=f(x) f(y) \text { for all } x, y \in \mathbb{R}
+$$
+
+and $f(-1) \neq 0$
+
+The final answer is the function $f(x)=x-1, x \in \mathbb{R}$.",theorem lean_workbook_14414 (x y : ℝ) :  x + y = 1 → x = 2 - y := by sorry,1
+"Let $\mathcal{A}$ denote the set of all polynomials in three variables $x, y, z$ with integer coefficients. Let $\mathcal{B}$ denote the subset of $\mathcal{A}$ formed by all polynomials which can be expressed as
+
+$$
+(x+y+z) P(x, y, z)+(x y+y z+z x) Q(x, y, z)+x y z R(x, y, z)
+$$
+
+with $P, Q, R \in \mathcal{A}$. Find the smallest non-negative integer $n$ such that $x^{i} y^{j} z^{k} \in \mathcal{B}$ for all nonnegative integers $i, j, k$ satisfying $i+j+k \geqslant n$.
+
+The final answer is $n=4$.","theorem lean_workbook_10144  (x y z : ℝ)
+  (h₀ : 0 ≤ x ∧ x ≤ 1)
+  (h₁ : 0 ≤ y ∧ y ≤ 1)
+  (h₂ : 0 ≤ z ∧ z ≤ 1) :
+  x^4 + y^4 + z^4 + 6 * x^2 * y^2 + 6 * x^2 * z^2 + 6 * x * y * z - 4 * x * y * z ≤ 4 := by sorry",2
+"Determine the largest real number $a$ such that for all $n \geqslant 1$ and for all real numbers $x_{0}, x_{1}, \ldots, x_{n}$ satisfying $0=x_{0}<x_{1}<x_{2}<\cdots<x_{n}$, we have
+
+$$
+\frac{1}{x_{1}-x_{0}}+\frac{1}{x_{2}-x_{1}}+\cdots+\frac{1}{x_{n}-x_{n-1}} \geqslant a\left(\frac{2}{x_{1}}+\frac{3}{x_{2}}+\cdots+\frac{n+1}{x_{n}}\right) .
+$$
+
+The final answer is that the largest $a$ is $\frac{4}{9}$.","theorem lean_workbook_plus_10014  (n : ℕ)
+  (a : ℝ)
+  (h₀ : a = 4 / 9) :
+  a ≤ 4 / 9 := by sorry",3
+"Find the smallest positive integer $n$, or show that no such $n$ exists, with the following property: there are infinitely many distinct $n$-tuples of positive rational numbers $\left(a_{1}, a_{2}, \ldots, a_{n}\right)$ such that both
+
+$$
+a_{1}+a_{2}+\cdots+a_{n} \quad \text { and } \quad \frac{1}{a_{1}}+\frac{1}{a_{2}}+\cdots+\frac{1}{a_{n}}
+$$
+
+are integers.
+
+The final answer is $n=3$.",theorem lean_workbook_plus_11014 (b c : ℝ) (h₁ : 0 < c ∧ c > 0) (h₂ : 0 < b ∧ b > 0) (h₃ : 0 < a ∧ a > 0) (h₄ : 0 < d ∧ d > 0) : 0 < a ∧ a > 0 ∧ 0 < b ∧ b > 0 ∧ 0 < c ∧ c > 0 := by sorry,1
+"Find all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+n^{2}+4 f(n)=f(f(n))^{2}
+$$
+
+for all $n \in \mathbb{Z}$.
+
+The final answer is that the possibilities are:
+
+\begin{itemize}
+  \item $f(n)=n+1$ for all $n$
+
+  \item or, for some $a \geqslant 1, \quad f(n)= \begin{cases}n+1, & n>-a, \\ -n+1, & n \leqslant-a ;\end{cases}$
+
+  \item or $f(n)= \begin{cases}n+1, & n>0 \\ 0, & n=0 \\ -n+1, & n<0\end{cases}$
+
+\end{itemize}",theorem lean_workbook_11142 (n : ℤ) (f : ℤ → ℤ) (hf: f = fun (n : ℤ) => n + 1) : f (-n) = -n + 1 := by sorry,2
+"Find all pairs $(m, n)$ of nonnegative integers for which
+
+$$
+m^{2}+2 \cdot 3^{n}=m\left(2^{n+1}-1\right) .
+$$
+
+The final answers are $(6,3),(9,3),(9,5),(54,5)$.",theorem lean_workbook_plus_11024 (n : ℕ) (h : 6 ≤ n + 1) : 6 ∣ n + 1 := by sorry,2
+"Call admissible a set $A$ of integers that has the following property:
+
+$$
+\text { If } x, y \in A \text { (possibly } x=y \text { ) then } x^{2}+k x y+y^{2} \in A \text { for every integer } k \text {. }
+$$
+
+Determine all pairs $m, n$ of nonzero integers such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+
+The final answer is that a pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$.","theorem lean_workbook_10014  (m n : ℤ)
+  (h₀ : 0 < m ∧ 0 < n)
+  (h₁ : 1 = m^4 + n^4) :
+  1 = (m^4 + n^4)^ 2 := by sorry",1
+"Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$
+
+$$
+f(2 a)+2 f(b)=f(f(a+b))
+$$
+
+The final answers are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$.","theorem lean_workbook_plus_10024 (f : ℤ → ℤ) (hf : f = fun n => 2 * n + k) : ∀ a b, f (2 * a + b) = f (a + b) := by sorry",3
+"Determine all pairs $(x, y)$ of positive integers such that
+
+$$
+\sqrt[3]{7 x^{2}-13 x y+7 y^{2}}=|x-y|+1 .
+$$
+
+The answer is that either $(x, y)=(1,1)$ or $\{x, y\}=\left\{m^{3}+m^{2}-2 m-1, m^{3}+2 m^{2}-m-1\right\}$ for some positive integer $m \geqslant 2$.",theorem lean_workbook_14144 (x y : ℤ) (h : 0 < x ∧ 0 < y) : 7 * x ^ 2 - 13 * x * y + 7 * y ^ 2 = (x - y) ^ 2 + 3 * (x - y) ^ 2 := by sorry,3
+"An integer $a$ is called friendly if the equation $\left(m^{2}+n\right)\left(n^{2}+m\right)=a(m-n)^{3}$ has a solution over the positive integers.
+
+Prove that there are at least 500 friendly integers in the set $\{1,2, \ldots, 2012\}$.","theorem lean_workbook_11144  (m n : ℕ)
+  (h₀ : 0 < m ∧ m ≤ 2012)
+  (h₁ : 0 < n ∧ n <= 2012)
+  (h₂ : 0 < m - n ∧ m - n <= 2012) :
+  502 ≤ m ∧ m <= 2012 ∧ 502 ≤ n ∧ n <= 2012 := by sorry",3
+"Find all integer solutions of the equation
+
+$$
+\frac{x^{7}-1}{x-1}=y^{5}-1 \text {. }
+$$
+
+The final answer is that the given equation has no integer solutions.",theorem lean_workbook_10444 (x y : ℤ) (h₁ : x ≠ 1) (h₂ : x ≠ -1) : 7 ∣ (x^ 7 - 1) ∨ 7 ∣ (x^ 7 - 1) := by sorry,3
+"Find all the functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+f(a)^{2}+f(b)^{2}+f(c)^{2}=2 f(a) f(b)+2 f(b) f(c)+2 f(c) f(a)
+$$
+
+for all integers $a, b, c$ satisfying $a+b+c=0$.
+
+The final answer is that the only possible solutions of the functional equation are the constant function $f_{1}(x)=0$ and the following functions:
+
+$$
+f_{2}(x)=k x^{2} \quad f_{3}(x)=\left\{\begin{array}{ccc}
+0 & x \text { even } \\
+k & x \text { odd }
+\end{array} \quad f_{4}(x)=\left\{\begin{array}{ccc}
+0 & x \equiv 0 & (\bmod 4) \\
+k & x \equiv 1 & (\bmod 2) \\
+4 k & x \equiv 2 & (\bmod 4)
+\end{array}\right.\right.
+$$
+
+for any non-zero integer $k$.","theorem lean_workbook_11244 (f : ℤ → ℤ) (hf: f = fun x ↦ x^2) :  ∀ x, f x = f (x + 1) := by sorry",1
+"Let $a$ be a positive integer which is not a square number. Denote by $A$ the set of all positive integers $k$ such that
+
+$$
+k=\frac{x^{2}-a}{x^{2}-y^{2}}
+$$
+
+for some integers $x$ and $y$ with $x>\sqrt{a}$. Denote by $B$ the set of all positive integers $k$ such that (1) is satisfied for some integers $x$ and $y$ with $0 \leqslant x<\sqrt{a}$. Prove that $A=B$.",theorem lean_workbook_11144 (a : ℕ) (x y : ℤ) (h₁ : 0 < a) (h₂ : 0 < a) (h₃ : 0 < a) : 0 < a ∧ a < x^4 + y^4 := by sorry,2
+Prove that there exist infinitely many positive integers $n$ such that $n^{2}+1$ has a prime divisor greater than $2 n+\sqrt{2 n}$.,"theorem lean_workbook_10144  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : 2 * n + 1 = 2 * (p - 1) / 2) :
+  2 * n + 1 = 2 * (p - 1) / 2 := by sorry",2
+"A social club has $n$ members. They have the membership numbers $1,2, \ldots, n$, respectively. From time to time members send presents to other members, including items they have already received as presents from other members. In order to avoid the embarrassing situation that a member might receive a present that he or she has sent to other members, the club adds the following rule to its statutes at one of its annual general meetings:
+
+""A member with membership number $a$ is permitted to send a present to a member with membership number $b$ if and only if $a(b-1)$ is a multiple of $n . ""$
+
+Prove that, if each member follows this rule, none will receive a present from another member that he or she has already sent to other members.
+
+Alternative formulation: Let $G$ be a directed graph with $n$ vertices $v_{1}, v_{2}, \ldots, v_{n}$, such that there is an edge going from $v_{a}$ to $v_{b}$ if and only if $a$ and $b$ are distinct and $a(b-1)$ is a multiple of $n$. Prove that this graph does not contain a directed cycle.",theorem lean_workbook_11244 (n : ℕ) (i : ℕ) (j : ℕ) (h₁ : 0 < i ∧ i < n) (h₂ : 0 < j ∧ j < n) : 0 < i ∧ i < n ∧ 0 < j ∧ j < n := by sorry,2
+,,36

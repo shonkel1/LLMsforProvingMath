@@ -1,0 +1,499 @@
+natural,formal,score
+"Let $x$ and $y$ be positive integers. If $x^{2^{n}}-1$ is divisible by $2^{n} y+1$ for every positive integer $n$, prove that $x=1$.","theorem lean_workbook_plus_60302  (x y : ℕ)
+  (h₀ : 0 < x ∧ 0 < y)
+  (h₁ : ∀ n : ℕ, 2^(n:ℕ) * y + 1 ∣ x^(2^(n:ℕ)) - 1) :
+  x = 1 := by sorry",8
+"The sequence of real numbers $a_{0}, a_{1}, a_{2}, \ldots$ is defined recursively by
+
+$$
+a_{0}=-1, \quad \sum_{k=0}^{n} \frac{a_{n-k}}{k+1}=0 \quad \text { for } \quad n \geq 1 .
+$$
+
+Show that $a_{n}>0$ for $n \geq 1$","theorem lean_workbook_plus_1000  (a : ℕ → ℝ)
+  (h₀ : a 0 = -1)
+  (h₁ : ∀ n, (∑ k in Finset.range (n + 1), (a (n - k) / (k + 1))) = 0) :
+  ∀ n ≥ 1, a n > 0 := by sorry",8
+"Find all positive integers $n$ such that there exists a sequence of positive integers $a_{1}, a_{2}, \ldots, a_{n}$ satisfying
+
+$$
+a_{k+1}=\frac{a_{k}^{2}+1}{a_{k-1}+1}-1
+$$
+
+for every $k$ with $2 \leq k \leq n-1$.
+
+The final answer is $n=1,2,3,4$.","theorem lean_workbook_plus_1010  (n : ℕ)
+  (a : ℕ → ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ k, 2 ≤ k ∧ k ≤ n → (a k)^2 + 1 = (a (k - 1) + 1) * (a (k + 1) + 1)) :
+  n ≤ 4 := by sorry",8
+Let $a$ and $b$ be positive integers such that $a ! b$ ! is a multiple of $a !+b !$. Prove that $3 a \geqslant 2 b+2$.,"theorem lean_workbook_plus_40100  (a b : ℕ)
+  (h₀ : 0 < a ∧ 0 < b)
+  (h₁ : a ! * b ! ∣ a ! + b !)
+  (h₂ : 3 * a ≥ 2 * b + 2) :
+  3 * a ≥ 2 * b + 2 := by sorry",7
+"Consider all polynomials $P(x)$ with real coefficients that have the following property: for any two real numbers $x$ and $y$ one has
+
+$$
+\left|y^{2}-P(x)\right| \leqslant 2|x| \quad \text { if and only if } \quad\left|x^{2}-P(y)\right| \leqslant 2|y| \text {. }
+$$
+
+Determine all possible values of $P(0)$.
+
+The final answer is that the set of possible values of $P(0)$ is $(-\infty, 0) \cup\{1\}$.","theorem lean_workbook_plus_1032  (P : ℝ → ℝ)
+  (h₀ : ∀ x, P x ≥ 0)
+  (h₁ : ∀ x y, (abs (y^2 - P x) ≤ 2 * abs x) ↔ (abs (x^2 - P y) ≤ 2 * abs y))
+  (h₂ : P 0 = 0 ∨ P 0 = 1) :
+  ∀ x, P x = x^2 + 1 := by sorry",3
+"Suppose that a sequence $a_{1}, a_{2}, \ldots$ of positive real numbers satisfies
+
+$$
+a_{k+1} \geqslant \frac{k a_{k}}{a_{k}^{2}+(k-1)}
+$$
+
+for every positive integer $k$. Prove that $a_{1}+a_{2}+\cdots+a_{n} \geqslant n$ for every $n \geqslant 2$.","theorem lean_workbook_plus_1000  (a : ℕ → ℝ)
+  (h₀ : ∀ k, 0 < a (k + 1))
+  (h₁ : ∀ k, a (k + 1) ≥ (k * a k) / (a k ^ 2 + (k - 1))) :
+  ∀ n ≥ 2, ∑ k in Finset.Icc 1 n, a k ≥ n := by sorry",9
+"Prove the inequality
+
+$$
+\sum_{i<j} \frac{a_{i} a_{j}}{a_{i}+a_{j}} \leq \frac{n}{2\left(a_{1}+a_{2}+\cdots+a_{n}\right)} \sum_{i<j} a_{i} a_{j}
+$$
+
+for positive real numbers $a_{1}, a_{2}, \ldots, a_{n}$.","theorem lean_workbook_plus_10000  (a : ℕ → ℝ)
+  (n : ℕ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ i, 0 < a i) :
+  ∑ i < j, (a i * a j) / (a i + a j) ≤
+    (n : ℝ) / (2 * (∑ i in Finset.range n, a i)) * ∑ i < j, a i * a j := by sorry",8
+"For every positive integer $N$, determine the smallest real number $b_{N}$ such that, for all real $x$,
+
+$$
+\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant b_{N}(x-1)^{2}+x
+$$
+
+The final answer is $b_{n}=N / 2$.","theorem lean_workbook_plus_4100  (N : ℕ)
+  (x : ℝ)
+  (h₀ : 0 < x)
+  (h₁ : 0 < N) :
+  (x^(2 * N) + 1) / 2 ≤ (1 + (N:ℝ) / 2 * (x - 1)^2)^N := by sorry",7
+"Let $a_{1}, \ldots, a_{r}$ be positive real numbers. For $n>r$, we inductively define
+
+$$
+a_{n}=\max _{1 \leq k \leq n-1}\left(a_{k}+a_{n-k}\right) .
+$$
+
+Prove that there exist positive integers $\ell \leq r$ and $N$ such that $a_{n}=a_{n-\ell}+a_{\ell}$ for all $n \geq N$.","theorem lean_workbook_plus_1030  (a : ℕ → ℝ)
+  (r : ℕ)
+  (h₀ : 0 < r)
+  (h₁ : ∀ n, n > r → a n = max (a (n - ℓ)) (a ℓ))
+  (h₂ : ∀ n, n ≥ r^2 * ℓ + 2 * r → a n = a (n - ℓ) + a ℓ) :
+  ∃ ℓ ≤ r, ∃ N, ∀ n, n ≥ N → a n = a (n - ℓ) + a ℓ := by sorry",6
+"Find all functions $f:(0, \infty) \rightarrow(0, \infty)$ such that
+
+$$
+\frac{f(p)^{2}+f(q)^{2}}{f\left(r^{2}\right)+f\left(s^{2}\right)}=\frac{p^{2}+q^{2}}{r^{2}+s^{2}}
+$$
+
+for all $p, q, r, s>0$ with $p q=r s$.
+
+The final answer is 
+
+$$
+f(x)=x \quad \text { for all } x>0 \quad \text { or } \quad f(x)=\frac{1}{x} \quad \text { for all } x>0
+$$","theorem lean_workbook_plus_1000  (f : ℝ → ℝ)
+  (h₀ : ∀ p q r s : ℝ, (p > 0 ∧ q > 0 ∧ r > 0 ∧ s > 0 ∧ p * q = r * s) → (f p ^ 2 + f q ^ 2) / (f r ^ 2 + f s ^ 2) = (p ^ 2 + q ^ 2) / (r ^ 2 + s ^ 2)) :
+  ∀ x : ℝ, (x > 0 → f x = x ∨ f x = 1 / x) := by sorry",8
+"For a sequence $x_{1}, x_{2}, \ldots, x_{n}$ of real numbers, we define its price as
+
+$$
+\max _{1 \leqslant i \leqslant n}\left|x_{1}+\cdots+x_{i}\right| .
+$$
+
+Given $n$ real numbers, Dave and George want to arrange them into a sequence with a low price. Diligent Dave checks all possible ways and finds the minimum possible price $D$. Greedy George, on the other hand, chooses $x_{1}$ such that $\left|x_{1}\right|$ is as small as possible; among the remaining numbers, he chooses $x_{2}$ such that $\left|x_{1}+x_{2}\right|$ is as small as possible, and so on. Thus, in the $i^{\text {th }}$ step he chooses $x_{i}$ among the remaining numbers so as to minimise the value of $\left|x_{1}+x_{2}+\cdots+x_{i}\right|$. In each step, if several numbers provide the same value, George chooses one at random. Finally he gets a sequence with price $G$.
+
+Find the least possible constant $c$ such that for every positive integer $n$, for every collection of $n$ real numbers, and for every possible sequence that George might obtain, the resulting values satisfy the inequality $G \leqslant c D$.
+
+The final answer is $c=2$.","theorem lean_workbook_plus_40  (n : ℕ)
+  (x : ℕ → ℝ)
+  (d : ℕ → ℝ)
+  (g : ℕ → ℝ)
+  (h : ℕ → ℝ)
+  (h_def : ∀ i, h i = ∑ j in Finset.range i, x j)
+  (d_def : ∀ i, d i = ∑ j in Finset.range i, x j)
+  (g_def : ∀ i, g i = ∑ j in Finset.range i, x j)
+  (h_max : ∀ i, |h i| ≤ max (|d i|) (|g i|))
+  (h_min : ∀ i, |h i| ≤ 2 * D)
+  (D : ℝ)
+  (G : ℝ)
+  (h_D : D = max 1 (2 * D))
+  (h_G : G = max 1 (2 * G))
+  (h_DG : D ≤ 2 * G) :
+  G ≤ 2 * D := by sorry",6
+"Let $z_{0}<z_{1}<z_{2}<\cdots$ be an infinite sequence of positive integers. Prove that there exists a unique integer $n \geqslant 1$ such that
+
+$$
+z_{n}<\frac{z_{0}+z_{1}+\cdots+z_{n}}{n} \leqslant z_{n+1} .
+$$","theorem lean_workbook_plus_11002  (z : ℕ → ℕ)
+  (h₀ : 0 < z 0)
+  (h₁ : ∀ n, 0 < z (n + 1))
+  (h₂ : ∀ n, z n < z (n + 1))
+  (h₃ : ∀ n, z n < (z 0 + z 1 + z 2 + z 3) / 3) :
+  ∃! n, 1 ≤ n ∧ z n < (z 0 + z 1 + z 2 + z 3) / 3 := by sorry",3
+"Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+f^{a^{2}+b^{2}}(a+b)=a f(a)+b f(b) \quad \text { for every } a, b \in \mathbb{Z} .
+$$
+
+Here, $f^{n}$ denotes the $n^{\text {th }}$ iteration of $f$, i.e., $f^{0}(x)=x$ and $f^{n+1}(x)=f\left(f^{n}(x)\right)$ for all $n \geqslant 0$.
+
+The final answer is either $f(x)=0$ for all $x \in \mathbb{Z}$, or $f(x)=x+1$ for all $x \in \mathbb{Z}$.","theorem lean_workbook_plus_43001  (f : ℤ → ℤ)
+  (h₀ : ∀ a b, f (a^2 + b^2) * (f a - f (-a)) = a * f a + b * f b) :
+  ∀ a b, f (a^2 + b^2) * (f a - f (-a)) = a * f a + b * f b := by sorry",2
+"Let $S \subseteq \mathbb{R}$ be a set of real numbers. We say that a pair $(f, g)$ of functions from $S$ into $S$ is a Spanish Couple on $S$, if they satisfy the following conditions:
+
+(i) Both functions are strictly increasing, i.e. $f(x)<f(y)$ and $g(x)<g(y)$ for all $x, y \in S$ with $x<y$
+
+(ii) The inequality $f(g(g(x)))<g(f(x))$ holds for all $x \in S$.
+
+Decide whether there exists a Spanish Couple on the set $S=\mathbb{N}$ of positive integers;
+
+The final answer is NO.","theorem lean_workbook_plus_10003  (S : Set ℕ)
+  (f g : ℕ → ℕ)
+  (hS : ∀ x y : ℕ, x < y → f x < f y ∧ g x < g y)
+  (hS' : ∀ x : ℕ, f (g (g x)) < g (f x))
+  (hS'' : ∀ x : ℕ, 0 < f x)
+  (hS''' : ∀ x : ℕ, 0 < g x) :
+  False := by sorry",8
+"Let $\mathbb{R}^{+}$be the set of positive real numbers. Determine all functions $f: \mathbb{R}^{+} \rightarrow \mathbb{R}^{+}$ such that, for all positive real numbers $x$ and $y$,
+
+$$
+f(x+f(x y))+y=f(x) f(y)+1
+$$
+
+The final answer is $f(x)=x+1$.","theorem lean_workbook_plus_10100  (f : ℝ → ℝ)
+  (h₀ : ∀ x y : ℝ, 0 < x ∧ 0 < y → f (x + f (x * y)) = f x * f y + 1 - y) :
+  ∀ x : ℝ, 0 < x → f x = x + 1 := by sorry",7
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ that satisfy the conditions
+
+$$
+f(1+x y)-f(x+y)=f(x) f(y) \text { for all } x, y \in \mathbb{R}
+$$
+
+and $f(-1) \neq 0$
+
+The final answer is the function $f(x)=x-1, x \in \mathbb{R}$.","theorem lean_workbook_plus_40001  (f : ℝ → ℝ)
+  (h₀ : ∀ x y, f (1 + x * y) - f (x + y) = f x * f y)
+  (h₁ : f (-1) ≠ 0) :
+  ∀ x, f x = x - 1 := by sorry",9
+"Let $n \geqslant 2$ be an integer, and let $a_{1}, a_{2}, \ldots, a_{n}$ be positive real numbers such that $a_{1}+a_{2}+\cdots+a_{n}=1$. Prove that
+
+$$
+\sum_{k=1}^{n} \frac{a_{k}}{1-a_{k}}\left(a_{1}+a_{2}+\cdots+a_{k-1}\right)^{2}<\frac{1}{3} .
+$$","theorem lean_workbook_plus_11000  (n : ℕ)
+  (a : ℕ → ℝ)
+  (h₀ : 2 ≤ n)
+  (h₁ : ∀ k, 0 < a k)
+  (h₂ : ∑ k in Finset.Icc 1 n, a k = 1)
+  (h₃ : ∀ k, a k + ∑ j in Finset.Icc 1 k, a j ≤ 1) :
+  ∑ k in Finset.Icc 1 n, (a k / (1 - a k)) * (∑ j in Finset.Icc 1 k, a j)^2 < 1 / 3 := by sorry",7
+"Let $\mathbb{Z}$ and $\mathbb{Q}$ be the sets of integers and rationals respectively.
+
+Does there exist a partition of $\mathbb{Z}$ into three non-empty subsets $A, B, C$ such that the sets $A+B, B+C, C+A$ are disjoint?
+
+The final answer is yes.","theorem lean_workbook_plus_10124 : ∃ A B C : Set ℤ, A ≠ ∅ ∧ B ≠ ∅ ∧ C ≠ ∅ ∧ A ∩ B = ∅ ∧ B ∩ C = ∅ ∧ C ∩ A = ∅ := by sorry",8
+"Suppose that $s_{1}, s_{2}, s_{3}, \ldots$ is a strictly increasing sequence of positive integers such that the subsequences
+
+$$
+s_{s_{1}}, s_{s_{2}}, s_{s_{3}}, \ldots \quad \text { and } \quad s_{s_{1}+1}, s_{s_{2}+1}, s_{s_{3}+1}, \ldots
+$$
+
+are both arithmetic progressions. Prove that $s_{1}, s_{2}, s_{3}, \ldots$ is itself an arithmetic progression.","theorem lean_workbook_plus_1100  (s : ℕ → ℕ)
+  (h₀ : 0 < s 1 ∧ 0 < s 2 ∧ 0 < s 3 ∧ 0 < s 4)
+  (h₁ : ∃ a, s a = 1 ∧ s (a + 1) = 2)
+  (h₂ : ∃ a, s a = 2 ∧ s (a + 1) = 3)
+  (h₃ : ∃ a, s a = 3 ∧ s (a + 1) = 4)
+  (h₄ : ∃ a, s a = 4 ∧ s (a + 1) = 5)
+  (h₅ : ∀ n, s (n + 1) - s n = a)
+  (h₆ : ∃ a, s a = 1 ∧ s (a + 1) = 2)
+  (h₇ : ∃ a, s a = 2 ∧ s (a + 1) = 3)
+  (h₈ : ∃ a, s a = 3 ∧ s (a + 1) = 4)
+  (h₉ : ∃ a, s a = 4 ∧ s (a + 1) = 5)
+  (h₁₀ : ∀ n, s (n + 1) - s n = a) :
+  ∃ a, s a = 1 ∧ s (a + 1) = 2 ∨ s (a + 1) = 3 ∨ s (a + 1) = 4 ∨ s (a + 1) = 5 := by sorry",3
+"Define the sequence $a_{0}, a_{1}, a_{2}, \ldots$ by $a_{n}=2^{n}+2^{\lfloor n / 2\rfloor}$. Prove that there are infinitely many terms of the sequence which can be expressed as a sum of (two or more) distinct terms of the sequence, as well as infinitely many of those which cannot be expressed in such a way.","theorem lean_workbook_plus_11020  (a : ℕ → ℕ)
+  (h₀ : ∀ n, a n = 2 ^ n + 2 ^ (n / 2))
+  (h₁ : 0 < n) :
+  ∃ k, 0 < k ∧ ∃ l, 0 < l ∧ ∃ m, 0 < m ∧ ∃ n, 0 < n ∧ a n = k + l + m := by sorry",4 out of 10
+Let $a$ and $b$ be distinct integers greater than 1. Prove that there exists a positive integer $n$ such that $\left(a^{n}-1\right)\left(b^{n}-1\right)$ is not a perfect square.,"theorem lean_workbook_plus_1002  (a b : ℕ)
+  (h₀ : 1 < a ∧ 1 < b)
+  (h₁ : a ≠ b)
+  (h₂ : ∃ n, (a^n - 1) * (b^n - 1) ≠ 0) :
+  ∃ k, ∃ ℓ, k >= 0 ∧ ℓ >= 0 ∧ a^k = b^ℓ := by sorry",2
+"Determine all integers $n \geqslant 2$ with the following property: every $n$ pairwise distinct integers whose sum is not divisible by $n$ can be arranged in some order $a_{1}, a_{2}, \ldots, a_{n}$ so that $n$ divides $1 \cdot a_{1}+2 \cdot a_{2}+\cdots+n \cdot a_{n}$.
+
+The final answers are all odd integers and all powers of 2.","theorem lean_workbook_plus_40  (n s : ℕ)
+  (h₀ : 2 ≤ n)
+  (h₁ : 0 < s)
+  (h₂ : n ∣ s)
+  (h₃ : Odd n)
+  (h₄ : n = 2^k) :
+  ∃ a b : ℕ, a + b = n ∧ a ∣ s ∧ b ∣ s := by sorry",3
+Suppose that $f$ and $g$ are two functions defined on the set of positive integers and taking positive integer values. Suppose also that the equations $f(g(n))=f(n)+1$ and $g(f(n))=$ $g(n)+1$ hold for all positive integers. Prove that $f(n)=g(n)$ for all positive integer $n$.,"theorem lean_workbook_plus_10100  (a b : ℕ)
+  (f g : ℕ → ℕ)
+  (h₀ : ∀ x, f (g x) = f x + 1)
+  (h₁ : ∀ x, g (f x) = g x + 1)
+  (h₂ : f a = b)
+  (h₃ : g b = a) :
+  a = b := by sorry",6
+"Find the smallest positive integer $n$, or show that no such $n$ exists, with the following property: there are infinitely many distinct $n$-tuples of positive rational numbers $\left(a_{1}, a_{2}, \ldots, a_{n}\right)$ such that both
+
+$$
+a_{1}+a_{2}+\cdots+a_{n} \quad \text { and } \quad \frac{1}{a_{1}}+\frac{1}{a_{2}}+\cdots+\frac{1}{a_{n}}
+$$
+
+are integers.
+
+The final answer is $n=3$.","theorem lean_workbook_plus_10004  (a b c : ℤ)
+  (h₀ : 0 < a ∧ 0 < b ∧ 0 < c)
+  (h₁ : a + b + c = 1)
+  (h₂ : 1 / a + 1 / b + 1 / c = 3) :
+  b^2 + c^2 - 3 * b * c + b + c = 0 := by sorry",3
+"Let $a_{2}, \ldots, a_{n}$ be $n-1$ positive real numbers, where $n \geq 3$, such that $a_{2} a_{3} \cdots a_{n}=1$. Prove that
+
+$$
+\left(1+a_{2}\right)^{2}\left(1+a_{3}\right)^{3} \cdots\left(1+a_{n}\right)^{n}>n^{n} .
+$$","theorem lean_workbook_plus_10000  (n : ℕ)
+  (a : ℕ → ℝ)
+  (h₀ : 3 ≤ n)
+  (h₁ : ∀ i, a i > 0)
+  (h₂ : ∏ i in Finset.Icc 2 n, a i = 1) :
+  ∏ i in Finset.Icc 2 n, (1 + a i)^i > n^n := by sorry",8
+"Let $\mathbb{N}$ be the set of all positive integers. Find all functions $f: \mathbb{N} \rightarrow \mathbb{N}$ such that the number $(f(m)+n)(m+f(n))$ is a square for all $m, n \in \mathbb{N}$.
+
+The final answers are all functions of the form $f(n)=n+c$, where $c \in \mathbb{N} \cup\{0\}$.","theorem lean_workbook_plus_1000  (f : ℕ → ℕ)
+  (h₀ : ∀ m n, ((f m + n) * (f n + m)) ^ 2 = (f m + n) * (f n + m)) :
+  ∃ c : ℕ, ∀ n, f n = n + c := by sorry",7
+"Define $P(n)=n^{2}+n+1$. For any positive integers $a$ and $b$, the set
+
+$$
+\{P(a), P(a+1), P(a+2), \ldots, P(a+b)\}
+$$
+
+is said to be fragrant if none of its elements is relatively prime to the product of the other elements. Determine the smallest size of a fragrant set.
+
+The final answer is 6 .","theorem lean_workbook_plus_10000  (a b : ℕ)
+  (P : ℕ → ℕ)
+  (h₀ : ∀ n, P n = n^2 + n + 1)
+  (h₁ : 0 < a ∧ 0 < b)
+  (h₂ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) ≠ 0)
+  (h₃ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) ≠ 1)
+  (h₄ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 7 = 0 ∨ 7 ∣ P (a + n) ∨ 7 ∣ P (a + n + 1))
+  (h₅ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 3 = 0 ∨ 3 ∣ P (a + n) ∨ 3 ∣ P (a + n + 1))
+  (h₆ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₇ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₈ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₉ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₁₀ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 7 = 0 ∨ 7 ∣ P (a + n) ∨ 7 ∣ P (a + n + 1))
+  (h₁₁ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 3 = 0 ∨ 3 ∣ P (a + n) ∨ 3 ∣ P (a + n + 1))
+  (h₁₂ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₁₃ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₁₄ : ∀ n, P (a + n) * P (a + n + 1) * P (a + n + 2) * P (a + n + 3) * P (a + n + 4) * P (a + n + 5) % 19 = 0 ∨ 19 ∣ P (a + n) ∨ 19 ∣ P (a + n + 1))
+  (h₁₅ : ∀ n, P + n ≥ 0) :
+  ∃ a b, 0 ∣ P (a + b) ∨ 7 ∣ P (a + b) ∨ 19 ∣ P (a + b) := by sorry",3
+"Find all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ satisfying the equation
+
+$$
+f(x+f(x+y))+f(x y)=x+f(x+y)+y f(x)
+$$
+
+for all real numbers $x$ and $y$.
+
+The final answer is that there are two such functions, namely the identity function and $x \mapsto 2-x$.","theorem lean_workbook_plus_11141  (f : ℝ → ℝ)
+  (h₀ : ∀ x y, f (f x + y) + f (x * y) = x + f (x + y) + y * f x) :
+  ∀ x, f x = x ∨ ∀ x, f x = 2 - x := by sorry",7
+"Find all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that
+
+$$
+n^{2}+4 f(n)=f(f(n))^{2}
+$$
+
+for all $n \in \mathbb{Z}$.
+
+The final answer is that the possibilities are:
+
+\begin{itemize}
+  \item $f(n)=n+1$ for all $n$
+
+  \item or, for some $a \geqslant 1, \quad f(n)= \begin{cases}n+1, & n>-a, \\ -n+1, & n \leqslant-a ;\end{cases}$
+
+  \item or $f(n)= \begin{cases}n+1, & n>0 \\ 0, & n=0 \\ -n+1, & n<0\end{cases}$
+
+\end{itemize}","theorem lean_workbook_plus_1002  (f : ℤ → ℤ)
+  (h₀ : ∀ n, f n ≥ 0 ∨ ∀ n, f n = n + 1)
+  (h₁ : ∀ n, f (-n) ≤ -n)
+  (h₂ : ∀ n, f (-n) ≥ -n)
+  (h₃ : ∀ n, f (-n) = -n + 1 ∨ f (-n) = n + 1) :
+  ∀ n, f n = n + 1 ∨ ∀ n, f n = -n + 1 := by sorry",6
+"Let $n>1$ be an integer. In the space, consider the set
+
+$$
+S=\{(x, y, z) \mid x, y, z \in\{0,1, \ldots, n\}, x+y+z>0\}
+$$
+
+Find the smallest number of planes that jointly contain all $(n+1)^{3}-1$ points of $S$ but none of them passes through the origin.
+
+The final answer is 3n planes.","theorem lean_workbook_plus_48003  (n : ℕ)
+  (h₀ : 0 < n) :
+  3 * n ≤ (3 * n).pow 3 := by sorry",1
+"Find all pairs $(m, n)$ of nonnegative integers for which
+
+$$
+m^{2}+2 \cdot 3^{n}=m\left(2^{n+1}-1\right) .
+$$
+
+The final answers are $(6,3),(9,3),(9,5),(54,5)$.","theorem lean_workbook_plus_1000  (m n : ℕ)
+  (h₀ : 0 ≤ m ∧ 0 ≤ n)
+  (h₁ : m^2 + 2 * 3^n = m * (2^(n + 1) - 1)) :
+  n < 6 ∨ n ≥ 6 := by sorry",4 out of 10
+"Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ satisfying
+
+$$
+f(f(m)+n)+f(m)=f(n)+f(3 m)+2014
+$$
+
+for all integers $m$ and $n$.
+
+The final answer is that there is only one such function, namely $n \longmapsto 2 n+1007$.","theorem lean_workbook_plus_1000  (f : ℤ → ℤ)
+  (h₀ : ∀ m n, f (f m + n) + f m = f n + f (3 * m) + 2014) :
+  ∀ m, f (3 * m) = 2 * m + 1007 := by sorry",7
+"Call admissible a set $A$ of integers that has the following property:
+
+$$
+\text { If } x, y \in A \text { (possibly } x=y \text { ) then } x^{2}+k x y+y^{2} \in A \text { for every integer } k \text {. }
+$$
+
+Determine all pairs $m, n$ of nonzero integers such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+
+The final answer is that a pair of integers $m, n$ fulfills the condition if and only if $\operatorname{gcd}(m, n)=1$.","theorem lean_workbook_plus_11003  (m n : ℤ)
+  (h₀ : m ≠ 0 ∧ n ≠ 0)
+  (h₁ : 1 < Int.gcd m n) :
+  m ∣ 1 ∨ n ∣ 1 := by sorry",3
+"Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$
+
+$$
+f(2 a)+2 f(b)=f(f(a+b))
+$$
+
+The final answers are $f(n)=0$ and $f(n)=2 n+K$ for any constant $K \in \mathbb{Z}$.","theorem lean_workbook_plus_10100  (f : ℤ → ℤ)
+  (h₀ : ∀ a b, f (2 * a) + 2 * f b = f (f (a + b))) :
+  ∀ a, f a = 0 ∨ ∃ K, ∀ a, f a = 2 * a + K := by sorry",8
+"Let $\mathcal{S}$ be a set consisting of $n \geqslant 3$ positive integers, none of which is a sum of two other distinct members of $\mathcal{S}$. Prove that the elements of $\mathcal{S}$ may be ordered as $a_{1}, a_{2}, \ldots, a_{n}$ so that $a_{i}$ does not divide $a_{i-1}+a_{i+1}$ for all $i=2,3, \ldots, n-1$.","theorem lean_workbook_plus_11000 (n : ℕ) (hn : 2 ≤ n) (S : Finset ℕ) (hS : ∀ {a b c : ℕ}, a ∈ S ∧ b ∈ S ∧ c ∈ S → a ≠ b ∧ b ≠ c ∧ c ≠ a → ¬ (a ∣ (b + c) ∨ a ∣ (b - c))) : ∃ a b c : ℕ, a ∈ S ∧ b ∈ S ∧ c ∈ S ∧ a ≠ b ∧ b ≠ c ∧ c ≠ a → ¬ (a ∣ (b + c) ∨ a ∣ (b - c)) := by sorry",4
+"Determine all positive integers $M$ for which the sequence $a_{0}, a_{1}, a_{2}, \ldots$, defined by $a_{0}=\frac{2 M+1}{2}$ and $a_{k+1}=a_{k}\left\lfloor a_{k}\right\rfloor$ for $k=0,1,2, \ldots$, contains at least one integer term.
+
+The final answers are all integers $M \geqslant 2$.","theorem lean_workbook_plus_1000  (M : ℕ)
+  (a : ℕ → ℚ)
+  (h₀ : 0 < M)
+  (h₁ : a 0 = (2 * M + 1) / 2)
+  (h₂ : ∀ k, a (k + 1) = a k * ⌊a k⌋) :
+  ∃ k, ∃ n, a k = n := by sorry",8
+"A function $f: \mathbb{Z} \rightarrow \mathbb{Z}$ is chosen so that $a-b \mid f(a)-f(b)$ for all $a, b \in \mathbb{Z}$ with $a \neq b$. Let $S_{0}=\mathbb{Z}$, and for each positive integer $m$, let $S_{m}$ denote the image of $f$ on the set $S_{m-1}$. It is given that, for each nonnegative integer $m$, there are exactly $\left\lceil n / 2^{m}\right\rceil$ distinct residues modulo $n$ in the set $S_{m}$. Find all possible values of $n$.
+
+The final answers are all powers of primes.","theorem lean_workbook_plus_61004  (k : ℕ)
+  (h₀ : 2 ≤ k)
+  (h₁ : 3^k ≤ 2^(k + 1)) :
+  3^k ≤ 2^(k + 1) := by sorry",1/10
+"Let $m \neq 0$ be an integer. Find all polynomials $P(x)$ with real coefficients such that
+
+$$
+\left(x^{3}-m x^{2}+1\right) P(x+1)+\left(x^{3}+m x^{2}+1\right) P(x-1)=2\left(x^{3}-m x+1\right) P(x)
+$$
+
+for all real numbers $x$.
+
+The final answer is $P(x)=t x$ for any real number $t$.","theorem lean_workbook_plus_41001  (m : ℤ)
+  (P : ℝ → ℝ)
+  (h₀ : m ≠ 0)
+  (h₁ : ∀ x, P (x + 1) = (x^3 - m * x^2 + 1) * P (x + 1) + (x^3 + m * x^2 + 1) * P (x - 1))
+  (h₂ : ∀ x, P (x - 1) = (x^3 - m * x + 1) * P (x))
+  (h₃ : ∀ x, P (x + 1) + P (x - 1) = 2 * (x^3 - m * x + 1) * P (x)) :
+  ∃ t : ℝ, ∀ x, P (x) = t * x := by sorry",3
+"Let $n \geqslant 3$ be a positive integer and let $\left(a_{1}, a_{2}, \ldots, a_{n}\right)$ be a strictly increasing sequence of $n$ positive real numbers with sum equal to 2. Let $X$ be a subset of $\{1,2, \ldots, n\}$ such that the value of
+
+$$
+\left|1-\sum_{i \in X} a_{i}\right|
+$$
+
+is minimised. Prove that there exists a strictly increasing sequence of $n$ positive real numbers $\left(b_{1}, b_{2}, \ldots, b_{n}\right)$ with sum equal to 2 such that
+
+$$
+\sum_{i \in X} b_{i}=1
+$$","theorem lean_workbook_plus_10020  (n : ℕ)
+  (a : ℕ → ℝ)
+  (h₀ : 0 < n)
+  (h₁ : ∀ i, 0 < a i)
+  (h₂ : ∀ i, a i < a (i + 1))
+  (h₃ : ∑ x in Finset.range n, a x = 2) :
+  ∃ b : ℕ → ℝ,
+    ∀ i, 0 < b i
+  ∧ ∑ x in Finset.range n, b x = 1 := by sorry",4
+"Determine all functions $f:(0, \infty) \rightarrow \mathbb{R}$ satisfying
+
+$$
+\left(x+\frac{1}{x}\right) f(y)=f(x y)+f\left(\frac{y}{x}\right)
+$$
+
+for all $x, y>0$.
+
+The final answer is $f(x)=C_{1} x+\frac{C_{2}}{x}$ with arbitrary constants $C_{1}$ and $C_{2}$.","theorem lean_workbook_plus_10024  (x y : ℝ)
+  (f : ℝ → ℝ)
+  (h₀ : 0 < x ∧ 0 < y)
+  (h₁ : f (x + 1/x) = f (x * y) + f (1/x))
+  (h₂ : f (x + 1/x) = f (y/x) + f (x * y)) :
+  f (x + 1/x) = f (x * y) + f (1/x) := by sorry",4 out of 10
+"Find all integer solutions of the equation
+
+$$
+\frac{x^{7}-1}{x-1}=y^{5}-1 \text {. }
+$$
+
+The final answer is that the given equation has no integer solutions.","theorem lean_workbook_plus_1010  (x y : ℤ)
+  (h₀ : 0 < x ∧ 0 < y)
+  (h₁ : (x^7 - 1) / (x - 1) = y^5 - 1) :
+  False := by sorry",8
+"Prove that, for every positive integer $n$, there exists an integer $m$ such that $2^{m}+m$ is divisible by $n$.","theorem lean_workbook_plus_10443 (n : ℕ) : ∃ m : ℕ, (2^m + m) % n = 0 := by sorry",8
+"Let $a$ be a positive integer which is not a square number. Denote by $A$ the set of all positive integers $k$ such that
+
+$$
+k=\frac{x^{2}-a}{x^{2}-y^{2}}
+$$
+
+for some integers $x$ and $y$ with $x>\sqrt{a}$. Denote by $B$ the set of all positive integers $k$ such that (1) is satisfied for some integers $x$ and $y$ with $0 \leqslant x<\sqrt{a}$. Prove that $A=B$.","theorem lean_workbook_plus_4100  (a : ℕ)
+  (h₀ : 0 < a)
+  (h₁ : ¬ (∃ k : ℕ, 0 < k ∧ k ∣ a))
+  (h₂ : 0 < a ∧ 0 < a) :
+  (∃ k : ℕ, 0 < k ∧ k ∣ a) ∨ (∃ k : ℕ, 0 < k ∧ k ∣ a) := by sorry",2
+Prove that there exist infinitely many positive integers $n$ such that $n^{2}+1$ has a prime divisor greater than $2 n+\sqrt{2 n}$.,"theorem lean_workbook_plus_10000 (n : ℕ) (hn: n > 0) (p : ℕ) (hp: p.Prime) (hpo: p > 2 * n + Real.sqrt (2 * n)) : ∃ k : ℕ, p ∣ k^2 + 1 ∧ k > 2 * n + Real.sqrt (2 * n) := by sorry",6
+"For a polynomial $P(x)$ with integer coefficients let $P^{1}(x)=P(x)$ and $P^{k+1}(x)=$ $P\left(P^{k}(x)\right)$ for $k \geqslant 1$. Find all positive integers $n$ for which there exists a polynomial $P(x)$ with integer coefficients such that for every integer $m \geqslant 1$, the numbers $P^{m}(1), \ldots, P^{m}(n)$ leave exactly $\left\lceil n / 2^{m}\right\rceil$ distinct remainders when divided by $n$.
+
+The final answers are all powers of 2 and all primes.","theorem lean_workbook_plus_3100  (k : ℕ)
+  (h₀ : 0 < k)
+  (h₁ : 3^k ≤ 2^(k + 1)) :
+  k ≤ 2 := by sorry",3
+"Prove that for every positive integer $n$, there exists a fraction $\frac{a}{b}$ where $a$ and $b$ are integers satisfying $0<b \leqslant \sqrt{n}+1$ and $\sqrt{n} \leqslant \frac{a}{b} \leqslant \sqrt{n+1}$.","theorem lean_workbook_plus_1000  (n : ℕ)
+  (r : ℕ)
+  (h₀ : 0 < r ∧ 0 < n)
+  (h₁ : r^2 ≤ n)
+  (h₂ : n < (r + 1)^2) :
+  ∃ a b : ℤ, 0 < b ∧ b ≤ √n + 1 ∧ √n ≤ a / b ∧ a / b ≤ √(n + 1) := by sorry",7
+"Let $a, b$ be integers, and let $P(x)=a x^{3}+b x$. For any positive integer $n$ we say that the pair $(a, b)$ is $n$-good if $n \mid P(m)-P(k)$ implies $n \mid m-k$ for all integers $m, k$. We say that $(a, b)$ is very good if $(a, b)$ is $n$-good for infinitely many positive integers $n$.
+
+Show that all 2010-good pairs are very good.","theorem lean_workbook_plus_10000  (a b : ℤ)
+  (h₀ : 0 < 2010)
+  (h₁ : 2010 ∣ a * b)
+  (h₂ : ∀ m k : ℤ, 2010 ∣ (a * m^3 + b * m) - (a * k^3 + b * k) → 2010 ∣ m - k) :
+  ∀ i : ℕ, 1 ≤ i → 67^i ∣ a := by sorry",4
+Let $k$ be a positive integer. Prove that the number $\left(4 k^{2}-1\right)^{2}$ has a positive divisor of the form $8 k n-1$ if and only if $k$ is even.,"theorem lean_workbook_plus_10044  (k : ℕ)
+  (h₀ : 0 < k) :
+  (∃ n : ℕ, k = 2 * n) ↔ Even k := by sorry",2
