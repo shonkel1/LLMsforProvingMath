@@ -1,4 +1,4 @@
- # Proving Mathematical Theorems with Large Language Models
+# Proving Mathematical Theorems with Large Language Models
 
 This repository contains the code, experiments, and resources for the MSc Data Science dissertation **“Proving Mathematical Theorems with Large Language Models”**, completed at **Heriot-Watt University**.
 
@@ -35,8 +35,11 @@ The main objectives of this project are:
 
 The following Large Language Models were used and fine-tuned:
 
-- LLaMA 3.x
-- Qwen 2.5 / Qwen 2.5-Math
+- **LLaMA 3.1**  
+  https://ai.meta.com/llama/
+
+- **Qwen 2.5-Math**  
+  https://github.com/QwenLM/Qwen2.5-Math
 
 Parameter-efficient fine-tuning was performed using **LoRA**, with training accelerated using **Unsloth**.
 
@@ -45,24 +48,43 @@ Parameter-efficient fine-tuning was performed using **LoRA**, with training acce
 ## Datasets
 
 ### Informal Proof Generation
-- Natural Proofs Dataset (Welleck et al., 2021)
-- DEMI-MathAnalysis Dataset (Chen et al., 2024)
+
+- **Natural Proofs Dataset** 
+  https://github.com/wellecks/naturalproofs
+
+- **DEMI-MathAnalysis Dataset** 
+  https://huggingface.co/datasets/chenxwh/DEMI-MathAnalysis
 
 ### Autoformalisation
-- Lean Workbook Dataset (Ying et al., 2024)
-- FIMO Dataset (Liu et al., 2023)
+
+- **Lean Workbook Dataset** 
+   https://huggingface.co/datasets/internlm/Lean-Workbook
+  
+- **FIMO Dataset**   
+  https://github.com/ictnlp/FIMO
 
 ---
 
 ## Tools and Technologies
 
-- Python
-- Hugging Face Transformers
-- Unsloth
-- LoRA (Low-Rank Adaptation)
-- Lean 4
-- mathlib4
-- GPT-4 / GPT-4o (evaluation)
+- **Python** 
+
+- **Hugging Face Transformers**  
+  https://github.com/huggingface/transformers
+
+- **Unsloth**  
+  https://github.com/unslothai/unsloth
+
+- **LoRA (Low-Rank Adaptation)**  
+
+- **Lean 4**  
+  https://leanprover.github.io/
+
+- **mathlib4**  
+  https://github.com/leanprover-community/mathlib4
+  
+- **GPT-4 / GPT-4o** (evaluation)
+  https://openai.com/index/hello-gpt-4o/ 
 
 ---
 
@@ -72,7 +94,7 @@ The workflow consists of three main tasks:
 
 1. Fine-tuning LLMs on informal mathematical proof datasets  
 2. Training on the task of autoformalising informal proofs into Lean 4 syntax  
-3. Creating an iterative framework that iteratively improves informal proofs using feedback from Lean  
+3. Creating an iterative framework that improves informal proofs using feedback from Lean  
 
 Lean is used as an automated verifier, returning errors that are fed back into the model to refine the proof.
 
@@ -85,6 +107,4 @@ Evaluation includes:
 - Lean verification success rate
 - Comparison with base (non-fine-tuned) models
 - Performance on held-out test datasets
-
----
 
